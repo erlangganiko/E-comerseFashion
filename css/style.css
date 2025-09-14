@@ -95,6 +95,101 @@ body::-webkit-scrollbar-thumb {
 .nav-logo a:hover {
   color: #666;
 }
+/* Efek transparan untuk tampilan desktop */
+.navbar.transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
+/* CSS untuk elemen navbar */
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+/* Kiri: Hamburger & Search Icon (Mobile) */
+.nav-left {
+  margin-left: 100px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: #1a1a1a;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: #1a1a1a;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburger::before {
+  top: -6px;
+}
+
+.hamburger::after {
+  top: 6px;
+}
+
+.search-icon.mobile-only {
+  display: none; /* Sembunyikan di desktop */
+}
+
+/* Logo di tengah */
+.nav-logo {
+  flex-grow: 1; /* Biarkan logo mengambil ruang yang tersisa */
+  text-align: center;
+}
+
+/* Kanan: Ikon */
+.nav-right {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+.nav-right li a img {
+  width: 20px; /* Atur ukuran ikon */
+  height: 20px;
+}
+
+/* Aturan Responsif */
+
+@media (min-width: 768px) {
+  .nav-left {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+}
+
+/* Efek transparan untuk tampilan responsif */
+@media (max-width: 767px) {
+  .navbar.transparent {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
 
 @media (min-width: 768px) {
   .nav-links {
@@ -122,9 +217,9 @@ body::-webkit-scrollbar-thumb {
   transition: all 0.7s ease-in-out;
 }
 
-.hero-video-wrapper iframe {
+.hero-video-wrapper video {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
   transition: all 0.7s ease-in-out;
 }
@@ -146,10 +241,12 @@ body::-webkit-scrollbar-thumb {
 
 .side-image-container.left {
   left: 0;
+  height: 100vh;
 }
 
 .side-image-container.right {
   right: 0;
+  height: 100vh;
 }
 
 .side-image-container img {
@@ -167,11 +264,11 @@ body::-webkit-scrollbar-thumb {
   }
   .hero-section.scrolled .hero-video-wrapper {
     width: calc(33.3333% - 1rem);
-    height: calc(100vh / 3);
+    height: 100vh; /* Kode yang diubah */
     margin: 0.5rem;
   }
 
-  .hero-section.scrolled .hero-video-wrapper iframe {
+  .hero-section.scrolled .hero-video-wrapper video {
     width: 100%;
     height: 100%;
   }
@@ -182,32 +279,290 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* Hero Section styles for mobile (<= 767px) */
 @media (max-width: 767px) {
   .hero-section {
-    height: auto !important;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+    height: auto;
+    padding: 0;
+    gap: 0;
   }
 
   .hero-video-wrapper {
     width: 100% !important;
-    height: auto !important;
+    height: auto !important; /* Gunakan 'auto' agar video tidak terlalu tinggi pada perangkat kecil */
     position: static !important;
     transform: none !important;
   }
 
+  .hero-video-wrapper iframe {
+    width: 100%;
+    height: 100%; /* Pastikan iframe mengisi wrapper */
+    aspect-ratio: 16 / 9; /* Tambahkan ini untuk rasio aspek yang baik */
+  }
+
   .side-image-container {
     display: block !important;
+    opacity: 1 !important; /* Pastikan gambar terlihat */
     position: static !important;
     width: 100% !important;
-    height: auto !important;
+    height: auto !important; /* Gunakan 'auto' untuk tinggi yang fleksibel */
     transform: none !important;
-    margin: 0.5rem 0 !important;
+    margin: 0 !important;
   }
 }
+
+section {
+    padding: 2.5em; 
+    display: grid;
+    place-items: center;
+}
+
+/* Base Slider Styling */
+.story-image-slider {
+    width: 18em; 
+    height: 30em; 
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, .3);
+}
+
+/* Slider pertama (ID: slider1) dibuat lebih besar dan ramping */
+#slider1 {
+    width: 100vw; 
+    max-width: 500px; /* Diubah dari 600px menjadi 500px agar lebih ramping */
+    height: 90vh; 
+    border-radius: 0; 
+    box-shadow: none; 
+}
+
+/* Penyesuaian untuk .story-image-slider::before pada slider yang lebih besar agar gradien tetap konsisten */
+#slider1::before {
+    background-image: linear-gradient(0deg,
+            #111 0%,
+            transparent 70%, 
+            #111 100%);
+}
+
+
+.slider-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+}
+
+/* Image Styling */
+.story-image-slider img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.story-image-slider img.active {
+    opacity: 1;
+}
+
+/* Gradient Overlay */
+.story-image-slider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(0deg,
+            #111 0%,
+            transparent 50%,
+            #111 100%);
+    z-index: 1;
+}
+
+/* Pagination and Progress Bar */
+.pagination {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 10px;
+    padding: 1em;
+    z-index: 2;
+}
+
+.progress-bar {
+    height: 3px;
+    background-color: #9f9f9f;
+    position: relative;
+}
+
+.progress-bar span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    height: 100%;
+    width: 0;
+}
+
+.progress-bar.active span {
+    animation: progress 4s linear forwards;
+}
+
+.story-image-slider.paused .progress-bar.active span {
+    animation-play-state: paused;
+}
+
+.progress-bar.bar-filled {
+    background-color: red;
+}
+
+@keyframes progress {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+/* Title Styling */
+.title {
+    padding: 1em;
+    position: relative;
+    z-index: 2;
+    text-align: center; 
+}
+
+.title h1 {
+    font-size: 2.5em;
+    color: #fff;
+    display: none;
+}
+
+#slider1 .title h1 {
+    font-size: 2.5em; /* Disesuaikan agar proporsional dengan lebar baru */
+}
+
+.title h1.active {
+    display: block;
+}
+
+/* Fullscreen Modifier */
+.slider-fullscreen {
+    margin: 2.5em auto;
+    text-align: center;
+}
+
+.slider-fullscreen .slider-container {
+    margin: 0 auto;
+}
+
+/* Navigation Arrow Styling */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    padding: 0 10px;
+    z-index: 3;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Tombol Kiri & Kanan Dikecilkan */
+.slider-nav div {
+    color: #fff;
+    font-size: 1.2em; /* Ukuran ikon dikecilkan */
+    cursor: pointer;
+    pointer-events: all;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    width: 30px; /* Lebar tombol dikecilkan */
+    height: 30px; /* Tinggi tombol dikecilkan */
+    display: grid;
+    place-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.slider-nav div:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* STYLING BARU UNTUK TOMBOL PAUSE/PLAY */
+.play-pause-btn {
+    position: absolute;
+    top: .8em;
+    right: .8em;
+    z-index: 3;
+    color: #fff;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    width: 22px; /* Lebar tombol dikecilkan */
+    height: 22px; /* Tinggi tombol dikecilkan */
+    display: grid;
+    place-items: center;
+    font-size: 1.2em; /* Ukuran ikon dikecilkan */
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+.play-pause-btn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Aturan untuk menampilkan ikon play/pause yang benar */
+.play-pause-btn .fa-play {
+    display: none;
+}
+.play-pause-btn .fa-pause {
+    display: block;
+}
+.story-image-slider.paused .play-pause-btn .fa-play {
+    display: block;
+}
+.story-image-slider.paused .play-pause-btn .fa-pause {
+    display: none;
+}
+
+/* Specific Nav Styling */
+.story-image-slider.slider-fullscreen .bottom-nav {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.story-image-slider.slider-fullscreen:hover .bottom-nav {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.story-image-slider:not(.slider-fullscreen) .play-pause-btn {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.story-image-slider.slider-fullscreen .play-pause-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.story-image-slider.slider-fullscreen:hover .play-pause-btn {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#slider1 .slider-nav {
+    opacity: 1;
+    pointer-events: all;
+}
+
 
 /* Content Sections */
 .content-section {
@@ -302,111 +657,211 @@ body::-webkit-scrollbar-thumb {
 
 /* Footer Section */
 .main-footer {
-  background-color: #212121;
-  color: #fff;
-  padding: 3rem 1rem;
+  background-color: #fff;
+  color: #1a1a1a;
+  padding: 2rem 1rem 1rem;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.8rem;
 }
 
-.footer-grid {
+.main-footer .container {
+  max-width: 1400px; /* Lebarkan kontainer footer */
+}
+
+/* Top Services Section */
+.footer-top-services {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  border-bottom: 1px solid #e0e0e0;
   margin-bottom: 2.5rem;
 }
 
-@media (min-width: 768px) {
-  .footer-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  text-decoration: none;
+  color: #1a1a1a;
 }
 
-.main-footer h3 {
-  font-weight: bold;
-  font-size: 1.125rem;
+.service-item:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.service-item h4 {
+  margin: 0 0 0.25rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.service-item p {
+  margin: 0;
+  color: #666;
+}
+
+.service-item i {
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
+
+/* Footer Links Grid */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.footer-column h3 {
+  font-weight: 700;
+  font-size: 0.9rem;
   margin-bottom: 1rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
-.main-footer ul {
+.footer-column ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.main-footer ul li {
-  margin-bottom: 0.5rem;
+.footer-column ul li {
+  margin-bottom: 0.75rem;
 }
 
-.main-footer a {
+.footer-column a {
   text-decoration: none;
-  color: #d1d5db;
+  color: #1a1a1a;
   transition: color 0.3s;
 }
 
-.main-footer a:hover {
-  color: #fff;
+.footer-column a:hover {
+  color: #666;
 }
 
-.main-footer p {
-  font-size: 0.875rem;
-  color: #d1d5db;
+.footer-column a i {
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+  opacity: 0.7;
 }
 
-.main-footer input {
-  width: 100%;
-  padding: 0.5rem 1rem;
-  border: 2px solid #4b5563;
-  background-color: transparent;
-  color: #fff;
-  border-radius: 9999px;
-  outline: none;
-}
-
-.main-footer input::placeholder {
-  color: #9ca3af;
-}
-
-.main-footer button {
-  margin-top: 1rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  background-color: #fff;
-  color: #1f2937;
-  font-weight: bold;
-  border-radius: 9999px;
-  transition: background-color 0.3s;
-  border: none;
-  cursor: pointer;
-}
-
-.main-footer button:hover {
-  background-color: #e5e7eb;
-}
-
-.footer-bottom {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.875rem;
-  color: #9ca3af;
-  padding-top: 2rem;
-  border-top: 1px solid #4b5563;
-}
-
-@media (min-width: 768px) {
-  .footer-bottom {
-    flex-direction: row;
-  }
-}
-
-.social-links {
-  display: flex;
-  gap: 1rem;
+/* Newsletter Form */
+.newsletter-form .input-wrapper {
+  position: relative;
   margin-bottom: 1rem;
 }
 
+.newsletter-form input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 0.5rem 0;
+  background-color: transparent;
+  color: #1a1a1a;
+  outline: none;
+}
+
+/* Styling untuk placeholder yang bergerak ke atas */
+.newsletter-form input:focus + label,
+.newsletter-form input:not(:placeholder-shown) + label {
+  top: -1rem;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.newsletter-form label {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  color: #666;
+  pointer-events: none;
+  transition: 0.2s ease-out;
+}
+
+.newsletter-form button {
+  padding: 0.7rem 1.5rem;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 0;
+  transition: background-color 0.3s;
+  border: 1px solid #1a1a1a;
+  cursor: pointer;
+  width: auto;
+  margin-top: 0;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.newsletter-form button:hover {
+  background-color: #555;
+  border-color: #555;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 2rem;
+  font-size: 0.8rem;
+  color: #1a1a1a;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.footer-region a {
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.footer-region a:hover {
+  color: #666;
+}
+
+/* Hapus Social Links lama */
+.social-links {
+  display: none;
+}
+
+/* Responsive Media Queries */
 @media (min-width: 768px) {
-  .social-links {
-    margin-bottom: 0;
+  .footer-top-services {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .service-item:not(:last-child) {
+    border-bottom: none;
+  }
+  .footer-grid {
+    grid-template-columns: 2fr repeat(4, 1fr); /* Kolom pertama lebih besar */
+    gap: 2rem;
+  }
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .footer-region {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    gap: 3rem;
   }
 }
