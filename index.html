@@ -1,175 +1,235 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dior-like E-commerce</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Navbar -->
-    <header id="navbar" class="navbar">
-      <nav class="container">
-        <!-- Left Section: Nav Links -->
-        <ul class="nav-links nav-left">
-          <li><a href="#">Fashion</a></li>
-          <li><a href="#">Fragrance & Beauty</a></li>
-          <li><a href="#">Jewelry & Timepieces</a></li>
-          <li><a href="#">The House of Dior</a></li>
-        </ul>
-        <!-- Center Section: Logo -->
-        <div class="nav-logo">
-          <a href="#">Dior Clone</a>
-        </div>
-        <!-- Right Section: User Icons -->
-        <ul class="nav-links nav-right">
-          <li><a href="#">Search</a></li>
-          <li><a href="#">Account</a></li>
-          <li><a href="#">Bag</a></li>
-        </ul>
-      </nav>
-    </header>
 
-    <!-- Hero Video Section -->
-    <section id="hero-section" class="hero-section">
-      <div class="hero-video-wrapper">
-        <iframe
-          id="hero-video-1"
-          src="https://www.youtube.com/embed/5F2_R15T_8o?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&playlist=5F2_R15T_8o"
-          frameborder="0"
-          allow="autoplay"
-          allowfullscreen
-        ></iframe>
-      </div>
-      <div class="side-image-container left">
-        <img
-          src="https://placehold.co/1200x1200/D0D0D0/424242?text=Gambar+Samping+Kiri"
-          alt="Gambar Samping Kiri"
-        />
-      </div>
-      <div class="side-image-container right">
-        <img
-          src="https://placehold.co/1200x1200/D0D0D0/424242?text=Gambar+Samping+Kanan"
-          alt="Gambar Samping Kanan"
-        />
-      </div>
-    </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dior-like E-commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 
-    <!-- Content Section to make the page scrollable -->
-    <section class="content-section">
-      <h2>Ready-to-Wear</h2>
-      <!-- Two-photo section -->
-      <div class="two-photo-section">
-        <div class="image-wrapper">
-          <img
-            src="https://placehold.co/1200x1200/F2F2F2/737373?text=Koleksi+Musim+Dingin+2024"
-            alt="Koleksi Musim Dingin"
-          />
+<body>
+  <!-- Navbar -->
+  <header id="navbar" class="navbar">
+    <nav class="container">
+      <div class="nav-left">
+        <button class="menu-toggle">
+          <span class="hamburger"></span>
+        </button>
+        <a href="#" class="search-icon mobile-only">
+          <img src="path/to/search-icon.svg" alt="Search" />
+        </a>
+      </div>
+
+      <div class="nav-logo">
+        <a href="#">DIOR</a>
+      </div>
+
+      <ul class="nav-links nav-right">
+        <li>
+          <a href="#" class="search-icon">
+            <img src="path/to/search-icon.svg" alt="Search" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="heart-icon">
+            <img src="path/to/heart-icon.svg" alt="Wishlist" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="account-icon">
+            <img src="path/to/account-icon.svg" alt="Account" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="bag-icon">
+            <img src="path/to/bag-icon.svg" alt="Bag" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="menu-overlay" class="menu-overlay"></div>
+
+  <!-- Hero Video Section -->
+  <section id="hero-section" class="hero-section">
+    <div class="hero-video-wrapper">
+      <video autoplay muted loop playsinline>
+        <source src="Asset/Video/video3.webm" type="video/mp4" />
+        Browser Anda tidak mendukung tag video.
+      </video>
+    </div>
+    <div class="side-image-container left">
+      <img src="Asset/Img/aku marah.png" alt="Gambar Samping Kiri" />
+    </div>
+    <div class="side-image-container right">
+      <img src="Asset/Img/aku marah.png" alt="Gambar Samping Kanan" />
+    </div>
+  </section>
+
+  <section>
+    <div class="story-image-slider" id="slider1">
+      <div class="slider-container">
+        <div class="play-pause-btn">
+          <i class="fas fa-pause"></i>
+          <i class="fas fa-play"></i>
         </div>
-        <div class="image-wrapper">
-          <img
-            src="https://placehold.co/1200x1200/E0E0E0/5C5C5C?text=Haute+Couture"
-            alt="Haute Couture"
-          />
+
+        <div class="pagination">
+          <div class="progress-bar"><span></span></div>
+          <div class="progress-bar"><span></span></div>
+          <div class="progress-bar"><span></span></div>
+        </div>
+
+        <div class="images">
+          <img src="asset/coming soon/download (1).jpeg" alt="" class="active">
+          <img src="asset/coming soon/download (2).jpeg" alt="">
+          <img src="asset/coming soon/download.jpeg" alt="">
+        </div>
+        <div class="title">
+          <h1 class="active">First Story</h1>
+          <h1>Second Story</h1>
+          <h1>Third Story</h1>
+        </div>
+
+        <div class="slider-nav top-nav">
+          <div class="prev-btn"><i class="fas fa-chevron-left"></i></div>
+          <div class="next-btn"><i class="fas fa-chevron-right"></i></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Additional Content Section -->
-    <section class="content-section">
-      <h2>Fragrance & Beauty</h2>
-      <div class="product-grid">
-        <div class="product-item">
-          <img
-            src="https://placehold.co/800x800/D0D0D0/424242?text=Parfum+Pria"
-            alt="Parfum Pria"
-          />
-          <h3>Sauvage Elixir</h3>
-          <p>Parfum maskulin dengan aroma yang kuat dan tahan lama.</p>
-        </div>
-        <div class="product-item">
-          <img
-            src="https://placehold.co/800x800/D0D0D0/424242?text=Lipstick+Dior"
-            alt="Lipstick Dior"
-          />
-          <h3>Rouge Dior</h3>
-          <p>Lipstick ikonik dengan hasil akhir yang mewah.</p>
-        </div>
-        <div class="product-item">
-          <img
-            src="https://placehold.co/800x800/D0D0D0/424242?text=Skincare+Dior"
-            alt="Skincare Dior"
-          />
-          <h3>Capture Totale</h3>
-          <p>Skincare yang merevitalisasi kulit Anda.</p>
-        </div>
+  <!-- Content Section to make the page scrollable -->
+  <section class="content-section">
+    <h2>Ready-to-Wear</h2>
+    <!-- Two-photo section -->
+    <div class="two-photo-section">
+      <div class="image-wrapper">
+        <img src="https://placehold.co/1200x1200/F2F2F2/737373?text=Koleksi+Musim+Dingin+2024"
+          alt="Koleksi Musim Dingin" />
       </div>
-    </section>
+      <div class="image-wrapper">
+        <img src="https://placehold.co/1200x1200/E0E0E0/5C5C5C?text=Haute+Couture" alt="Haute Couture" />
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer Section -->
-    <footer class="main-footer">
-      <div class="container">
-        <!-- Footer Links Grid -->
-        <div class="footer-grid">
-          <!-- Column 1 -->
+  <!-- Additional Content Section -->
+  <section class="content-section">
+    <h2>Fragrance & Beauty</h2>
+    <div class="product-grid">
+      <div class="product-item">
+        <img src="https://placehold.co/800x800/D0D0D0/424242?text=Parfum+Pria" alt="Parfum Pria" />
+        <h3>Sauvage Elixir</h3>
+        <p>Parfum maskulin dengan aroma yang kuat dan tahan lama.</p>
+      </div>
+      <div class="product-item">
+        <img src="https://placehold.co/800x800/D0D0D0/424242?text=Lipstick+Dior" alt="Lipstick Dior" />
+        <h3>Rouge Dior</h3>
+        <p>Lipstick ikonik dengan hasil akhir yang mewah.</p>
+      </div>
+      <div class="product-item">
+        <img src="https://placehold.co/800x800/D0D0D0/424242?text=Skincare+Dior" alt="Skincare Dior" />
+        <h3>Capture Totale</h3>
+        <p>Skincare yang merevitalisasi kulit Anda.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-top-services">
+        <a href="#" class="service-item">
           <div>
-            <h3>Layanan Pelanggan</h3>
-            <ul>
-              <li><a href="#">Kontak Kami</a></li>
-              <li><a href="#">Tanya Jawab</a></li>
-              <li><a href="#">Pengiriman & Pengembalian</a></li>
-              <li><a href="#">Pelacakan Pesanan</a></li>
-            </ul>
+            <h4>Pick-up in store</h4>
+            <p>Order online and pick up from the Dior boutique of your choice.</p>
           </div>
-          <!-- Column 2 -->
+          <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="#" class="service-item">
           <div>
-            <h3>Tentang Dior</h3>
-            <ul>
-              <li><a href="#">Tentang Kami</a></li>
-              <li><a href="#">Karir</a></li>
-              <li><a href="#">Lokasi Butik</a></li>
-              <li><a href="#">Berita</a></li>
-            </ul>
+            <h4>Dior Signature Packaging</h4>
+            <p>An example and emblem of the House's savoir-faire.</p>
           </div>
-          <!-- Column 3 -->
+          <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="#" class="service-item">
           <div>
-            <h3>Belanja Online</h3>
-            <ul>
-              <li><a href="#">Pembayaran & Keamanan</a></li>
-              <li><a href="#">Syarat & Ketentuan</a></li>
-              <li><a href="#">Kebijakan Privasi</a></li>
-            </ul>
+            <h4>Free Delivery & Returns</h4>
+            <p>Complimentary standard shipping and returns & exchanges within 30 days.</p>
           </div>
-          <!-- Column 4: Newsletter -->
-          <div>
-            <h3>Buletin</h3>
-            <p>Daftar untuk menerima informasi terbaru dari kami.</p>
-            <form action="#">
-              <input type="email" placeholder="Masukkan email Anda" />
-              <button type="submit">Daftar</button>
-            </form>
-          </div>
-        </div>
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </div>
 
-        <!-- Social Media and Copyright -->
-        <div class="footer-bottom">
-          <div class="social-links">
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-            <a href="#">YouTube</a>
-            <a href="#">Twitter</a>
-          </div>
-          <p>&copy; DIOR.</p>
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>Inspire me with all the latest Dior news</h3>
+          <form action="#" class="newsletter-form">
+            <div class="input-wrapper">
+              <input type="email" id="email" placeholder=" " required />
+              <label for="email">* E-mail</label>
+            </div>
+            <button type="submit">Confirm</button>
+          </form>
+        </div>
+        <div class="footer-column">
+          <h3>Dior Boutiques</h3>
+          <ul>
+            <li><a href="#">Christian Dior Couture</a></li>
+            <li><a href="#">Parfums Christian Dior</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Client Services</h3>
+          <ul>
+            <li><a href="#">Contact <i class="fas fa-chevron-down"></i></a></li>
+            <li><a href="#">Delivery & Returns</a></li>
+            <li><a href="#">FAQ <i class="fas fa-chevron-down"></i></a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>The House Of Dior</h3>
+          <ul>
+            <li><a href="#">Dior Saddle</a></li>
+            <li><a href="#">Rose Céleste</a></li>
+            <li><a href="#">Ethics & Compliance</a></li>
+            <li><a href="#">California Supply Chains Act</a></li>
+            <li><a href="#">Dior Sustainability <i class="fas fa-chevron-down"></i></a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal Notices</h3>
+          <ul>
+            <li><a href="#">Accessibility</a></li>
+            <li><a href="#">Privacy Policy <i class="fas fa-chevron-down"></i></a></li>
+            <li><a href="#">Do Not Sell or Share My Personal Information</a></li>
+            <li><a href="#">Legal Terms <i class="fas fa-chevron-down"></i></a></li>
+            <li><a href="#">Sitemap <i class="fas fa-chevron-down"></i></a></li>
+          </ul>
         </div>
       </div>
-    </footer>
 
-    <script src="js/main.js"></script>
-  </body>
+      <div class="footer-bottom">
+        <div class="footer-logo">
+          <span>DIOR</span>
+        </div>
+        <div class="footer-region">
+          <a href="#">Country / Region: United States (English) <i class="fas fa-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
 </html>
