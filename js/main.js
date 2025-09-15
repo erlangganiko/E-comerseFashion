@@ -83,116 +83,142 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
 const storysliders = document.querySelectorAll(".story-image-slider");
 
-storysliders.forEach(slider => {
-    const pagination = slider.querySelectorAll(".progress-bar");
-    const images = slider.querySelectorAll(".images img");
-    const titles = slider.querySelectorAll(".title h1");
-    const prevBtn = slider.querySelector(".prev-btn");
-    const nextBtn = slider.querySelector(".next-btn");
-    const playPauseBtn = slider.querySelector(".play-pause-btn"); // Ambil tombol play/pause
+storysliders.forEach((slider) => {
+  const pagination = slider.querySelectorAll(".progress-bar");
+  const images = slider.querySelectorAll(".images img");
+  const titles = slider.querySelectorAll(".title h1");
+  const prevBtn = slider.querySelector(".prev-btn");
+  const nextBtn = slider.querySelector(".next-btn");
+  const playPauseBtn = slider.querySelector(".play-pause-btn"); // Ambil tombol play/pause
 
-    let slideId = 0;
-    let automaticSlider;
-    let isPaused = false; // Tambahkan state untuk status pause
+  let slideId = 0;
+  let automaticSlider;
+  let isPaused = false; // Tambahkan state untuk status pause
 
-    function resetTimer() {
-        clearInterval(automaticSlider);
-        // Hanya jalankan timer jika tidak sedang di-pause
-        if (!isPaused) {
-            automaticSlider = setInterval(() => updateSlide(1), 4000);
-        }
+  function resetTimer() {
+    clearInterval(automaticSlider);
+    // Hanya jalankan timer jika tidak sedang di-pause
+    if (!isPaused) {
+      automaticSlider = setInterval(() => updateSlide(1), 4000);
     }
+  }
 
-    function updateSlide(direction = 1) {
-        // Hapus kelas 'active' dari semua elemen terlebih dahulu
-        pagination.forEach(bar => bar.classList.remove("active"));
-        images.forEach(img => img.classList.remove("active"));
-        titles.forEach(title => title.classList.remove("active"));
+  function updateSlide(direction = 1) {
+    // Hapus kelas 'active' dari semua elemen terlebih dahulu
+    pagination.forEach((bar) => bar.classList.remove("active"));
+    images.forEach((img) => img.classList.remove("active"));
+    titles.forEach((title) => title.classList.remove("active"));
 
-        // Hapus animasi progress bar sebelumnya
-        pagination.forEach(bar => {
-            const span = bar.querySelector("span");
-            if (span) {
-                span.style.animation = 'none'; // Reset animasi
-                span.offsetWidth; // Trigger reflow
-                span.style.animation = null; // Hapus style animasi
-            }
-        });
-
-        // Tentukan slideId berikutnya. Jika direction 0, slideId tidak berubah.
-        // Ini digunakan untuk me-refresh timer saat menekan tombol play.
-        if (direction !== 0) {
-            slideId = slideId + direction;
-        }
-
-        // Atur ulang jika sudah mencapai akhir atau awal
-        if (slideId >= images.length) {
-            slideId = 0;
-        } else if (slideId < 0) {
-            slideId = images.length - 1;
-        }
-
-        pagination.forEach((bar, index) => {
-            if (index < slideId) {
-                bar.classList.add("bar-filled");
-            } else {
-                bar.classList.remove("bar-filled");
-            }
-        });
-
-        // Tambahkan kelas 'active' ke elemen saat ini
-        images[slideId].classList.add("active");
-        titles[slideId].classList.add("active");
-        pagination[slideId].classList.add("active");
-
-        resetTimer(); // Reset timer setiap kali slide diperbarui
-    }
-
-    // Event listener untuk tombol prev
-    if (prevBtn) {
-        prevBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            updateSlide(-1);
-        });
-    }
-
-    // Event listener untuk tombol next
-    if (nextBtn) {
-        nextBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            updateSlide(1);
-        });
-    }
-
-    // Event listener untuk tombol play/pause
-    if (playPauseBtn) {
-        playPauseBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            isPaused = !isPaused; // Toggle status pause
-            slider.classList.toggle('paused', isPaused); // Tambah/hapus class .paused
-
-            if (isPaused) {
-                // Jika sekarang di-pause, hentikan interval
-                clearInterval(automaticSlider);
-            } else {
-                // Jika sekarang play, refresh slide saat ini untuk memulai ulang timer dan animasi
-                updateSlide(0);
-            }
-        });
-    }
-
-
-    // Event listener untuk klik pada container slider (maju otomatis)
-    slider.addEventListener("click", (e) => {
-        // Hanya melanjutkan jika klik tidak berasal dari tombol navigasi
-        if (!e.target.closest(".slider-nav div")) {
-            updateSlide(1);
-        }
+    // Hapus animasi progress bar sebelumnya
+    pagination.forEach((bar) => {
+      const span = bar.querySelector("span");
+      if (span) {
+        span.style.animation = "none"; // Reset animasi
+        span.offsetWidth; // Trigger reflow
+        span.style.animation = null; // Hapus style animasi
+      }
     });
 
-    // Inisialisasi awal
-    updateSlide(0); // Panggil sekali untuk inisialisasi slide pertama
+    // Tentukan slideId berikutnya. Jika direction 0, slideId tidak berubah.
+    // Ini digunakan untuk me-refresh timer saat menekan tombol play.
+    if (direction !== 0) {
+      slideId = slideId + direction;
+    }
+
+    // Atur ulang jika sudah mencapai akhir atau awal
+    if (slideId >= images.length) {
+      slideId = 0;
+    } else if (slideId < 0) {
+      slideId = images.length - 1;
+    }
+
+    pagination.forEach((bar, index) => {
+      if (index < slideId) {
+        bar.classList.add("bar-filled");
+      } else {
+        bar.classList.remove("bar-filled");
+      }
+    });
+
+    // Tambahkan kelas 'active' ke elemen saat ini
+    images[slideId].classList.add("active");
+    titles[slideId].classList.add("active");
+    pagination[slideId].classList.add("active");
+
+    resetTimer(); // Reset timer setiap kali slide diperbarui
+  }
+
+  // Event listener untuk tombol prev
+  if (prevBtn) {
+    prevBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      updateSlide(-1);
+    });
+  }
+
+  // Event listener untuk tombol next
+  if (nextBtn) {
+    nextBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      updateSlide(1);
+    });
+  }
+
+  // Event listener untuk tombol play/pause
+  if (playPauseBtn) {
+    playPauseBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      isPaused = !isPaused; // Toggle status pause
+      slider.classList.toggle("paused", isPaused); // Tambah/hapus class .paused
+
+      if (isPaused) {
+        // Jika sekarang di-pause, hentikan interval
+        clearInterval(automaticSlider);
+      } else {
+        // Jika sekarang play, refresh slide saat ini untuk memulai ulang timer dan animasi
+        updateSlide(0);
+      }
+    });
+  }
+
+  // Event listener untuk klik pada container slider (maju otomatis)
+  slider.addEventListener("click", (e) => {
+    // Hanya melanjutkan jika klik tidak berasal dari tombol navigasi
+    if (!e.target.closest(".slider-nav div")) {
+      updateSlide(1);
+    }
+  });
+
+  // Inisialisasi awal
+  updateSlide(0); // Panggil sekali untuk inisialisasi slide pertama
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const sideImageContainers = document.querySelectorAll(
+    ".side-image-container"
+  );
+  // Cek apakah elemen terpilih
+  console.log(sideImageContainers);
+
+  // Ubah triggerPoint untuk pengujian. Jika scrollY > 0, gambar akan langsung muncul
+  const triggerPoint = 0;
+  // Jika ini berhasil, kembalikan ke nilai yang lebih sesuai, misalnya:
+  // const triggerPoint = window.innerHeight * 0.5; // Saat 50% layar terlihat
+
+  function handleScroll() {
+    if (window.scrollY > triggerPoint) {
+      sideImageContainers.forEach((container) => {
+        container.classList.add("show");
+      });
+    } else {
+      sideImageContainers.forEach((container) => {
+        container.classList.remove("show");
+      });
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+});
+
