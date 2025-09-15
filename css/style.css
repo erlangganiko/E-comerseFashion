@@ -124,6 +124,7 @@ body::-webkit-scrollbar-thumb {
 
 .hamburger {
   display: block;
+  margin-left: -100px;
   width: 20px;
   height: 2px;
   background-color: #1a1a1a;
@@ -134,6 +135,7 @@ body::-webkit-scrollbar-thumb {
 .hamburger::before,
 .hamburger::after {
   content: "";
+  margin-left: -10px;
   position: absolute;
   width: 20px;
   height: 2px;
@@ -157,44 +159,87 @@ body::-webkit-scrollbar-thumb {
 .nav-logo {
   flex-grow: 1; /* Biarkan logo mengambil ruang yang tersisa */
   text-align: center;
+  margin-left: 40px;
 }
 
-/* Kanan: Ikon */
+/* Aturan dasar untuk mobile */
+.navbar .container {
+  display: flex;
+  align-items: center; /* Memastikan semua item sejajar secara vertikal */
+  justify-content: space-between; /* Menyebarkan item secara merata */
+  padding: 1rem;
+}
+
+/* Kiri: Hamburger & Search Icon */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Logo di tengah (untuk mobile) */
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-align: center;
+  flex-grow: 1; /* Biarkan logo mengambil ruang yang tersisa */
+}
+
+/* Kanan: Ikon (Mobile) */
 .nav-right {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
   gap: 1rem;
+  margin-right: -150px;
 }
 
-.nav-right li a img {
-  width: 20px; /* Atur ukuran ikon */
-  height: 20px;
+/* Aturan Responsif untuk layar kecil */
+@media (max-width: 767px) {
+  /* Menyembunyikan link menu di mobile */
+  .nav-links {
+    display: none;
+  }
+
+  /* Memastikan logo berada di tengah secara visual */
+  .nav-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
-/* Aturan Responsif */
-
+/* Aturan Responsif untuk layar besar (desktop) */
 @media (min-width: 768px) {
   .nav-left {
-    display: flex;
     justify-content: flex-start;
     gap: 2rem;
   }
-}
 
-/* Efek transparan untuk tampilan responsif */
-@media (max-width: 767px) {
-  .navbar.transparent {
-    background-color: transparent;
-    box-shadow: none;
+  .nav-right {
+    justify-content: flex-end;
   }
-}
 
-@media (min-width: 768px) {
   .nav-links {
-    display: flex;
+    display: flex; /* Tampilkan link menu di desktop */
+    flex: 1;
     gap: 2rem;
+    justify-content: flex-start;
+  }
+
+  .search-icon.mobile-only {
+    display: none; /* Sembunyikan ikon pencarian di desktop */
+  }
+
+  /* Atur ulang posisi logo untuk desktop */
+  .nav-logo {
+    position: static;
+    transform: none;
+    flex: 1;
+    text-align: center;
+    margin-right: 50px;
   }
 }
 
@@ -202,7 +247,7 @@ body::-webkit-scrollbar-thumb {
 .hero-section {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width: 100% !important;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -225,8 +270,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 .side-image-container {
-  display: none;
-  opacity: 0;
   width: calc(33.3333% - 1rem);
   height: calc(100vh / 3);
   margin: 0.5rem;
@@ -236,7 +279,15 @@ body::-webkit-scrollbar-thumb {
   transform: translateY(-50%);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transition: all 0.7s ease-in-out;
+  display: block; /* Atau display: flex/grid jika dibutuhkan */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+}
+
+.side-image-container.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 .side-image-container.left {
@@ -312,258 +363,302 @@ body::-webkit-scrollbar-thumb {
 }
 
 section {
-    padding: 2.5em; 
-    display: grid;
-    place-items: center;
+  padding: 2.5em;
+  display: grid;
+  place-items: center;
 }
 
 /* Base Slider Styling */
 .story-image-slider {
-    width: 18em; 
-    height: 30em; 
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, .3);
+  width: 18em;
+  height: 30em;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Slider pertama (ID: slider1) dibuat lebih besar dan ramping */
 #slider1 {
-    width: 100vw; 
-    max-width: 500px; /* Diubah dari 600px menjadi 500px agar lebih ramping */
-    height: 90vh; 
-    border-radius: 0; 
-    box-shadow: none; 
+  width: 100vw;
+  max-width: 500px; /* Diubah dari 600px menjadi 500px agar lebih ramping */
+  height: 90vh;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* Penyesuaian untuk .story-image-slider::before pada slider yang lebih besar agar gradien tetap konsisten */
 #slider1::before {
-    background-image: linear-gradient(0deg,
-            #111 0%,
-            transparent 70%, 
-            #111 100%);
+  background-image: linear-gradient(0deg, #111 0%, transparent 70%, #111 100%);
 }
 
-
 .slider-container {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
 }
 
 /* Image Styling */
 .story-image-slider img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .story-image-slider img.active {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Gradient Overlay */
 .story-image-slider::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(0deg,
-            #111 0%,
-            transparent 50%,
-            #111 100%);
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(0deg, #111 0%, transparent 50%, #111 100%);
+  z-index: 1;
 }
 
 /* Pagination and Progress Bar */
 .pagination {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    gap: 10px;
-    padding: 1em;
-    z-index: 2;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 10px;
+  padding: 1em;
+  z-index: 2;
 }
 
 .progress-bar {
-    height: 3px;
-    background-color: #9f9f9f;
-    position: relative;
+  height: 3px;
+  background-color: #9f9f9f;
+  position: relative;
 }
 
 .progress-bar span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: red;
-    height: 100%;
-    width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: red;
+  height: 100%;
+  width: 0;
 }
 
 .progress-bar.active span {
-    animation: progress 4s linear forwards;
+  animation: progress 4s linear forwards;
 }
 
 .story-image-slider.paused .progress-bar.active span {
-    animation-play-state: paused;
+  animation-play-state: paused;
 }
 
 .progress-bar.bar-filled {
-    background-color: red;
+  background-color: red;
 }
 
 @keyframes progress {
-    0% {
-        width: 0;
-    }
+  0% {
+    width: 0;
+  }
 
-    100% {
-        width: 100%;
-    }
+  100% {
+    width: 100%;
+  }
 }
 
 /* Title Styling */
 .title {
-    padding: 1em;
-    position: relative;
-    z-index: 2;
-    text-align: center; 
+  padding: 1em;
+  position: relative;
+  z-index: 2;
+  text-align: center;
 }
 
 .title h1 {
-    font-size: 2.5em;
-    color: #fff;
-    display: none;
+  font-size: 2.5em;
+  color: #fff;
+  display: none;
 }
 
 #slider1 .title h1 {
-    font-size: 2.5em; /* Disesuaikan agar proporsional dengan lebar baru */
+  font-size: 2.5em; /* Disesuaikan agar proporsional dengan lebar baru */
 }
 
 .title h1.active {
-    display: block;
+  display: block;
 }
 
 /* Fullscreen Modifier */
 .slider-fullscreen {
-    margin: 2.5em auto;
-    text-align: center;
+  margin: 2.5em auto;
+  text-align: center;
 }
 
 .slider-fullscreen .slider-container {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 /* Navigation Arrow Styling */
 .slider-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-    padding: 0 10px;
-    z-index: 3;
-    pointer-events: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  padding: 0 10px;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Tombol Kiri & Kanan Dikecilkan */
 .slider-nav div {
-    color: #fff;
-    font-size: 1.2em; /* Ukuran ikon dikecilkan */
-    cursor: pointer;
-    pointer-events: all;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    width: 30px; /* Lebar tombol dikecilkan */
-    height: 30px; /* Tinggi tombol dikecilkan */
-    display: grid;
-    place-items: center;
-    transition: background-color 0.3s ease;
+  color: #fff;
+  font-size: 1.2em; /* Ukuran ikon dikecilkan */
+  cursor: pointer;
+  pointer-events: all;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  width: 30px; /* Lebar tombol dikecilkan */
+  height: 30px; /* Tinggi tombol dikecilkan */
+  display: grid;
+  place-items: center;
+  transition: background-color 0.3s ease;
 }
 
 .slider-nav div:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 /* STYLING BARU UNTUK TOMBOL PAUSE/PLAY */
 .play-pause-btn {
-    position: absolute;
-    top: .8em;
-    right: .8em;
-    z-index: 3;
-    color: #fff;
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    width: 22px; /* Lebar tombol dikecilkan */
-    height: 22px; /* Tinggi tombol dikecilkan */
-    display: grid;
-    place-items: center;
-    font-size: 1.2em; /* Ukuran ikon dikecilkan */
-    transition: background-color 0.3s ease, opacity 0.3s ease;
+  position: absolute;
+  top: 0.8em;
+  right: 0.8em;
+  z-index: 3;
+  color: #fff;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  width: 22px; /* Lebar tombol dikecilkan */
+  height: 22px; /* Tinggi tombol dikecilkan */
+  display: grid;
+  place-items: center;
+  font-size: 1.2em; /* Ukuran ikon dikecilkan */
+  transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 .play-pause-btn:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 /* Aturan untuk menampilkan ikon play/pause yang benar */
 .play-pause-btn .fa-play {
-    display: none;
+  display: none;
 }
 .play-pause-btn .fa-pause {
-    display: block;
+  display: block;
 }
 .story-image-slider.paused .play-pause-btn .fa-play {
-    display: block;
+  display: block;
 }
 .story-image-slider.paused .play-pause-btn .fa-pause {
-    display: none;
+  display: none;
 }
 
 /* Specific Nav Styling */
 .story-image-slider.slider-fullscreen .bottom-nav {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .story-image-slider.slider-fullscreen:hover .bottom-nav {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .story-image-slider:not(.slider-fullscreen) .play-pause-btn {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .story-image-slider.slider-fullscreen .play-pause-btn {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .story-image-slider.slider-fullscreen:hover .play-pause-btn {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 #slider1 .slider-nav {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
+}
+/* Responsive adjustments for the story slider */
+@media (max-width: 767px) {
+  /* Make the section padding smaller on mobile */
+  section {
+    padding: 1.5em;
+  }
+
+  /* Adjust the main slider container for smaller screens */
+  #slider1 {
+    height: 85vh; /* Reduce height on mobile to prevent overflow */
+    max-width: 100%; /* Ensure it doesn't exceed screen width */
+  }
+
+  /* Reduce the title font size */
+  #slider1 .title h1 {
+    font-size: 2em; /* Smaller font for better fit on mobile */
+  }
+
+  /* Adjust navigation buttons to be slightly smaller */
+  .slider-nav div {
+    width: 28px;
+    height: 28px;
+    font-size: 1em; /* Smaller icon size */
+  }
+
+  /* Adjust play/pause button */
+  .play-pause-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 1em; /* Smaller icon size */
+  }
+
+  /* Adjust padding for title and pagination */
+  .title,
+  .pagination {
+    padding: 0.8em;
+  }
 }
 
+@media (max-width: 480px) {
+  /* Further adjustments for very small screens */
+  #slider1 {
+    height: 80vh; /* Further reduce height */
+  }
 
+  #slider1 .title h1 {
+    font-size: 1.6em; /* Even smaller font for very narrow screens */
+  }
+
+  .pagination {
+    gap: 5px; /* Reduce gap between progress bars */
+  }
+}
 /* Content Sections */
 .content-section {
   max-width: 1200px;
