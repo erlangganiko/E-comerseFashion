@@ -2,6 +2,8 @@
 body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
+  /* Pastikan overflow-y diatur ke auto atau scroll secara default */
+  overflow-y: auto;
   background-color: #f7f7f7;
   color: #1a1a1a;
   margin: 0;
@@ -34,14 +36,19 @@ body::-webkit-scrollbar-thumb {
   left: 0;
   width: 100%;
   z-index: 50;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  box-shadow: none;
   transform: translateY(0);
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .navbar.hidden {
   transform: translateY(-100%);
+}
+
+.navbar.scrolled {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .container {
@@ -51,13 +58,25 @@ body::-webkit-scrollbar-thumb {
   padding: 1rem;
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  margin-right: 1rem;
+}
+
 .nav-links {
-  display: none;
   list-style: none;
   margin: 0;
   padding: 0;
-  text-transform: uppercase;
-  flex: 1;
+  display: flex;
 }
 
 .nav-links a {
@@ -70,19 +89,11 @@ body::-webkit-scrollbar-thumb {
   color: #666;
 }
 
-.nav-left {
-  justify-content: flex-start;
-}
-
-.nav-right {
-  justify-content: flex-end;
-}
-
 .nav-logo {
   font-size: 1.25rem;
   font-weight: bold;
   letter-spacing: 0.05em;
-  flex: 1;
+  flex-grow: 1;
   text-align: center;
 }
 
@@ -95,152 +106,77 @@ body::-webkit-scrollbar-thumb {
 .nav-logo a:hover {
   color: #666;
 }
-/* Efek transparan untuk tampilan desktop */
-.navbar.transparent {
-  background-color: transparent;
-  box-shadow: none;
+
+.nav-right {
+  justify-content: flex-end;
+  gap: 1.5rem;
 }
-/* CSS untuk elemen navbar */
-.navbar .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+/* Mobile Menu Overlay */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #fff;
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: transform 0.4s ease-in-out;
+  overflow-y: auto;
   padding: 1rem;
 }
 
-/* Kiri: Hamburger & Search Icon (Mobile) */
-.nav-left {
-  margin-left: 100px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.menu-overlay.open {
+  transform: translateX(0);
 }
 
-.menu-toggle {
+.menu-overlay .menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-close-btn {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-.hamburger {
-  display: block;
-  margin-left: -100px;
-  width: 20px;
-  height: 2px;
-  background-color: #1a1a1a;
-  position: relative;
-  transition: transform 0.3s ease-in-out;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: "";
-  margin-left: -10px;
-  position: absolute;
-  width: 20px;
-  height: 2px;
-  background-color: #1a1a1a;
-  transition: transform 0.3s ease-in-out;
-}
-
-.hamburger::before {
-  top: -6px;
-}
-
-.hamburger::after {
-  top: 6px;
-}
-
-.search-icon.mobile-only {
-  display: none; /* Sembunyikan di desktop */
-}
-
-/* Logo di tengah */
-.nav-logo {
-  flex-grow: 1; /* Biarkan logo mengambil ruang yang tersisa */
-  text-align: center;
-  margin-left: 40px;
-}
-
-/* Aturan dasar untuk mobile */
-.navbar .container {
-  display: flex;
-  align-items: center; /* Memastikan semua item sejajar secara vertikal */
-  justify-content: space-between; /* Menyebarkan item secara merata */
-  padding: 1rem;
-}
-
-/* Kiri: Hamburger & Search Icon */
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Logo di tengah (untuk mobile) */
-.nav-logo {
   font-size: 1.25rem;
+  color: #1a1a1a;
+}
+
+.menu-overlay .menu-logo {
   font-weight: bold;
   letter-spacing: 0.05em;
+  font-size: 1.25rem;
   text-align: center;
-  flex-grow: 1; /* Biarkan logo mengambil ruang yang tersisa */
+  flex-grow: 1;
 }
 
-/* Kanan: Ikon (Mobile) */
-.nav-right {
-  display: flex;
+.menu-overlay .menu-logo a {
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.menu-overlay .main-menu {
   list-style: none;
-  margin: 0;
   padding: 0;
-  gap: 1rem;
-  margin-right: -150px;
+  margin: 1rem 0;
 }
 
-/* Aturan Responsif untuk layar kecil */
-@media (max-width: 767px) {
-  /* Menyembunyikan link menu di mobile */
-  .nav-links {
-    display: none;
-  }
-
-  /* Memastikan logo berada di tengah secara visual */
-  .nav-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+.menu-overlay .main-menu > li {
+  border-bottom: 1px solid #e0e0e0;
 }
 
-/* Aturan Responsif untuk layar besar (desktop) */
-@media (min-width: 768px) {
-  .nav-left {
-    justify-content: flex-start;
-    gap: 2rem;
-  }
-
-  .nav-right {
-    justify-content: flex-end;
-  }
-
-  .nav-links {
-    display: flex; /* Tampilkan link menu di desktop */
-    flex: 1;
-    gap: 2rem;
-    justify-content: flex-start;
-  }
-
-  .search-icon.mobile-only {
-    display: none; /* Sembunyikan ikon pencarian di desktop */
-  }
-
-  /* Atur ulang posisi logo untuk desktop */
-  .nav-logo {
-    position: static;
-    transform: none;
-    flex: 1;
-    text-align: center;
-    margin-right: 50px;
-  }
+.menu-overlay .main-menu a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 500;
 }
 
 /* Hero Section Styles */
@@ -279,7 +215,7 @@ body::-webkit-scrollbar-thumb {
   transform: translateY(-50%);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  display: block; /* Atau display: flex/grid jika dibutuhkan */
+  display: block;
   opacity: 0;
   visibility: hidden;
   transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
@@ -307,61 +243,6 @@ body::-webkit-scrollbar-thumb {
   border-radius: 0.5rem;
 }
 
-/* Hero Section animations for large screens (>= 768px) */
-@media (min-width: 768px) {
-  .hero-section.scrolled {
-    flex-direction: row;
-    gap: 1rem;
-  }
-  .hero-section.scrolled .hero-video-wrapper {
-    width: calc(33.3333% - 1rem);
-    height: 100vh; /* Kode yang diubah */
-    margin: 0.5rem;
-  }
-
-  .hero-section.scrolled .hero-video-wrapper video {
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero-section.scrolled .side-image-container {
-    display: block;
-    opacity: 1;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-section {
-    flex-direction: column;
-    height: auto;
-    padding: 0;
-    gap: 0;
-  }
-
-  .hero-video-wrapper {
-    width: 100% !important;
-    height: auto !important; /* Gunakan 'auto' agar video tidak terlalu tinggi pada perangkat kecil */
-    position: static !important;
-    transform: none !important;
-  }
-
-  .hero-video-wrapper iframe {
-    width: 100%;
-    height: 100%; /* Pastikan iframe mengisi wrapper */
-    aspect-ratio: 16 / 9; /* Tambahkan ini untuk rasio aspek yang baik */
-  }
-
-  .side-image-container {
-    display: block !important;
-    opacity: 1 !important; /* Pastikan gambar terlihat */
-    position: static !important;
-    width: 100% !important;
-    height: auto !important; /* Gunakan 'auto' untuk tinggi yang fleksibel */
-    transform: none !important;
-    margin: 0 !important;
-  }
-}
-
 section {
   padding: 2.5em;
   display: grid;
@@ -370,24 +251,16 @@ section {
 
 /* Base Slider Styling */
 .story-image-slider {
-  width: 18em;
-  height: 30em;
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Slider pertama (ID: slider1) dibuat lebih besar dan ramping */
-#slider1 {
-  width: 100vw;
-  max-width: 500px; /* Diubah dari 600px menjadi 500px agar lebih ramping */
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   height: 90vh;
+  position: relative;
   border-radius: 0;
+  overflow: hidden;
   box-shadow: none;
 }
 
-/* Penyesuaian untuk .story-image-slider::before pada slider yang lebih besar agar gradien tetap konsisten */
 #slider1::before {
   background-image: linear-gradient(0deg, #111 0%, transparent 70%, #111 100%);
 }
@@ -400,7 +273,6 @@ section {
   position: relative;
 }
 
-/* Image Styling */
 .story-image-slider img {
   position: absolute;
   top: 0;
@@ -416,7 +288,6 @@ section {
   opacity: 1;
 }
 
-/* Gradient Overlay */
 .story-image-slider::before {
   content: "";
   position: absolute;
@@ -428,7 +299,6 @@ section {
   z-index: 1;
 }
 
-/* Pagination and Progress Bar */
 .pagination {
   display: grid;
   grid-auto-flow: column;
@@ -475,7 +345,6 @@ section {
   }
 }
 
-/* Title Styling */
 .title {
   padding: 1em;
   position: relative;
@@ -490,24 +359,13 @@ section {
 }
 
 #slider1 .title h1 {
-  font-size: 2.5em; /* Disesuaikan agar proporsional dengan lebar baru */
+  font-size: 2.5em;
 }
 
 .title h1.active {
   display: block;
 }
 
-/* Fullscreen Modifier */
-.slider-fullscreen {
-  margin: 2.5em auto;
-  text-align: center;
-}
-
-.slider-fullscreen .slider-container {
-  margin: 0 auto;
-}
-
-/* Navigation Arrow Styling */
 .slider-nav {
   position: absolute;
   top: 50%;
@@ -521,16 +379,15 @@ section {
   align-items: center;
 }
 
-/* Tombol Kiri & Kanan Dikecilkan */
 .slider-nav div {
   color: #fff;
-  font-size: 1.2em; /* Ukuran ikon dikecilkan */
+  font-size: 1.2em;
   cursor: pointer;
   pointer-events: all;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  width: 30px; /* Lebar tombol dikecilkan */
-  height: 30px; /* Tinggi tombol dikecilkan */
+  width: 30px;
+  height: 30px;
   display: grid;
   place-items: center;
   transition: background-color 0.3s ease;
@@ -540,7 +397,6 @@ section {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* STYLING BARU UNTUK TOMBOL PAUSE/PLAY */
 .play-pause-btn {
   position: absolute;
   top: 0.8em;
@@ -550,18 +406,18 @@ section {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  width: 22px; /* Lebar tombol dikecilkan */
-  height: 22px; /* Tinggi tombol dikecilkan */
+  width: 22px;
+  height: 22px;
   display: grid;
   place-items: center;
-  font-size: 1.2em; /* Ukuran ikon dikecilkan */
+  font-size: 1.2em;
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
+
 .play-pause-btn:hover {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* Aturan untuk menampilkan ikon play/pause yang benar */
 .play-pause-btn .fa-play {
   display: none;
 }
@@ -575,90 +431,11 @@ section {
   display: none;
 }
 
-/* Specific Nav Styling */
-.story-image-slider.slider-fullscreen .bottom-nav {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.story-image-slider.slider-fullscreen:hover .bottom-nav {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.story-image-slider:not(.slider-fullscreen) .play-pause-btn {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.story-image-slider.slider-fullscreen .play-pause-btn {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.story-image-slider.slider-fullscreen:hover .play-pause-btn {
-  opacity: 1;
-  pointer-events: all;
-}
-
 #slider1 .slider-nav {
   opacity: 1;
   pointer-events: all;
 }
-/* Responsive adjustments for the story slider */
-@media (max-width: 767px) {
-  /* Make the section padding smaller on mobile */
-  section {
-    padding: 1.5em;
-  }
 
-  /* Adjust the main slider container for smaller screens */
-  #slider1 {
-    height: 85vh; /* Reduce height on mobile to prevent overflow */
-    max-width: 100%; /* Ensure it doesn't exceed screen width */
-  }
-
-  /* Reduce the title font size */
-  #slider1 .title h1 {
-    font-size: 2em; /* Smaller font for better fit on mobile */
-  }
-
-  /* Adjust navigation buttons to be slightly smaller */
-  .slider-nav div {
-    width: 28px;
-    height: 28px;
-    font-size: 1em; /* Smaller icon size */
-  }
-
-  /* Adjust play/pause button */
-  .play-pause-btn {
-    width: 20px;
-    height: 20px;
-    font-size: 1em; /* Smaller icon size */
-  }
-
-  /* Adjust padding for title and pagination */
-  .title,
-  .pagination {
-    padding: 0.8em;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Further adjustments for very small screens */
-  #slider1 {
-    height: 80vh; /* Further reduce height */
-  }
-
-  #slider1 .title h1 {
-    font-size: 1.6em; /* Even smaller font for very narrow screens */
-  }
-
-  .pagination {
-    gap: 5px; /* Reduce gap between progress bars */
-  }
-}
 /* Content Sections */
 .content-section {
   max-width: 1200px;
@@ -681,24 +458,12 @@ section {
   gap: 2rem;
 }
 
-@media (min-width: 768px) {
-  .two-photo-section {
-    flex-direction: row;
-  }
-}
-
 .image-wrapper {
   width: 100%;
   overflow: hidden;
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-@media (min-width: 768px) {
-  .image-wrapper {
-    width: 50%;
-  }
 }
 
 .image-wrapper img {
@@ -716,12 +481,6 @@ section {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-}
-
-@media (min-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .product-item {
@@ -760,10 +519,9 @@ section {
 }
 
 .main-footer .container {
-  max-width: 1400px; /* Lebarkan kontainer footer */
+  max-width: 1400px;
 }
 
-/* Top Services Section */
 .footer-top-services {
   display: grid;
   grid-template-columns: 1fr;
@@ -800,7 +558,6 @@ section {
   margin-left: 1rem;
 }
 
-/* Footer Links Grid */
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -857,7 +614,6 @@ section {
   outline: none;
 }
 
-/* Styling untuk placeholder yang bergerak ke atas */
 .newsletter-form input:focus + label,
 .newsletter-form input:not(:placeholder-shown) + label {
   top: -1rem;
@@ -922,41 +678,406 @@ section {
   color: #666;
 }
 
-/* Hapus Social Links lama */
 .social-links {
   display: none;
 }
 
+/* Catalog Page Specific Styles */
+.catalog-section {
+  padding-top: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5em 1rem;
+}
+
+.catalog-title {
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.catalog-header a {
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.filters,
+.sorting {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.filter-item,
+.sort-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-count {
+  color: #666;
+}
+
+.product-grid-catalog {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.product-item-catalog img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.product-item-catalog p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
 /* Responsive Media Queries */
 @media (min-width: 768px) {
+  .nav-left {
+    flex-grow: 1;
+    justify-content: flex-start;
+  }
+
+  .desktop-menu {
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 1;
+    gap: 2rem;
+    padding-left: 0;
+  }
+
+  .nav-links.nav-right {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  .search-icon-desktop {
+    display: block;
+  }
+
+  .search-icon-mobile {
+    display: none;
+  }
+
+  .nav-logo {
+    flex-grow: 0;
+    position: static;
+    transform: none;
+  }
+
+  .hero-section.scrolled {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .hero-section.scrolled .hero-video-wrapper {
+    width: calc(33.3333% - 1rem);
+    height: 100vh;
+    margin: 0.5rem;
+  }
+
+  .hero-section.scrolled .hero-video-wrapper video {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-section.scrolled .side-image-container {
+    display: block;
+    opacity: 1;
+  }
+
+  .two-photo-section {
+    flex-direction: row;
+  }
+
+  .image-wrapper {
+    width: 50%;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .footer-top-services {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
+
   .service-item:not(:last-child) {
     border-bottom: none;
   }
+
   .footer-grid {
-    grid-template-columns: 2fr repeat(4, 1fr); /* Kolom pertama lebih besar */
+    grid-template-columns: 2fr repeat(4, 1fr);
     gap: 2rem;
   }
+
   .footer-bottom {
     flex-direction: row;
     justify-content: space-between;
   }
+
   .footer-logo {
     margin: 0;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
+
   .footer-region {
     margin-left: auto;
+  }
+
+  /* Desktop Menu Overlay */
+  .menu-overlay {
+    width: 400px;
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  .menu-overlay.open {
+    transform: translateX(0);
+  }
+
+  /* Catalog Grid Desktop */
+  .product-grid-catalog {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .nav-links.nav-right {
+    flex-grow: 0;
+  }
+
+  .search-icon-mobile {
+    display: block;
+  }
+
+  .search-icon-desktop {
+    display: none;
+  }
+
+  .nav-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-left {
+    flex-grow: 0;
+  }
+
+  .menu-toggle {
+    margin-right: 1rem;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+    gap: 0;
+  }
+
+  .hero-video-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    transform: none !important;
+  }
+
+  .hero-video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .side-image-container {
+    display: block !important;
+    opacity: 1 !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  section {
+    padding: 1.5em;
+  }
+
+  #slider1 {
+    height: 85vh;
+    max-width: 100%;
+  }
+
+  #slider1 .title h1 {
+    font-size: 2em;
+  }
+
+  .slider-nav div {
+    width: 28px;
+    height: 28px;
+    font-size: 1em;
+  }
+
+  .play-pause-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 1em;
+  }
+
+  .title,
+  .pagination {
+    padding: 0.8em;
+  }
+
+  .two-photo-section {
+    flex-direction: column;
+  }
+
+  /* Mobile Menu Overlay */
+  .menu-overlay {
+    width: 100%;
+    transform: translateX(-100%);
+  }
+
+  .menu-overlay.open {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 480px) {
+  #slider1 {
+    height: 80vh;
+  }
+
+  #slider1 .title h1 {
+    font-size: 1.6em;
+  }
+
+  .pagination {
+    gap: 5px;
   }
 }
 
 @media (min-width: 1024px) {
   .footer-grid {
     gap: 3rem;
+  }
+}
+
+/* Catalog Page Specific Styles */
+.catalog-section {
+  padding-top: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5em 1rem;
+}
+
+.catalog-title {
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.catalog-header a {
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.filters,
+.sorting {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.filter-item,
+.sort-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-count {
+  color: #666;
+}
+
+.product-grid-catalog {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.product-item-catalog img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.product-item-catalog p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Responsive Media Queries for Catalog */
+@media (min-width: 768px) {
+  .product-grid-catalog {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .catalog-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filters {
+    margin-bottom: 1rem;
+  }
+
+  .sorting {
+    width: 100%;
+    justify-content: space-between;
   }
 }
