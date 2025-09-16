@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const toggleMenu = () => {
     menuOverlay.classList.toggle("open");
-    // Toggle body overflow based on menu state
     document.body.style.overflow = menuOverlay.classList.contains("open")
       ? "hidden"
       : "auto";
@@ -26,13 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
     menuCloseBtn.addEventListener("click", toggleMenu);
   }
 
-  // Set initial overflow state to 'auto' to prevent sticking on page load
   document.body.style.overflow = "auto";
 
   window.addEventListener("scroll", () => {
     const currentScrollY = window.scrollY;
 
-    // Navbar transparansi dan sembunyi/tampil
     if (currentScrollY > 50) {
       navbar.classList.add("scrolled");
     } else {
@@ -46,8 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     lastScrollY = currentScrollY;
 
-    // Hero section video transition logic (one-way trip)
-    if (window.innerWidth >= 768) {
+    // Tambahkan pengecekan if di sini
+    if (heroSection && window.innerWidth >= 768) {
       if (!hasScrolledDown && currentScrollY > 0) {
         isAnimating = true;
         document.body.style.overflowY = "hidden";
@@ -66,119 +63,124 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const storysliders = document.querySelectorAll(".story-image-slider");
 
-  storysliders.forEach((slider) => {
-    const pagination = slider.querySelectorAll(".progress-bar");
-    const images = slider.querySelectorAll(".images img");
-    const titles = slider.querySelectorAll(".title h1");
-    const prevBtn = slider.querySelector(".prev-btn");
-    const nextBtn = slider.querySelector(".next-btn");
-    const playPauseBtn = slider.querySelector(".play-pause-btn");
+  // Tambahkan pengecekan if di sini
+  if (storysliders.length > 0) {
+    storysliders.forEach((slider) => {
+      const pagination = slider.querySelectorAll(".progress-bar");
+      const images = slider.querySelectorAll(".images img");
+      const titles = slider.querySelectorAll(".title h1");
+      const prevBtn = slider.querySelector(".prev-btn");
+      const nextBtn = slider.querySelector(".next-btn");
+      const playPauseBtn = slider.querySelector(".play-pause-btn");
 
-    let slideId = 0;
-    let automaticSlider;
-    let isPaused = false;
+      let slideId = 0;
+      let automaticSlider;
+      let isPaused = false;
 
-    function resetTimer() {
-      clearInterval(automaticSlider);
-      if (!isPaused) {
-        automaticSlider = setInterval(() => updateSlide(1), 4000);
+      function resetTimer() {
+        clearInterval(automaticSlider);
+        if (!isPaused) {
+          automaticSlider = setInterval(() => updateSlide(1), 4000);
+        }
       }
-    }
 
-    function updateSlide(direction = 1) {
-      pagination.forEach((bar) => bar.classList.remove("active"));
-      images.forEach((img) => img.classList.remove("active"));
-      titles.forEach((title) => title.classList.remove("active"));
+      function updateSlide(direction = 1) {
+        pagination.forEach((bar) => bar.classList.remove("active"));
+        images.forEach((img) => img.classList.remove("active"));
+        titles.forEach((title) => title.classList.remove("active"));
 
-      pagination.forEach((bar) => {
-        const span = bar.querySelector("span");
-        if (span) {
-          span.style.animation = "none";
-          span.offsetWidth;
-          span.style.animation = null;
+        pagination.forEach((bar) => {
+          const span = bar.querySelector("span");
+          if (span) {
+            span.style.animation = "none";
+            span.offsetWidth;
+            span.style.animation = null;
+          }
+        });
+
+        if (direction !== 0) {
+          slideId = slideId + direction;
+        }
+
+        if (slideId >= images.length) {
+          slideId = 0;
+        } else if (slideId < 0) {
+          slideId = images.length - 1;
+        }
+
+        pagination.forEach((bar, index) => {
+          if (index < slideId) {
+            bar.classList.add("bar-filled");
+          } else {
+            bar.classList.remove("bar-filled");
+          }
+        });
+
+        images[slideId].classList.add("active");
+        titles[slideId].classList.add("active");
+        pagination[slideId].classList.add("active");
+
+        resetTimer();
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          updateSlide(-1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          updateSlide(1);
+        });
+      }
+
+      if (playPauseBtn) {
+        playPauseBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          isPaused = !isPaused;
+          slider.classList.toggle("paused", isPaused);
+
+          if (isPaused) {
+            clearInterval(automaticSlider);
+          } else {
+            updateSlide(0);
+          }
+        });
+      }
+
+      slider.addEventListener("click", (e) => {
+        if (!e.target.closest(".slider-nav div")) {
+          updateSlide(1);
         }
       });
 
-      if (direction !== 0) {
-        slideId = slideId + direction;
-      }
-
-      if (slideId >= images.length) {
-        slideId = 0;
-      } else if (slideId < 0) {
-        slideId = images.length - 1;
-      }
-
-      pagination.forEach((bar, index) => {
-        if (index < slideId) {
-          bar.classList.add("bar-filled");
-        } else {
-          bar.classList.remove("bar-filled");
-        }
-      });
-
-      images[slideId].classList.add("active");
-      titles[slideId].classList.add("active");
-      pagination[slideId].classList.add("active");
-
-      resetTimer();
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        updateSlide(-1);
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        updateSlide(1);
-      });
-    }
-
-    if (playPauseBtn) {
-      playPauseBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        isPaused = !isPaused;
-        slider.classList.toggle("paused", isPaused);
-
-        if (isPaused) {
-          clearInterval(automaticSlider);
-        } else {
-          updateSlide(0);
-        }
-      });
-    }
-
-    slider.addEventListener("click", (e) => {
-      if (!e.target.closest(".slider-nav div")) {
-        updateSlide(1);
-      }
+      updateSlide(0);
     });
-
-    updateSlide(0);
-  });
+  }
 
   const sideImageContainers = document.querySelectorAll(
     ".side-image-container"
   );
-  console.log(sideImageContainers);
 
-  const triggerPoint = 0;
+  // Tambahkan pengecekan if di sini
+  if (sideImageContainers.length > 0) {
+    const triggerPoint = 0;
 
-  function handleScroll() {
-    if (window.scrollY > triggerPoint) {
-      sideImageContainers.forEach((container) => {
-        container.classList.add("show");
-      });
-    } else {
-      sideImageContainers.forEach((container) => {
-        container.classList.remove("show");
-      });
+    function handleScroll() {
+      if (window.scrollY > triggerPoint) {
+        sideImageContainers.forEach((container) => {
+          container.classList.add("show");
+        });
+      } else {
+        sideImageContainers.forEach((container) => {
+          container.classList.remove("show");
+        });
+      }
     }
-  }
 
-  window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+  }
 });
