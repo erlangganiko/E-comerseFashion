@@ -750,6 +750,104 @@ section {
   line-height: 1.4;
 }
 
+/* --- Added for Catalog Functionality --- */
+
+/* Styles for "Out of Stock" items */
+.product-item-catalog[data-available="false"] {
+  opacity: 0.6;
+  position: relative;
+  pointer-events: none; /* Prevents clicking on out-of-stock items */
+}
+
+.product-item-catalog[data-available="false"]::after {
+  content: 'Out of Stock';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  border-radius: 4px;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Styles for filter and sort controls */
+.filter-item,
+.sort-item {
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filter-item label,
+.sort-item label {
+  font-weight: 500;
+  color: #333;
+}
+
+.filter-item select,
+.sort-item select {
+  border: 1px solid #ccc;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+}
+
+.catalog-header a {
+  text-decoration: none;
+  color: #1a1a1a;
+}
+.product-item-catalog {
+  position: relative;
+  /* Pastikan ada padding atau margin agar ikon tidak terlalu mepet gambar */
+  padding-top: 10px; /* Contoh: beri ruang di atas untuk ikon */
+}
+
+.wishlist-icon {
+  position: absolute;
+  top: 20px; /* Disesuaikan sedikit */
+  right: 12px; /* Disesuaikan sedikit */
+  font-size: 1rem; /* Ukuran ikon diperkecil */
+  color: #c0c0c0; 
+  cursor: pointer;
+  z-index: 10; 
+  background-color: rgba(255, 255, 255, 0.7); 
+  border-radius: 50%; 
+  width: 15px; /* Lebar lingkaran diperkecil */
+  height: 15px; /* Tinggi lingkaran diperkecil */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.wishlist-icon:hover {
+  color: #ff0000; /* Warna saat di-hover */
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Gaya untuk ikon hati yang sudah diisi (menandakan di wishlist) */
+.wishlist-icon.active .fa-heart {
+  color: #ff0000; /* Merah saat aktif */
+  font-weight: 900; /* Menggunakan solid heart */
+}
+
+.wishlist-icon.active .far.fa-heart {
+    display: none; /* Sembunyikan hati kosong saat aktif */
+}
+
+.wishlist-icon .fas.fa-heart {
+    display: none; /* Sembunyikan hati solid secara default */
+}
+
+.wishlist-icon.active .fas.fa-heart {
+    display: inline-block; /* Tampilkan hati solid saat aktif */
+}
 /* Responsive Media Queries */
 @media (min-width: 768px) {
   .nav-left {
