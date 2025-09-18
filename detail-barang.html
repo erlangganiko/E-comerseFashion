@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dior-like E-commerce</title>
+    <title>Detail Barang | BDGFW</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="css/style.css" />
@@ -103,124 +103,40 @@
     </div>
 
     <main>
-      <section class="catalog-section container">
-        <h1 class="catalog-title">Ready-to-Wear</h1>
-        <div class="catalog-header">
-          <div class="filters">
-            <div class="filter-item">
-              Filter: <a href="#">Availability</a>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="filter-item">
-              <a href="#">Price</a> <i class="fas fa-chevron-down"></i>
-            </div>
-          </div>
-          <div class="sorting">
-            <div class="sort-item">
-              Sort by: <a href="#">Date, new to old</a>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <span class="product-count">88 products</span>
-          </div>
-        </div>
-        <div class="product-grid-catalog">
-          <a href="detail-barang.html" class="product-item-catalog">
+      <section class="product-detail-section container">
+        <div class="product-detail-grid">
+          <div class="product-image-column">
             <img
               src="https://placehold.co/600x800/e0e0e0/424242?text=Product+1"
-              alt="Product 1"
+              alt="Nama Produk"
+              class="product-main-image"
             />
-            <p class="product-code">SC 7434 / SC 7435</p>
-            <p class="product-price">From Rp 12.998.000,00 IDR</p>
-          </a>
-          <a href="detail-barang.html" class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+2"
-              alt="Product 2"
-            />
-            <p class="product-code">SC 7433</p>
-            <p class="product-price">Rp 13.299.000,00 IDR</p>
-          </a>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+3"
-              alt="Product 3"
-            />
-            <p class="product-code">SC 7436</p>
-            <p class="product-price">Rp 13.899.000,00 IDR</p>
-          </div>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+4"
-              alt="Product 4"
-            />
-            <p class="product-code">SC 7447</p>
-            <p class="product-price">Rp 11.299.000,00 IDR</p>
           </div>
 
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+5"
-              alt="Product 5"
-            />
-            <p class="product-code">SC 7448</p>
-            <p class="product-price">Rp 11.998.000,00 IDR</p>
-          </div>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+6"
-              alt="Product 6"
-            />
-            <p class="product-code">SC 7445 / SC 7446</p>
-            <p class="product-price">Rp 11.998.000,00 IDR</p>
-          </div>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+7"
-              alt="Product 7"
-            />
-            <p class="product-code">SC 7440</p>
-            <p class="product-price">Rp 11.699.000,00 IDR</p>
-          </div>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+8"
-              alt="Product 8"
-            />
-            <p class="product-code">SC 7437</p>
-            <p class="product-price">Rp 11.699.000,00 IDR</p>
-          </div>
-
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+9"
-              alt="Product 9"
-            />
-            <p class="product-code">SC 7439</p>
-            <p class="product-price">Rp 12.000.000,00 IDR</p>
-          </div>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+10"
-              alt="Product 10"
-            />
-            <p class="product-code">SC 7431</p>
-            <p class="product-price">Rp 15.100.000,00 IDR</p>
-          </div>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+11"
-              alt="Product 11"
-            />
-            <p class="product-code">SC 7450</p>
-            <p class="product-price">Rp 13.500.000,00 IDR</p>
-          </div>
-          <div class="product-item-catalog">
-            <img
-              src="https://placehold.co/600x800/e0e0e0/424242?text=Product+12"
-              alt="Product 12"
-            />
-            <p class="product-code">SC 7452</p>
-            <p class="product-price">Rp 14.800.000,00 IDR</p>
+          <div class="product-info-column">
+            <h1 class="product-title">BAPE ABC Camo Shark Tee 'Black Blue'</h1>
+            <p class="product-price">IDR 2.152.000</p>
+            <div class="product-options">
+              <label for="size">Size:</label>
+              <select id="size">
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </div>
+            <button class="add-to-cart-btn">ADD TO CART</button>
+            <div class="product-description">
+              <p>
+                This is a versatile and stylish addition to any wardrobe. Made
+                from high-quality material, it offers both comfort and elegance.
+              </p>
+              <ul>
+                <li>Material: Premium Quality</li>
+                <li>Button-down front</li>
+                <li>Available in multiple colors</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -335,7 +251,6 @@
         </div>
       </div>
     </footer>
-
     <script src="js/main.js"></script>
   </body>
 </html>
