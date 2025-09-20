@@ -648,6 +648,48 @@ section {
   background-color: #555;
   border-color: #555;
 }
+/* --- Footer Accordion Styles --- */
+.footer-column .has-submenu > a {
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-toggle .fa-chevron-down {
+  transition: transform 0.3s ease-in-out;
+  font-size: 0.6rem; 
+}
+
+/* Saat accordion terbuka, putar panah 180 derajat */
+.footer-toggle.active .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.footer-submenu {
+  list-style: none;
+  padding-left: 1rem; /* Beri sedikit indentasi pada sub-menu */
+  margin-top: 0.5rem;
+  overflow: hidden;
+  max-height: 0; /* Sembunyikan sub-menu secara default */
+  transition: max-height 0.4s ease-out; /* Animasi buka-tutup yang mulus */
+}
+
+
+.footer-submenu.open {
+  max-height: 200px; /* Atur ketinggian maksimal yang cukup untuk konten */
+}
+
+/* Styling tambahan untuk link di dalam sub-menu */
+.footer-submenu li a {
+  color: #666; 
+  font-size: 0.75rem;
+}
+
+.footer-submenu li a:hover {
+  color: #1a1a1a;
+}
 
 /* Footer Bottom */
 .footer-bottom {
