@@ -179,7 +179,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("scroll", handleScroll);
   }
-});
+
+
+  // ==========================================================
+  // LOGIKA UNTUK FOOTER ACCORDION
+  // ==========================================================
+  const footerToggles = document.querySelectorAll(".footer-toggle");
+
+  footerToggles.forEach(toggle => {
+    toggle.addEventListener("click", (event) => {
+      // Mencegah link berpindah halaman
+      event.preventDefault();
+
+      // Cari sub-menu yang berhubungan langsung dengan pemicu ini
+      const submenu = toggle.nextElementSibling;
+
+      // Toggle kelas 'active' pada pemicu (untuk rotasi panah)
+      toggle.classList.toggle("active");
+
+      // Toggle kelas 'open' pada sub-menu (untuk animasi buka-tutup)
+      if (submenu && submenu.classList.contains("footer-submenu")) {
+        submenu.classList.toggle("open");
+      }
+    });
+  });
+
+}); 
+
 
 
  const allProductsData = [
@@ -346,6 +372,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const sortBy = document.getElementById("sort-by");
     const productCount = document.querySelector(".product-count");
 
+    // --- FUNGSI-FUNGSI WISHLIST ---
+    const WISHLIST_KEY = 'my_wishlist';
+    const getWishlist = () => JSON.parse(localStorage.getItem(WISHLIST_KEY)) || [];
+    const saveWishlist = (wishlist) => localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
+
+    const toggleWishlist = (productId) => {
+        let wishlist = getWishlist();
+        const index = wishlist.indexOf(productId);
+        if (index > -1) {
+            wishlist.splice(index, 1); // Hapus jika sudah ada
+        } else {
+            wishlist.push(productId); // Tambah jika belum ada
+        }
+        saveWishlist(wishlist);
+    };
+    
+    // Fungsi untuk update tampilan ikon berdasarkan data di localStorage
+    const updateWishlistIcons = () => {
+        const wishlist = getWishlist();
+        document.querySelectorAll('.product-item-catalog').forEach(item => {
+            const icon = item.querySelector('.wishlist-icon');
+            if (icon && wishlist.includes(item.dataset.id)) {
+                icon.classList.add('active');
+            } else if (icon) {
+                icon.classList.remove('active');
+            }
+        });
+    };
+
     function renderProducts() {
       const availabilityValue = availabilityFilter.value;
       const priceValue = priceFilter.value;
@@ -371,8 +426,13 @@ document.addEventListener("DOMContentLoaded", () => {
       
       filteredProducts.forEach(product => {
           const mainImage = product.images[0];
+          // **HTML UNTUK IKON WISHLIST DITAMBAHKAN DI SINI**
           const productHTML = `
               <a href="detail-barang.html?id=${product.id}" class="product-item-catalog" data-id="${product.id}">
+                  <span class="wishlist-icon">
+                    <i class="far fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                  </span>
                   <img src="${mainImage}" alt="${product.name}" />
                   <p class="product-code">${product.name}</p>
                   <p class="product-price">Rp ${product.price.toLocaleString('id-ID')}</p>
@@ -382,12 +442,32 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       productCount.textContent = `${filteredProducts.length} products`;
+      updateWishlistIcons(); // Update tampilan ikon setelah render
     }
+
+    // --- EVENT LISTENER UTAMA PADA GRID ---
+    catalogGrid.addEventListener('click', function(event) {
+        const productLink = event.target.closest('.product-item-catalog');
+        
+        // Cek jika yang diklik adalah ikon wishlist
+        if (event.target.closest('.wishlist-icon')) {
+            event.preventDefault(); // Mencegah pindah halaman
+            const productId = productLink.dataset.id;
+            toggleWishlist(productId);
+            updateWishlistIcons(); // Langsung update tampilan ikon
+            return; // Hentikan eksekusi lebih lanjut
+        }
+        
+        // Jika yang diklik adalah produk (tapi bukan ikon), biarkan link bekerja normal
+        if (productLink) {
+            // Biarkan href pada <a> yang menangani navigasi
+        }
+    });
 
     availabilityFilter.addEventListener('change', renderProducts);
     priceFilter.addEventListener('change', renderProducts);
     sortBy.addEventListener('change', renderProducts);
-    renderProducts();
+    renderProducts(); // Render pertama kali
   }
 
   // ==========================================================
@@ -398,11 +478,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('id');
 
-    // Cari produk di dalam array data berdasarkan ID dari URL
     const product = allProductsData.find(p => p.id === productId);
 
     if (product) {
-      // Jika produk ditemukan, isi halaman dengan datanya
       document.getElementById('product-detail-title').textContent = product.name;
       document.getElementById('product-detail-price').textContent = `Rp ${product.price.toLocaleString('id-ID')}`;
       
@@ -432,7 +510,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     } else {
-      // Jika produk tidak ditemukan, tampilkan pesan error
       productDetailGrid.innerHTML = `<h1 style="text-align: center; width: 100%;">Produk dengan ID '${productId}' tidak ditemukan.</h1>`;
     }
   }
