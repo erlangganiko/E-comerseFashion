@@ -2,7 +2,6 @@
 body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
-  /* Pastikan overflow-y diatur ke auto atau scroll secara default */
   overflow-y: auto;
   background-color: #f7f7f7;
   color: #1a1a1a;
@@ -737,11 +736,18 @@ section {
   gap: 2rem;
 }
 
+.product-item-catalog {
+  position: relative;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
 .product-item-catalog img {
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
+  margin-bottom: 0.5rem;
 }
 
 .product-item-catalog p {
@@ -750,76 +756,19 @@ section {
   line-height: 1.4;
 }
 
-/* --- Added for Catalog Functionality --- */
-
-/* Styles for "Out of Stock" items */
-.product-item-catalog[data-available="false"] {
-  opacity: 0.6;
-  position: relative;
-  pointer-events: none; /* Prevents clicking on out-of-stock items */
-}
-
-.product-item-catalog[data-available="false"]::after {
-  content: 'Out of Stock';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  border-radius: 4px;
-  text-align: center;
-  z-index: 1;
-}
-
-/* Styles for filter and sort controls */
-.filter-item,
-.sort-item {
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.filter-item label,
-.sort-item label {
-  font-weight: 500;
-  color: #333;
-}
-
-.filter-item select,
-.sort-item select {
-  border: 1px solid #ccc;
-  padding: 0.3rem 0.5rem;
-  border-radius: 4px;
-  background-color: #fff;
-  cursor: pointer;
-  font-family: "Inter", sans-serif;
-  font-size: 0.9rem;
-}
-
-.catalog-header a {
-  text-decoration: none;
-  color: #1a1a1a;
-}
-.product-item-catalog {
-  position: relative;
-  /* Pastikan ada padding atau margin agar ikon tidak terlalu mepet gambar */
-  padding-top: 10px; /* Contoh: beri ruang di atas untuk ikon */
-}
-
+/* --- Wishlist Icon Styles --- */
 .wishlist-icon {
   position: absolute;
-  top: 20px; /* Disesuaikan sedikit */
-  right: 12px; /* Disesuaikan sedikit */
-  font-size: 1rem; /* Ukuran ikon diperkecil */
-  color: #c0c0c0; 
+  top: 12px;
+  right: 12px;
+  font-size: 1.2rem;
+  color: #c0c0c0;
   cursor: pointer;
-  z-index: 10; 
-  background-color: rgba(255, 255, 255, 0.7); 
-  border-radius: 50%; 
-  width: 15px; /* Lebar lingkaran diperkecil */
-  height: 15px; /* Tinggi lingkaran diperkecil */
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -827,26 +776,109 @@ section {
 }
 
 .wishlist-icon:hover {
-  color: #ff0000; /* Warna saat di-hover */
+  color: #ff0000;
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-/* Gaya untuk ikon hati yang sudah diisi (menandakan di wishlist) */
 .wishlist-icon.active .fa-heart {
-  color: #ff0000; /* Merah saat aktif */
-  font-weight: 900; /* Menggunakan solid heart */
-}
-
-.wishlist-icon.active .far.fa-heart {
-    display: none; /* Sembunyikan hati kosong saat aktif */
+  color: #ff0000;
+  font-weight: 900;
 }
 
 .wishlist-icon .fas.fa-heart {
-    display: none; /* Sembunyikan hati solid secara default */
+  display: none;
+}
+
+.wishlist-icon.active .far.fa-heart {
+  display: none;
 }
 
 .wishlist-icon.active .fas.fa-heart {
-    display: inline-block; /* Tampilkan hati solid saat aktif */
+  display: inline-block;
+}
+
+/* Product Detail Page Styles (Mobile First) */
+.product-detail-section {
+  padding-top: 6rem;
+}
+
+.product-detail-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.product-main-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.product-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.product-options {
+  margin-bottom: 1.5rem;
+}
+
+.product-options label {
+  font-weight: 500;
+  margin-right: 1rem;
+}
+
+.product-options select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #555;
+}
+
+.product-description {
+  margin-top: 2rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.product-description ul {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Sembunyikan thumbnail di mobile */
+.product-thumbnails {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    gap: 3rem;
+  }
 }
 /* Responsive Media Queries */
 @media (min-width: 768px) {
@@ -924,89 +956,59 @@ section {
     border-bottom: none;
   }
 
-  /* Product Detail Page Styles */
+  /* --- PERBAIKAN TATA LETAK DETAIL PRODUK DI SINI --- */
   .product-detail-section {
-    padding-top: 6rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2.5em 1rem;
+    padding-top: 8rem;
   }
 
+  /* 1. Jadikan grid utama sebagai baris */
   .product-detail-grid {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    flex-direction: row;
+    align-items: flex-start; /* Properti ini yang akan mensejajarkan ke atas */
+    gap: 3rem;
   }
-
+  
+  /* 2. Atur proporsi kolom gambar dan kolom info */
   .product-image-column {
-    flex: 1;
-  }
-
-  .product-main-image {
-    width: 100%;
-    height: auto;
-    display: block;
+    flex: 2; /* Kolom gambar mengambil 2/3 bagian */
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
   }
 
   .product-info-column {
+    flex: 1; /* Kolom info mengambil 1/3 bagian */
+   
+  }
+  
+  /* 3. Tampilkan dan atur thumbnail */
+  .product-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 0 0 100px; /* Lebar kolom thumbnail 100px, tidak bisa membesar/mengecil */
+  }
+
+  .thumbnail-item {
+    width: 100%;
+    border: 1.5px solid #e0e0e0;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+
+  .thumbnail-item:hover {
+    border-color: #888;
+  }
+
+  .thumbnail-item.active {
+    border-color: #1a1a1a;
+  }
+
+  .product-main-image-wrapper {
     flex: 1;
   }
-
-  .product-title {
-    font-size: 2.25rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-
-  .product-price {
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: #1a1a1a;
-    margin-bottom: 1.5rem;
-  }
-
-  .product-options {
-    margin-bottom: 1.5rem;
-  }
-
-  .product-options label {
-    font-weight: 500;
-    margin-right: 1rem;
-  }
-
-  .product-options select {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-  }
-
-  .add-to-cart-btn {
-    width: 100%;
-    padding: 1rem;
-    background-color: #1a1a1a;
-    color: #fff;
-    border: none;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
-  }
-
-  .add-to-cart-btn:hover {
-    background-color: #555;
-  }
-
-  .product-description {
-    margin-top: 2rem;
-    color: #666;
-    line-height: 1.6;
-  }
-
-  .product-description ul {
-    padding-left: 1.5rem;
-    margin-top: 1rem;
-  }
+  /* --- AKHIR PERBAIKAN --- */
 
   .footer-grid {
     grid-template-columns: 2fr repeat(4, 1fr);
@@ -1029,7 +1031,6 @@ section {
     margin-left: auto;
   }
 
-  /* Desktop Menu Overlay */
   .menu-overlay {
     width: 400px;
     right: auto;
@@ -1041,18 +1042,11 @@ section {
     transform: translateX(0);
   }
 
-  /* Catalog Grid Desktop */
   .product-grid-catalog {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Responsive Media Queries for Product Detail Page */
-@media (min-width: 768px) {
-  .product-detail-grid {
-    flex-direction: row;
-  }
-}
 @media (max-width: 767px) {
   .desktop-menu {
     display: none;
@@ -1148,7 +1142,6 @@ section {
     flex-direction: column;
   }
 
-  /* Mobile Menu Overlay */
   .menu-overlay {
     width: 100%;
     transform: translateX(-100%);
@@ -1156,6 +1149,23 @@ section {
 
   .menu-overlay.open {
     transform: translateX(0);
+  }
+  
+  .catalog-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .filters {
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .sorting {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 
@@ -1173,99 +1183,3 @@ section {
   }
 }
 
-@media (min-width: 1024px) {
-  .footer-grid {
-    gap: 3rem;
-  }
-}
-
-/* Catalog Page Specific Styles */
-.catalog-section {
-  padding-top: 6rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2.5em 1rem;
-}
-
-.catalog-title {
-  text-align: center;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 1.5rem;
-}
-
-.catalog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-}
-
-.catalog-header a {
-  text-decoration: none;
-  color: #1a1a1a;
-}
-
-.filters,
-.sorting {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.filter-item,
-.sort-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.product-count {
-  color: #666;
-}
-
-.product-grid-catalog {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.product-item-catalog img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-}
-
-.product-item-catalog p {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* Responsive Media Queries for Catalog */
-@media (min-width: 768px) {
-  .product-grid-catalog {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 767px) {
-  .catalog-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .filters {
-    margin-bottom: 1rem;
-  }
-
-  .sorting {
-    width: 100%;
-    justify-content: space-between;
-  }
-}
