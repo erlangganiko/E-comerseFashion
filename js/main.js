@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const navbar = document.getElementById("navbar");
+ const navbar = document.getElementById("navbar");
   const heroSection = document.getElementById("hero-section");
   const sideImages = document.querySelectorAll(".side-image-container");
   const menuToggle = document.querySelector(".menu-toggle");
@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let hasScrolledDown = false;
   let isAnimating = false;
 
+  // --- Fungsi Buka/Tutup Menu ---
   const toggleMenu = () => {
     menuOverlay.classList.toggle("open");
     document.body.style.overflow = menuOverlay.classList.contains("open")
@@ -20,16 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (menuToggle) {
     menuToggle.addEventListener("click", toggleMenu);
   }
-
   if (menuCloseBtn) {
     menuCloseBtn.addEventListener("click", toggleMenu);
   }
 
-  document.body.style.overflow = "auto";
-
+  // --- Efek Scroll Navbar ---
   window.addEventListener("scroll", () => {
     const currentScrollY = window.scrollY;
-
     if (currentScrollY > 50) {
       navbar.classList.add("scrolled");
     } else {
@@ -43,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     lastScrollY = currentScrollY;
 
-    // Tambahkan pengecekan if di sini
     if (heroSection && window.innerWidth >= 768) {
       if (!hasScrolledDown && currentScrollY > 0) {
         isAnimating = true;
@@ -60,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-
   const storysliders = document.querySelectorAll(".story-image-slider");
 
   // Tambahkan pengecekan if di sini
@@ -183,195 +179,261 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("scroll", handleScroll);
   }
+});
 
-  // --- Catalog Filter and Sort Functionality ---
+
+ const allProductsData = [
+    { 
+      id: 'product-1', 
+      name: 'Adidas Samba OG Preloved Red Leopard Womens', 
+      price: 12998000, 
+      date: 12, 
+      available: true, 
+      images: [
+        "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/front/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-front-side-single-2_1000x.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/back/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-back-side-single_1000x.webp", // Tampilan Belakang
+        "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/detail/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-side_1000x.webp", // Tampilan Detail
+        "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/label/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-top-down_1000x.webp"  // Tampilan Label
+      ] 
+    },
+    { 
+      id: 'product-2', 
+      name: 'Nike Kwondo 1 x GDragon Peaceminusone Triple White', 
+      price: 13999000, 
+      date: 11, 
+      available: false, 
+      images: [
+        "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/front/front.jpeg", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/detail/detail.jpeg", // Tampilan Belakang
+        "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/detail/detail.jpeg", // Tampilan Detail
+        "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/label/label.jpeg"  // Tampilan Label
+      ] 
+    },
+    { 
+      id: 'product-3', 
+      name: 'Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025', 
+      price: 13899000, 
+      date: 10, 
+      available: false, 
+      images: [
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/label/label.webp"  // Tampilan Label
+      ] 
+    },
+    { 
+      id: 'product-4', 
+      name: 'Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025', 
+      price: 24998800, 
+      date: 9, 
+      available: true, 
+      images: [
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/label/label.webp"  // Tampilan Label
+      ] 
+    },
+    { 
+      id: 'product-5', 
+      name: 'BAPE Logo Nylon Relaxed Fit Shorts Black', 
+      price: 21020300, 
+      date: 8, 
+      available: true, 
+      images: [
+        "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/detail/detail.jpeg", // Tampilan Detail
+        "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/label/label.webp"  // Tampilan Label
+      ] 
+    },
+    { 
+      id: 'product-8', 
+      name: 'BAPE Shark Tee #1 Black', 
+      price: 11998800, 
+      date: 7, 
+      available: true, 
+      images: [
+        "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/label/detail.webp"  // Tampilan Label
+      ] 
+    },{ 
+      id: 'product-9', 
+      name: 'Nike x NOCTA NRG Big Body CS T-Shirt Black 2024', 
+      price: 11998000, 
+      date: 6, 
+      available: true, 
+      images: [
+        "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/detail/back.webp", // Tampilan Detail
+        "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/label/label.webp"  // Tampilan Label
+      ] 
+    },{ 
+      id: 'product-8', 
+      name: 'Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024', 
+      price: 11699000, 
+      date: 5, 
+      available: true, 
+      images: [
+        "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/label/front.webp"  // Tampilan Label
+      ] 
+    },{ 
+      id: 'product-9', 
+      name: 'KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024', 
+      price: 12000000, 
+      date: 4, 
+      available: true, 
+      images: [
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/bacl/back.webp", // Tampilan Belakang
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/label/back.webp"  // Tampilan Label
+      ] 
+    },{ 
+      id: 'product-10', 
+      name: 'KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024', 
+      price: 15100000, 
+      date: 3, 
+      available: true, 
+      images: [
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/label/back.webp"  // Tampilan Label
+      ] 
+    },{ 
+      id: 'product-11', 
+      name: 'Geedup x Arrdee Handstyle Hoodie Black  Multi 2025', 
+      price: 13500000, 
+      date: 2, 
+      available: true, 
+      images: [
+        "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/back/front.webp", // Tampilan Belakang
+        "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/label/label.webp"  // Tampilan Label
+      ] 
+    },{ 
+      id: 'product-12', 
+      name: 'Geedup Team Logo Hooded Jacket Black 2025', 
+      price: 14800000, 
+      date: 1, 
+      available: true, 
+      images: [
+        "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/front/front.webp", // Tampilan Depan (Gambar Utama)
+        "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/back/back.webp", // Tampilan Belakang
+        "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/detail/detail.webp", // Tampilan Detail
+        "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/label/label.webp"  // Tampilan Label
+      ] 
+    },
+  ];
+
+document.addEventListener("DOMContentLoaded", () => {
+  // ==========================================================
+  // LOGIKA UNTUK HALAMAN KATALOG (i-catalog.html)
+  // ==========================================================
   const catalogGrid = document.querySelector(".product-grid-catalog");
-
   if (catalogGrid) {
-    const products = Array.from(catalogGrid.querySelectorAll(".product-item-catalog"));
     const availabilityFilter = document.getElementById("filter-availability");
     const priceFilter = document.getElementById("filter-price");
     const sortBy = document.getElementById("sort-by");
     const productCount = document.querySelector(".product-count");
 
-    const updateProducts = () => {
-      // 1. Filtering
+    function renderProducts() {
       const availabilityValue = availabilityFilter.value;
       const priceValue = priceFilter.value;
-
-      const visibleProducts = products.filter(product => {
-        // Availability filter
-        const isAvailable = product.getAttribute('data-available') === 'true';
-        if (availabilityValue === 'in-stock' && !isAvailable) {
-          return false;
-        }
-
-        // Price filter
-        const price = parseFloat(product.getAttribute('data-price'));
-        if (priceValue === 'low' && price >= 12000000) {
-          return false;
-        }
-        if (priceValue === 'medium' && (price < 12000000 || price > 14000000)) {
-          return false;
-        }
-        if (priceValue === 'high' && price <= 14000000) {
-          return false;
-        }
-
-        return true; // Keep product if it passes all filters
-      });
-
-      // 2. Sorting
       const sortValue = sortBy.value;
-      visibleProducts.sort((a, b) => {
-        const priceA = parseFloat(a.getAttribute('data-price'));
-        const priceB = parseFloat(b.getAttribute('data-price'));
-        const dateA = parseInt(a.getAttribute('data-date'));
-        const dateB = parseInt(b.getAttribute('data-date'));
+      
+      let filteredProducts = allProductsData.filter(product => {
+        if (availabilityValue === 'in-stock' && !product.available) return false;
+        if (priceValue === 'low' && product.price >= 12000000) return false;
+        if (priceValue === 'medium' && (product.price < 12000000 || product.price > 14000000)) return false;
+        if (priceValue === 'high' && product.price <= 14000000) return false;
+        return true;
+      });
 
+      filteredProducts.sort((a, b) => {
         switch (sortValue) {
-          case 'price-asc':
-            return priceA - priceB;
-          case 'price-desc':
-            return priceB - priceA;
-          case 'date-asc':
-            return dateA - dateB;
-          case 'date-desc':
-          default:
-            return dateB - dateA;
+          case 'price-asc': return a.price - b.price;
+          case 'price-desc': return b.price - a.price;
+          default: return b.date - a.date;
         }
       });
-
-      // 3. Re-render the grid
-      catalogGrid.innerHTML = ""; // Clear the grid
-      visibleProducts.forEach(product => {
-        catalogGrid.appendChild(product);
+      
+      catalogGrid.innerHTML = "";
+      
+      filteredProducts.forEach(product => {
+          const mainImage = product.images[0];
+          const productHTML = `
+              <a href="detail-barang.html?id=${product.id}" class="product-item-catalog" data-id="${product.id}">
+                  <img src="${mainImage}" alt="${product.name}" />
+                  <p class="product-code">${product.name}</p>
+                  <p class="product-price">Rp ${product.price.toLocaleString('id-ID')}</p>
+              </a>
+          `;
+          catalogGrid.insertAdjacentHTML('beforeend', productHTML);
       });
 
-      // 4. Update product count
-      productCount.textContent = `${visibleProducts.length} products`;
-    };
+      productCount.textContent = `${filteredProducts.length} products`;
+    }
 
-    // --- Event Listeners ---
-    availabilityFilter.addEventListener('change', updateProducts);
-    priceFilter.addEventListener('change', updateProducts);
-    sortBy.addEventListener('change', updateProducts);
-
-    // Initial call to set the default sort order
-    updateProducts();
+    availabilityFilter.addEventListener('change', renderProducts);
+    priceFilter.addEventListener('change', renderProducts);
+    sortBy.addEventListener('change', renderProducts);
+    renderProducts();
   }
-const productLinks = document.querySelectorAll(".product-item-catalog");
 
-  productLinks.forEach(link => {
-    link.addEventListener("click", function (event) {
-      event.preventDefault(); // Mencegah navigasi standar
-
-      const name = encodeURIComponent(this.dataset.name);
-      const price = this.dataset.price;
-      const img = encodeURIComponent(this.dataset.img);
-
-      // Membuat URL dengan parameter
-      const detailUrl = `detail-barang.html?name=${name}&price=${price}&img=${img}`;
-
-      // Arahkan ke halaman detail
-      window.location.href = detailUrl;
-    });
-  });
-
-  // --- Product Detail Page Dynamic Content ---
-  // Cek apakah kita berada di halaman detail produk
-  if (window.location.pathname.endsWith("detail-barang.html")) {
+  // ==========================================================
+  // LOGIKA UNTUK HALAMAN DETAIL (detail-barang.html)
+  // ==========================================================
+  const productDetailGrid = document.querySelector(".product-detail-grid");
+  if (productDetailGrid) {
     const params = new URLSearchParams(window.location.search);
-    const name = params.get('name');
-    const price = params.get('price');
-    const img = params.get('img');
+    const productId = params.get('id');
 
-    if (name && price && img) {
-      // Update elemen di halaman
-      document.getElementById('product-detail-title').textContent = name;
-      document.getElementById('product-detail-image').src = img;
-      document.getElementById('product-detail-image').alt = name;
+    // Cari produk di dalam array data berdasarkan ID dari URL
+    const product = allProductsData.find(p => p.id === productId);
 
-      // Format harga
-      const formattedPrice = new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0
-      }).format(price);
-      document.getElementById('product-detail-price').textContent = formattedPrice;
-    }
-  }
+    if (product) {
+      // Jika produk ditemukan, isi halaman dengan datanya
+      document.getElementById('product-detail-title').textContent = product.name;
+      document.getElementById('product-detail-price').textContent = `Rp ${product.price.toLocaleString('id-ID')}`;
+      
+      const mainImage = document.getElementById('product-detail-image');
+      const thumbnailsContainer = document.querySelector('.product-thumbnails');
+      
+      thumbnailsContainer.innerHTML = ''; 
 
-  // --- Wishlist Functionality ---
-  const WISHLIST_STORAGE_KEY = 'bdgfw_wishlist';
-
-  // Function to get wishlist items from localStorage
-  const getWishlist = () => {
-    const wishlistJson = localStorage.getItem(WISHLIST_STORAGE_KEY);
-    return wishlistJson ? JSON.parse(wishlistJson) : [];
-  };
-
-  // Function to save wishlist items to localStorage
-  const saveWishlist = (wishlist) => {
-    localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlist));
-  };
-
-  // Function to toggle product in wishlist
-  const toggleWishlist = (productId, iconElement) => {
-    let wishlist = getWishlist();
-    const index = wishlist.indexOf(productId);
-
-    if (index > -1) {
-      // Product is in wishlist, remove it
-      wishlist.splice(index, 1);
-      iconElement.classList.remove('active');
-    } else {
-      // Product is not in wishlist, add it
-      wishlist.push(productId);
-      iconElement.classList.add('active');
-    }
-    saveWishlist(wishlist);
-  };
-
-  // Initialize wishlist icons on page load
-  const initializeWishlistIcons = () => {
-    const wishlist = getWishlist();
-    document.querySelectorAll(".product-item-catalog").forEach(productItem => {
-      const productId = productItem.dataset.id;
-      const wishlistIcon = productItem.querySelector(".wishlist-icon");
-
-      if (wishlist.includes(productId)) {
-        wishlistIcon.classList.add('active');
-      } else {
-        wishlistIcon.classList.remove('active');
-      }
-
-      // Add click listener for wishlist icon
-      // Use event delegation to prevent navigating to detail page when clicking icon
-      wishlistIcon.addEventListener('click', function(event) {
-        event.stopPropagation(); // Stop event from bubbling up to product item link
-        event.preventDefault(); // Prevent default link behavior for the icon
-        toggleWishlist(productId, this);
+      product.images.forEach((imgSrc, index) => {
+        const thumbnailHTML = `
+            <img src="${imgSrc}" 
+                 alt="${product.name} view ${index + 1}" 
+                 class="thumbnail-item ${index === 0 ? 'active' : ''}">
+        `;
+        thumbnailsContainer.insertAdjacentHTML('beforeend', thumbnailHTML);
       });
-    });
-  };
+      
+      mainImage.src = product.images[0];
 
-  // Run initialization when catalog grid is present
-  if (catalogGrid) { // Using the existing check for catalogGrid from filter/sort
-    // ... existing filter/sort code ...
+      const thumbnails = document.querySelectorAll('.thumbnail-item');
+      thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', function() {
+          mainImage.src = this.src;
+          thumbnails.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
 
-    // Call initializeWishlistIcons after products are rendered/updated
-    // This is important because products might be re-rendered by filters/sort
-    const originalUpdateProducts = updateProducts; // Keep a reference to the original function
-    updateProducts = () => { // Override updateProducts
-      originalUpdateProducts(); // Run the original filtering and sorting
-      initializeWishlistIcons(); // Then re-initialize wishlist icons
-    };
-    updateProducts(); // Call once on initial load
-
-    // ... ensure existing event listeners are still added for filters/sort ...
-    availabilityFilter.addEventListener('change', updateProducts);
-    priceFilter.addEventListener('change', updateProducts);
-    sortBy.addEventListener('change', updateProducts);
+    } else {
+      // Jika produk tidak ditemukan, tampilkan pesan error
+      productDetailGrid.innerHTML = `<h1 style="text-align: center; width: 100%;">Produk dengan ID '${productId}' tidak ditemukan.</h1>`;
+    }
   }
 });
