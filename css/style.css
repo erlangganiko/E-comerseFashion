@@ -492,7 +492,8 @@ section {
 
 .product-item img {
   width: 100%;
-  height: auto;
+  max-height: 60%;
+  object-fit: cover;
   border-radius: 0.25rem;
   margin-bottom: 1rem;
 }
