@@ -1,7 +1,7 @@
 /* General Body & Container */
 body {
   font-family: "Inter", sans-serif;
-  overflow-x: hidden;
+  overflow-x: hidden; 
   overflow-y: auto;
   background-color: #f7f7f7;
   color: #1a1a1a;
@@ -458,24 +458,53 @@ section {
 }
 
 .image-wrapper {
-  width: 100%;
+  position: relative;
   overflow: hidden;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: block; /* Memastikan anchor tag berperilaku seperti block */
 }
 
 .image-wrapper img {
+  display: block;
   width: 100%;
   height: auto;
-  transform: scale(1);
-  transition: transform 0.5s;
+  transition: transform 0.5s ease-in-out; /* Menambahkan transisi pada gambar juga */
 }
 
-.image-wrapper img:hover {
+.overlay {
+  position: absolute;
+  bottom: 0; /* Mengubah posisi awal ke bawah */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Mengatur background transparan buram */
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* Dukungan untuk browser WebKit (Safari) */
+  
+  /* Mengubah posisi awal overlay ke luar dari bawah */
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.image-wrapper:hover .overlay {
+  /* Mengembalikan posisi overlay ke dalam gambar saat di-hover */
+  transform: translateY(0);
+}
+
+.image-wrapper:hover img {
+  /* Opsional: Efek zoom ringan pada gambar saat di-hover */
   transform: scale(1.05);
 }
 
+.text {
+  color: white;
+  font-size: 2.5rem;
+  text-align: center;
+  padding: 20px;
+}
 .product-grid {
   display: grid;
   grid-template-columns: 1fr;
