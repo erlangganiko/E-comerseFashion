@@ -28,6 +28,50 @@ body::-webkit-scrollbar-thumb {
   border-radius: 4px;
 }
 
+/* Preloader / Loading Screen Styles */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff; /* Warna latar belakang putih */
+  z-index: 9999; /* Pastikan berada di atas semua elemen lain */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.75s ease, visibility 0.75s ease; /* Efek transisi memudar */
+}
+
+#preloader img {
+  width: 150px; /* Sesuaikan ukuran logo saat loading */
+  animation: pulse 1.5s infinite ease-in-out; /* Animasi berdenyut halus */
+}
+
+/* Class untuk menyembunyikan preloader */
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Keyframes untuk animasi pulse */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* Navbar Styles */
 .navbar {
   position: fixed;
@@ -88,18 +132,17 @@ body::-webkit-scrollbar-thumb {
   color: #666;
 }
 
-.nav-logo {
-  font-size: 1.25rem;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  flex-grow: 1;
-  text-align: center;
-}
-
 .nav-logo a {
   text-decoration: none;
   color: #1a1a1a;
   transition: color 0.3s;
+}
+
+/* ===== TAMBAHKAN KODE DI BAWAH INI ===== */
+.nav-logo img {
+  height: 75px; /* Sesuaikan tinggi logo sesuai keinginan */
+  width: auto; /* Lebar akan menyesuaikan secara otomatis */
+  vertical-align: middle; /* Membantu alignment vertikal jika diperlukan */
 }
 
 .nav-logo a:hover {
@@ -131,10 +174,11 @@ body::-webkit-scrollbar-thumb {
 
 .menu-overlay .menu-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e0e0e0;
+  position: relative; /* Menjadi wadah untuk posisi absolut */
+  min-height: 60px; /* Beri tinggi minimal agar rapi */
 }
 
 .menu-close-btn {
@@ -145,17 +189,19 @@ body::-webkit-scrollbar-thumb {
   color: #1a1a1a;
 }
 
-.menu-overlay .menu-logo {
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  font-size: 1.25rem;
-  text-align: center;
-  flex-grow: 1;
+.menu-logo img {
+  height: 50px; /* Sesuaikan tinggi logo agar pas di menu mobile, bisa lebih besar dari navbar utama */
+  width: auto;
+  max-width: 100%; /* Pastikan tidak melebihi lebar kontainer */
+  display: block; /* Agar gambar tidak memiliki space bawah yang tidak diinginkan */
 }
 
-.menu-overlay .menu-logo a {
-  text-decoration: none;
-  color: #1a1a1a;
+.menu-overlay .menu-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%; /* Posisikan 50% dari atas container */
+  transform: translate(-50%, -50%); /* Trik untuk sentralisasi sempurna */
+  padding-bottom: 1rem; /* Sesuaikan agar pas dengan border-bottom */
 }
 
 .menu-overlay .main-menu {
@@ -188,6 +234,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: -20px;
 }
 
 .hero-video-wrapper {
@@ -198,7 +245,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .hero-video-wrapper video {
-  width: 100%;
+   width: 100%;
   height: 100vh;
   object-fit: cover;
   transition: all 0.7s ease-in-out;
@@ -239,6 +286,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin-top: -2px;
   border-radius: 0.5rem;
 }
 
@@ -755,12 +803,14 @@ section {
 
 /* Catalog Page Specific Styles */
 .catalog-section {
-  padding-top: 6rem;
+  padding-top: 8rem; /* NAIKKAN NILAI INI (contoh: 8rem atau 120px) */
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2.5em 1rem;
+  /* padding: 2.5em 1rem; Baris ini bisa dihapus jika sudah ada padding-top terpisah */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2.5em;
 }
-
 .catalog-title {
   text-align: center;
   font-weight: bold;
@@ -944,10 +994,12 @@ section {
 
 /* --- Article Page Styles --- */
 .article-section {
-  padding-top: 6rem;
-  max-width: 1200px;
+  padding-top: 8rem;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2.5em 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2.5em;
 }
 
 .article-title {
@@ -959,87 +1011,118 @@ section {
   margin-bottom: 2.5rem;
 }
 
-.article-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+/* --- Layout Kontainer Utama Artikel & Sidebar --- */
+.article-layout-container {
+  display: flex;
+  flex-direction: column;
   gap: 2.5rem;
 }
 
-.article-card {
-  text-decoration: none;
-  color: #1a1a1a;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.article-card:hover {
-  transform: translateY(-5px);
-}
-
-.article-card-image img {
+/* --- Kontainer untuk List Artikel --- */
+.article-grid {
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  margin-bottom: 1rem;
 }
 
-.article-card-content {
-  padding: 0 0.5rem;
+/* --- Gaya untuk Setiap Kartu Artikel --- */
+.featured-article {
+  display: flex;
+  flex-direction: column; /* Tampilan default untuk mobile */
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 2rem;
 }
 
-.article-card-category {
+.featured-article:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.article-meta-info {
   font-size: 0.8rem;
-  font-weight: 500;
-  color: #666;
+  color: #888;
   text-transform: uppercase;
+}
+
+.article-meta-info span {
+  display: block;
   margin-bottom: 0.5rem;
 }
 
+.article-main-content {
+  width: 100%;
+}
+
+.article-image img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
 .article-card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-  line-height: 1.3;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.article-card-title a {
+  text-decoration: none;
+  color: #1a1a1a;
 }
 
 .article-card-excerpt {
   color: #444;
-  margin-top: 0.75rem;
   line-height: 1.6;
+  margin-bottom: 1rem;
 }
 
 .read-more-btn {
-  display: inline-block;
-  margin-top: 1rem;
   font-weight: 700;
-  text-decoration: underline;
+  text-decoration: none;
   color: #1a1a1a;
-}
-/* --- Tambahan untuk Halaman Daftar Artikel Model Baru --- */
-.article-layout-container {
-  display: flex;
-  flex-direction: column; /* Tata letak untuk mobile */
-  gap: 2.5rem;
+  display: inline-block;
+  margin-top: 0.5rem;
 }
 
-.sidebar {
-  width: 25%;
-  margin-right: -500px;
+.read-more-btn:after {
+  content: " ›";
 }
 
+/* --- Gaya untuk Tag --- */
+.tag-wrapper {
+  line-height: 1.5;
+}
+
+.tag-link {
+  text-decoration: none;
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  transition: background-color 0.2s, color 0.2s;
+  text-transform: none;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.tag-link:hover {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+/* --- Gaya Sidebar --- */
 .sidebar-widget {
   margin-bottom: 2rem;
   border-bottom: 1px solid #eee;
   padding-bottom: 1rem;
 }
+
 .sidebar-widget:last-child {
   border-bottom: none;
   padding-bottom: 0;
-}
-
-.sidebar-widget img {
-  width: 50%;
-  height: auto;
 }
 
 .widget-title {
@@ -1050,6 +1133,7 @@ section {
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   color: #333;
+  letter-spacing: 0.1em;
 }
 
 .recent-posts-list {
@@ -1074,6 +1158,7 @@ section {
   display: block;
   font-size: 0.9rem;
 }
+
 .recent-posts-list a:hover {
   color: #000;
 }
@@ -1084,125 +1169,7 @@ section {
   margin-top: 0.25rem;
 }
 
-/* Mengubah .article-grid menjadi area konten utama, bukan lagi grid */
-.article-grid {
-  display: block;
-  grid-template-columns: 1fr; /* Resetting grid behavior */
-}
-
-/* Gaya baru untuk kartu artikel di halaman utama */
-.featured-article {
-  margin-bottom: 2rem;
-  /* --- Tambahan untuk Garis Batas Artikel --- */
-  border-bottom: 1px solid #e0e0e0; /* Menambahkan garis bawah */
-  padding-bottom: 2rem; /* Memberi jarak antara konten dan garis */
-}
-
-.featured-article .article-meta-info {
-  font-size: 0.8rem;
-  color: #888;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-}
-.featured-article .article-meta-info span {
-  margin-right: 1rem;
-}
-
-.featured-article .article-image img {
-  width: 100%;
-  height: auto;
-  margin-bottom: 1.5rem;
-}
-
-.featured-article .article-card-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  text-align: left;
-}
-
-.featured-article .article-card-title a {
-  text-decoration: none;
-  color: #1a1a1a;
-}
-
-.featured-article .article-card-excerpt {
-  color: #444;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.featured-article .read-more-btn {
-  font-weight: 700;
-  text-decoration: none;
-  color: #1a1a1a;
-  display: inline-block;
-  margin-top: 0.5rem;
-}
-.featured-article .read-more-btn:after {
-  content: " ›";
-}
-/* --- Tambahan untuk Posisi Metadata Artikel --- */
-.article-top-container {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem; /* Jarak antara metadata dan gambar */
-  align-items: flex-start; /* Sejajarkan item ke atas */
-}
-
-.featured-article .article-meta-info {
-  flex: 0 0 100px; /* Lebar kolom metadata (tidak akan membesar/mengecil) */
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: column; /* Menyusun tanggal dan tag secara vertikal */
-  padding-top: 0.25rem;
-}
-.featured-article .article-meta-info span {
-  margin-right: 0;
-  margin-bottom: 0.5rem; /* Jarak antara tanggal dan tag */
-  display: block;
-}
-
-.featured-article .article-image {
-  flex: 1; /* Biarkan gambar mengambil sisa ruang */
-  margin-bottom: 0;
-}
-/* --- Tambahan untuk Gaya Tautan Tag --- */
-.article-meta-info .tag-wrapper {
-  line-height: 1.5;
-}
-
-.tag-link {
-  text-decoration: none;
-  color: #555;
-  background-color: #f0f0f0;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  transition: background-color 0.2s, color 0.2s;
-  text-transform: none;
-  display: inline-block; /* Tambahkan ini */
-  margin-right: 5px; /* Tambahkan ini */
-  margin-bottom: 5px; /* Tambahkan ini */
-}
-
-.tag-link:hover {
-  background-color: #1a1a1a;
-  color: #fff;
-}
-/* Penyesuaian untuk tampilan mobile */
-@media (max-width: 576px) {
-  .article-top-container {
-    flex-direction: column; /* Kembali ke tata letak tumpukan di layar kecil */
-  }
-  .featured-article .article-meta-info {
-    flex-direction: row; /* Buat tanggal dan tag sejajar lagi */
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-}
-/* Tata Letak untuk Desktop */
+/* --- Tata Letak Desktop --- */
 @media (min-width: 768px) {
   .article-layout-container {
     flex-direction: row;
@@ -1210,27 +1177,37 @@ section {
   }
 
   .article-grid {
-    /* Konten utama */
-    width: 70%;
-    padding-right: 5rem;
+    width: 75%;
+    padding-right: 3rem;
     border-right: 1px solid #eee;
   }
 
   .sidebar {
-    width: 30%;
-    padding-left: calc(1rem);
+    width: 25%;
+    padding-left: 3rem;
   }
 
-  .article-card:hover {
-    transform: none; /* Menonaktifkan efek hover yang lama */
+  .featured-article {
+    flex-direction: row; /* Tampilan side-by-side untuk desktop */
+  }
+
+  .article-meta-info {
+    flex: 0 0 150px; /* Lebar tetap untuk kolom metadata */
+  }
+
+  .article-main-content {
+    flex: 1; /* Konten utama mengambil sisa ruang */
   }
 }
+
 /* --- Article Detail Page Styles --- */
 .article-detail-section {
-  padding-top: 6rem;
+  padding-top: 8rem;
   max-width: 900px;
   margin: 0 auto;
-  padding: 2.5em 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2.5em;
 }
 
 .article-detail-container {
@@ -1239,7 +1216,7 @@ section {
 
 .article-detail-header-image {
   width: 100%;
-  max-height: 500px;
+  max-height: 100%;
   object-fit: cover;
   margin-bottom: 2rem;
 }
@@ -1249,6 +1226,7 @@ section {
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+  text-align: center;
 }
 
 .article-meta {
@@ -1262,9 +1240,19 @@ section {
   font-size: 1.1rem;
   color: #333;
 }
+/* --- Styling for Block Images in Articles --- */
+.article-body .article-image-block {
+  display: block; /* Memastikan gambar berada di barisnya sendiri */
+  width: 100%; /* Membuat lebar gambar penuh sesuai wadahnya */
+  max-width: 720px; /* Opsional: batas lebar maksimal untuk layar besar */
+  height: auto;
+  margin: 2.5rem auto; /* Memberi jarak 2.5rem di atas & bawah, dan auto di kiri-kanan (agar center) */
+  border-radius: 4px; /* Opsional: membuat sudut gambar sedikit melengkung */
+}
 
 .article-body p {
   margin-bottom: 1.5rem;
+  text-align: justify;
 }
 
 .back-to-articles {
@@ -1289,6 +1277,7 @@ section {
     gap: 3rem;
   }
 }
+
 /* Responsive Media Queries */
 @media (min-width: 768px) {
   .nav-left {
@@ -1365,37 +1354,33 @@ section {
     border-bottom: none;
   }
 
-  /* --- PERBAIKAN TATA LETAK DETAIL PRODUK DI SINI --- */
   .product-detail-section {
     padding-top: 8rem;
   }
 
-  /* 1. Jadikan grid utama sebagai baris */
   .product-detail-grid {
     display: flex;
     flex-direction: row;
-    align-items: flex-start; /* Properti ini yang akan mensejajarkan ke atas */
+    align-items: flex-start;
     gap: 3rem;
   }
 
-  /* 2. Atur proporsi kolom gambar dan kolom info */
   .product-image-column {
-    flex: 2; /* Kolom gambar mengambil 2/3 bagian */
+    flex: 2;
     display: flex;
     flex-direction: row;
     gap: 1.5rem;
   }
 
   .product-info-column {
-    flex: 1; /* Kolom info mengambil 1/3 bagian */
+    flex: 1;
   }
 
-  /* 3. Tampilkan dan atur thumbnail */
   .product-thumbnails {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    flex: 0 0 100px; /* Lebar kolom thumbnail 100px, tidak bisa membesar/mengecil */
+    flex: 0 0 100px;
   }
 
   .thumbnail-item {
@@ -1416,7 +1401,6 @@ section {
   .product-main-image-wrapper {
     flex: 1;
   }
-  /* --- AKHIR PERBAIKAN --- */
 
   .footer-grid {
     grid-template-columns: 2fr repeat(4, 1fr);
@@ -1453,8 +1437,9 @@ section {
   .product-grid-catalog {
     grid-template-columns: repeat(4, 1fr);
   }
+
   .article-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* Override previous grid setting */
   }
 
   .article-detail-title {
