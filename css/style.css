@@ -227,26 +227,22 @@ body::-webkit-scrollbar-thumb {
 /* Hero Section Styles */
 .hero-section {
   position: relative;
-  overflow: hidden;
-  width: 100% !important;
+  width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: -20px;
+  overflow: hidden; /* Sembunyikan bagian video yang mungkin meluap */
 }
 
 .hero-video-wrapper {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100vh;
+  top: 0;
   transition: all 0.7s ease-in-out;
 }
 
 .hero-video-wrapper video {
    width: 100%;
-  height: 100vh;
+  height: 130vh;
   object-fit: cover;
   transition: all 0.7s ease-in-out;
 }
@@ -286,7 +282,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  margin-top: -2px;
+  margin-top: -35px;
   border-radius: 0.5rem;
 }
 
