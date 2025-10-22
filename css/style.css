@@ -867,7 +867,7 @@ section {
 .product-item-catalog img {
   width: 100%;
   max-height: 50%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
   margin-bottom: 0.5rem;
 }
