@@ -106,10 +106,6 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
 }
 
-.nav-left a {
-  color: #1a1a1a;
-}
-
 .menu-toggle {
   background: none;
   border: none;
@@ -245,7 +241,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .hero-video-wrapper video {
-  width: 100%;
+   width: 100%;
   height: 130vh;
   object-fit: cover;
   transition: all 0.7s ease-in-out;
@@ -866,7 +862,7 @@ section {
 
 .product-item-catalog img {
   width: 100%;
-  max-height: 50%;
+  height: auto;
   object-fit: cover;
   display: block;
   margin-bottom: 0.5rem;
@@ -990,6 +986,236 @@ section {
 .product-description ul {
   padding-left: 1.5rem;
   margin-top: 1rem;
+}
+/* --- Product Info Tabs (Description & Specs) --- */
+.product-info-tabs {
+  margin-top: 2.5rem;
+  width: 100%;
+  border-top: 1px solid #e0e0e0;
+}
+
+.tab-buttons {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  position: relative;
+  top: 1px; /* Trik agar border bawah pas */
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-bottom-color 0.2s;
+  margin-right: 1rem; /* Memberi jarak antar tombol tab */
+}
+
+/* Hilangkan margin kanan pada tombol terakhir */
+.tab-btn:last-child {
+  margin-right: 0;
+}
+
+.tab-btn:hover {
+  color: #1a1a1a;
+}
+
+.tab-btn.active {
+  color: #1a1a1a;
+  border-bottom-color: #1a1a1a;
+}
+
+.tab-content-container {
+  padding: 1.5rem 0.5rem;
+}
+
+.tab-content {
+  display: none; /* Sembunyikan semua konten tab by default */
+  line-height: 1.7;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.tab-content.active {
+  display: block; /* Tampilkan hanya yang aktif */
+}
+
+/* Styling untuk list di dalam spesifikasi */
+.tab-content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.tab-content p {
+  margin-bottom: 1rem;
+}
+/* --- Product Detail Action Buttons --- */
+.product-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.whatsapp-btn,
+.contact-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+}
+
+.whatsapp-btn {
+  background-color: #25d366; /* Warna WhatsApp */
+  color: #fff;
+  display: flex; /* Untuk ikon dan teks */
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem; /* Jarak antara ikon dan teks */
+}
+
+.whatsapp-btn:hover {
+  background-color: #1ebe57;
+  color: #fff;
+}
+
+.whatsapp-btn .fab {
+  font-size: 1.25rem; /* Ukuran ikon WA */
+}
+
+.contact-btn {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #1a1a1a;
+}
+
+.contact-btn:hover {
+  background-color: #555;
+  border-color: #555;
+}
+
+
+/* --- Contact Modal Styles --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  opacity: 0; /* Mulai dari transparan */
+  visibility: hidden; /* Mulai dari tersembunyi */
+  backdrop-filter: blur(0px); /* Mulai tanpa blur */
+  -webkit-backdrop-filter: blur(0px); /* Dukungan untuk Safari */
+
+  /* Properti transisi diperbarui untuk menyertakan backdrop-filter */
+  transition: opacity 0.3s ease, visibility 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+.modal-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* Mulai dari sedikit mengecil (scale(0.9)) */
+  transform: translate(-50%, -50%) scale(0.9);
+  background-color: #fff;
+  z-index: 1001;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0; /* Mulai dari transparan */
+  visibility: hidden; /* Mulai dari tersembunyi */
+  /* Transisi halus untuk opacity dan transform (efek 'pop') */
+  transition: opacity 0.7s ease, visibility 0.5s ease, transform 0.5s ease;
+}
+
+/* Saat class .show ditambahkan oleh JavaScript */
+.modal-overlay.show,
+.modal-popup.show {
+  opacity: 1;
+  visibility: visible;
+
+  /* === BARIS BARU DITAMBAHKAN === */
+  backdrop-filter: blur(5px); /* Terapkan blur 5px saat .show */
+  -webkit-backdrop-filter: blur(5px); /* Dukungan untuk Safari */
+}
+
+.modal-popup.show {
+  /* Kembali ke ukuran normal (scale(1)) */
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Responsive modal */
+@media (min-width: 768px) {
+  .product-actions-container {
+    flex-direction: row; /* Tombol jadi bersebelahan di desktop */
+  }
 }
 
 /* --- Article Page Styles --- */
