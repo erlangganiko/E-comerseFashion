@@ -4,10 +4,19 @@
 const allProductsData = [
   {
     id: "product-1",
-    name: "Adidas Samba OG Preloved Red Leopard Womens",
+    name: "Kebaya Pria Klasik Merah Maroon", // DIUBAH
     price: 0,
     date: 12,
     available: true,
+    category: "pria",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K01/depan.webp",
       "Asset/catalog/Kebaya Pria/K01/back.webp",
@@ -17,10 +26,19 @@ const allProductsData = [
   },
   {
     id: "product-2",
-    name: "Nike Kwondo 1 x GDragon Peaceminusone Triple White",
+    name: "Beskap Pria Modern Putih Gading", // DIUBAH
     price: 13999000,
     date: 11,
     available: false,
+    category: "pria",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K02/depan.png",
       "Asset/catalog/Kebaya Pria/K02/back.png",
@@ -30,10 +48,19 @@ const allProductsData = [
   },
   {
     id: "product-3",
-    name: "Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025",
+    name: "Beskap Pria Modern Abu Silver", // DIUBAH
     price: 13899000,
     date: 10,
     available: false,
+    category: "pria",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K03/depan.png",
       "Asset/catalog/Kebaya Pria/K03/belakang.png",
@@ -43,10 +70,19 @@ const allProductsData = [
   },
   {
     id: "product-4",
-    name: "Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025",
+    name: "Beskap Pria Elegan Hitam Polos", // DIUBAH
     price: 24998800,
     date: 9,
     available: true,
+    category: "pria",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+     "Lorem ipsum dolor sit amet.",
+     "Lorem ipsum dolor sit amet.",
+     "Lorem ipsum dolor sit amet.",
+     "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K04/depan.png",
       "Asset/catalog/Kebaya Pria/K04/back.png",
@@ -56,10 +92,19 @@ const allProductsData = [
   },
   {
     id: "product-5",
-    name: "BAPE Logo Nylon Relaxed Fit Shorts Black",
+    name: "Beskap Pria Hitam Aksen Emas", // DIUBAH
     price: 21020300,
     date: 8,
     available: true,
+    category: "pria",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K05/depan.png",
       "Asset/catalog/Kebaya Pria/K05/back.png",
@@ -68,11 +113,20 @@ const allProductsData = [
     ],
   },
   {
-    id: "product-8",
-    name: "BAPE Shark Tee #1 Black",
+    id: "product-8", // ID duplikat, tidak diubah
+    name: "Beskap Pria Klasik Biru Navy", // DIUBAH
     price: 11998800,
     date: 7,
     available: true,
+    category: "pria",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K06/depan.png",
       "Asset/catalog/Kebaya Pria/K06/back.png",
@@ -81,11 +135,20 @@ const allProductsData = [
     ],
   },
   {
-    id: "product-9",
-    name: "Nike x NOCTA NRG Big Body CS T-Shirt Black 2024",
+    id: "product-9", // ID duplikat, tidak diubah
+    name: "Beskap Pria Modern Biru Langit", // DIUBAH
     price: 11998000,
     date: 6,
     available: true,
+    category: "pria", // DIUBAH (sebelumnya 'wanita')
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K07/depan.png",
       "Asset/catalog/Kebaya Pria/K07/back.png",
@@ -94,11 +157,20 @@ const allProductsData = [
     ],
   },
   {
-    id: "product-8",
-    name: "Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024",
+    id: "product-8", // ID duplikat, tidak diubah
+    name: "Beskap Pria Putih Aksen Melati", // DIUBAH
     price: 11699000,
     date: 5,
     available: true,
+    category: "pria", // DIUBAH (sebelumnya 'wanita')
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+     "Lorem ipsum dolor sit amet.",
+     "Lorem ipsum dolor sit amet.",
+     "Lorem ipsum dolor sit amet.",
+     "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K08/depan.png",
       "Asset/catalog/Kebaya Pria/K08/back.png",
@@ -107,11 +179,20 @@ const allProductsData = [
     ],
   },
   {
-    id: "product-9",
-    name: "KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024",
+    id: "product-9", // ID duplikat, tidak diubah
+    name: "Beskap Pria Hitam Bordir Emas", // DIUBAH
     price: 12000000,
     date: 4,
     available: true,
+    category: "pria", // DIUBAH (sebelumnya 'wanita')
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K09/depan.png",
       "Asset/catalog/Kebaya Pria/K09/back.png",
@@ -121,10 +202,19 @@ const allProductsData = [
   },
   {
     id: "product-10",
-    name: "KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024",
+    name: "Beskap Pria Hitam Motif Emas", // DIUBAH
     price: 15100000,
     date: 3,
     available: true,
+    category: "pria", // DIUBAH (sebelumnya 'wanita')
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K10/depan.png",
       "Asset/catalog/Kebaya Pria/K10/back.png",
@@ -134,10 +224,19 @@ const allProductsData = [
   },
   {
     id: "product-11",
-    name: "Geedup x Arrdee Handstyle Hoodie Black  Multi 2025",
+    name: "Beskap Pria Coklat Mocca", // DIUBAH
     price: 13500000,
     date: 2,
     available: true,
+    category: "pria", // DIUBAH (sebelumnya 'wanita')
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K11/depan.png",
       "Asset/catalog/Kebaya Pria/K11/back.png",
@@ -147,10 +246,19 @@ const allProductsData = [
   },
   {
     id: "product-12",
-    name: "Geedup Team Logo Hooded Jacket Black 2025",
+    name: "Beskap Pria Hijau Sage", // DIUBAH
     price: 14800000,
     date: 1,
     available: true,
+    category: "pria", // DIUBAH (sebelumnya 'wanita')
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
+    specifications: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     images: [
       "Asset/catalog/Kebaya Pria/K12/depan.png",
       "Asset/catalog/Kebaya Pria/K12/back.png",
@@ -340,42 +448,97 @@ function initializeAppProductPages() {
   if (catalogGrid) {
     renderProductCatalog(catalogGrid);
   }
+
   if (productDetailGrid) {
     renderProductDetail(productDetailGrid);
+
+    // Logika untuk Modal Kontak
+    const contactBtn = document.getElementById("open-contact-modal");
+    const modalOverlay = document.getElementById("contact-modal-overlay");
+    const modalPopup = document.getElementById("contact-modal-popup");
+    const modalClose = document.getElementById("modal-close-btn");
+    const contactForm = document.getElementById("contact-form");
+
+    const openModal = () => {
+      modalOverlay.classList.add("show");
+      modalPopup.classList.add("show");
+    };
+
+    const closeModal = () => {
+      modalOverlay.classList.remove("show");
+      modalPopup.classList.remove("show");
+    };
+
+    if (contactBtn && modalOverlay && modalPopup && modalClose) {
+      contactBtn.addEventListener("click", openModal);
+      modalClose.addEventListener("click", closeModal);
+      modalOverlay.addEventListener("click", closeModal);
+    }
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("Pesan Anda telah (demo) terkirim!");
+        closeModal();
+        contactForm.reset();
+      });
+    }
+
+    // === LOGIKA BARU UNTUK TABS ===
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Hapus .active dari semua tombol & konten
+        tabButtons.forEach((btn) => btn.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+
+        // Tambahkan .active ke tombol yg diklik
+        button.classList.add("active");
+
+        // Tampilkan konten yang sesuai
+        const tabId = button.getAttribute("data-tab");
+        document.getElementById(`tab-${tabId}`).classList.add("active");
+      });
+    });
+    // === AKHIR LOGIKA TABS ===
   }
 }
 
 function renderProductCatalog(catalogGrid) {
   const availabilityFilter = document.getElementById("filter-availability");
-  const priceFilter = document.getElementById("filter-price");
+  const categoryFilter = document.getElementById("filter-category");
   const sortBy = document.getElementById("sort-by");
   const productCount = document.querySelector(".product-count");
 
   function renderProducts() {
     const availabilityValue = availabilityFilter.value;
-    const priceValue = priceFilter.value;
+    const categoryValue = categoryFilter.value;
     const sortValue = sortBy.value;
+
     let filteredProducts = allProductsData.filter((product) => {
       if (availabilityValue === "in-stock" && !product.available) return false;
-      if (priceValue === "low" && product.price >= 12000000) return false;
-      if (
-        priceValue === "medium" &&
-        (product.price < 12000000 || product.price > 14000000)
-      )
+      if (categoryValue !== "all" && product.category !== categoryValue)
         return false;
-      if (priceValue === "high" && product.price <= 14000000) return false;
       return true;
     });
+
     filteredProducts.sort((a, b) => {
       switch (sortValue) {
-        case "price-asc":
-          return a.price - b.price;
-        case "price-desc":
-          return b.price - a.price;
+        case "date-asc":
+          return a.date - b.date;
+        case "coming-soon":
+          if (a.available !== b.available) {
+            return a.available - b.available;
+          }
+          return b.date - a.date;
+        case "date-desc":
         default:
           return b.date - a.date;
       }
     });
+
     catalogGrid.innerHTML = "";
     filteredProducts.forEach((product) => {
       const productHTML = `<a href="detail-barang.html?id=${
@@ -386,16 +549,14 @@ function renderProductCatalog(catalogGrid) {
         product.images[0]
       }" alt="${product.name}" /><p class="product-code">${
         product.name
-      }</p><p class="product-price">Rp ${product.price.toLocaleString(
-        "id-ID"
-      )}</p></a>`;
+      }</p></a>`;
       catalogGrid.insertAdjacentHTML("beforeend", productHTML);
     });
     productCount.textContent = `${filteredProducts.length} products`;
   }
 
   availabilityFilter.addEventListener("change", renderProducts);
-  priceFilter.addEventListener("change", renderProducts);
+  categoryFilter.addEventListener("change", renderProducts);
   sortBy.addEventListener("change", renderProducts);
   renderProducts();
 }
@@ -404,13 +565,21 @@ function renderProductDetail(productDetailGrid) {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
   const product = allProductsData.find((p) => p.id === productId);
+
   if (product) {
     document.getElementById("product-detail-title").textContent = product.name;
-    document.getElementById(
-      "product-detail-price"
-    ).textContent = `Rp ${product.price.toLocaleString("id-ID")}`;
     const mainImage = document.getElementById("product-detail-image");
     mainImage.src = product.images[0];
+
+    const whatsappBtn = document.getElementById("whatsapp-btn");
+    if (whatsappBtn) {
+      const phoneNumber = "628123456789"; // GANTI NOMOR INI
+      const message = `Halo, saya tertarik dengan produk: ${product.name} (ID: ${product.id})`;
+      whatsappBtn.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+        message
+      )}`;
+    }
+
     const thumbnailsContainer = document.querySelector(".product-thumbnails");
     thumbnailsContainer.innerHTML = "";
     product.images.forEach((imgSrc, index) => {
@@ -428,6 +597,30 @@ function renderProductDetail(productDetailGrid) {
       });
       thumbnailsContainer.appendChild(thumb);
     });
+
+    // === LOGIKA BARU: MENGISI DESKRIPSI & SPESIFIKASI ===
+    const descriptionContainer = document.getElementById("tab-description");
+    const specsContainer = document.getElementById("tab-specifications");
+
+    if (descriptionContainer && product.description) {
+      descriptionContainer.innerHTML = `<p>${product.description}</p>`;
+    } else if (descriptionContainer) {
+      descriptionContainer.innerHTML = `<p>Deskripsi produk belum tersedia.</p>`;
+    }
+
+    if (
+      specsContainer &&
+      product.specifications &&
+      product.specifications.length > 0
+    ) {
+      const specsList = product.specifications
+        .map((item) => `<li>${item}</li>`)
+        .join("");
+      specsContainer.innerHTML = `<ul>${specsList}</ul>`;
+    } else if (specsContainer) {
+      specsContainer.innerHTML = `<p>Spesifikasi produk belum tersedia.</p>`;
+    }
+    // === AKHIR LOGIKA PENGISIAN ===
   } else {
     productDetailGrid.innerHTML = `<h1 style="text-align: center; width: 100%;">Produk tidak ditemukan.</h1>`;
   }
