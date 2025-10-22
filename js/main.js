@@ -1,287 +1,10 @@
 // ==========================================================
-// DATA PRODUK
-// ==========================================================
-const allProductsData = [
-  {
-    id: "product-1",
-    name: "Kebaya Pria Klasik Merah Maroon", // DIUBAH
-    price: 0,
-    date: 12,
-    available: true,
-    category: "pria",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K01/depan.webp",
-      "Asset/catalog/Kebaya Pria/K01/back.webp",
-      "Asset/catalog/Kebaya Pria/K01/kiri.webp",
-      "Asset/catalog/Kebaya Pria/K01/kanan.webp",
-    ],
-  },
-  {
-    id: "product-2",
-    name: "Beskap Pria Modern Putih Gading", // DIUBAH
-    price: 13999000,
-    date: 11,
-    available: false,
-    category: "pria",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K02/depan.png",
-      "Asset/catalog/Kebaya Pria/K02/back.png",
-      "Asset/catalog/Kebaya Pria/K02/kiri.png",
-      "Asset/catalog/Kebaya Pria/K02/kanan.png",
-    ],
-  },
-  {
-    id: "product-3",
-    name: "Beskap Pria Modern Abu Silver", // DIUBAH
-    price: 13899000,
-    date: 10,
-    available: false,
-    category: "pria",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K03/depan.png",
-      "Asset/catalog/Kebaya Pria/K03/belakang.png",
-      "Asset/catalog/Kebaya Pria/K03/kiri.png",
-      "Asset/catalog/Kebaya Pria/K03/kanan.png",
-    ],
-  },
-  {
-    id: "product-4",
-    name: "Beskap Pria Elegan Hitam Polos", // DIUBAH
-    price: 24998800,
-    date: 9,
-    available: true,
-    category: "pria",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-     "Lorem ipsum dolor sit amet.",
-     "Lorem ipsum dolor sit amet.",
-     "Lorem ipsum dolor sit amet.",
-     "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K04/depan.png",
-      "Asset/catalog/Kebaya Pria/K04/back.png",
-      "Asset/catalog/Kebaya Pria/K04/kiri.png",
-      "Asset/catalog/Kebaya Pria/K04/kanan.png",
-    ],
-  },
-  {
-    id: "product-5",
-    name: "Beskap Pria Hitam Aksen Emas", // DIUBAH
-    price: 21020300,
-    date: 8,
-    available: true,
-    category: "pria",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K05/depan.png",
-      "Asset/catalog/Kebaya Pria/K05/back.png",
-      "Asset/catalog/Kebaya Pria/K05/kiri.png",
-      "Asset/catalog/Kebaya Pria/K05/kanan.png",
-    ],
-  },
-  {
-    id: "product-8", // ID duplikat, tidak diubah
-    name: "Beskap Pria Klasik Biru Navy", // DIUBAH
-    price: 11998800,
-    date: 7,
-    available: true,
-    category: "pria",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K06/depan.png",
-      "Asset/catalog/Kebaya Pria/K06/back.png",
-      "Asset/catalog/Kebaya Pria/K06/kiri.png",
-      "Asset/catalog/Kebaya Pria/K06/kanan.png",
-    ],
-  },
-  {
-    id: "product-9", // ID duplikat, tidak diubah
-    name: "Beskap Pria Modern Biru Langit", // DIUBAH
-    price: 11998000,
-    date: 6,
-    available: true,
-    category: "pria", // DIUBAH (sebelumnya 'wanita')
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K07/depan.png",
-      "Asset/catalog/Kebaya Pria/K07/back.png",
-      "Asset/catalog/Kebaya Pria/K07/kiri.png",
-      "Asset/catalog/Kebaya Pria/K07/kanan.png",
-    ],
-  },
-  {
-    id: "product-8", // ID duplikat, tidak diubah
-    name: "Beskap Pria Putih Aksen Melati", // DIUBAH
-    price: 11699000,
-    date: 5,
-    available: true,
-    category: "pria", // DIUBAH (sebelumnya 'wanita')
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-     "Lorem ipsum dolor sit amet.",
-     "Lorem ipsum dolor sit amet.",
-     "Lorem ipsum dolor sit amet.",
-     "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K08/depan.png",
-      "Asset/catalog/Kebaya Pria/K08/back.png",
-      "Asset/catalog/Kebaya Pria/K08/kiri.png",
-      "Asset/catalog/Kebaya Pria/K08/kanan.png",
-    ],
-  },
-  {
-    id: "product-9", // ID duplikat, tidak diubah
-    name: "Beskap Pria Hitam Bordir Emas", // DIUBAH
-    price: 12000000,
-    date: 4,
-    available: true,
-    category: "pria", // DIUBAH (sebelumnya 'wanita')
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K09/depan.png",
-      "Asset/catalog/Kebaya Pria/K09/back.png",
-      "Asset/catalog/Kebaya Pria/K09/kiri.png",
-      "Asset/catalog/Kebaya Pria/K09/kanan.png",
-    ],
-  },
-  {
-    id: "product-10",
-    name: "Beskap Pria Hitam Motif Emas", // DIUBAH
-    price: 15100000,
-    date: 3,
-    available: true,
-    category: "pria", // DIUBAH (sebelumnya 'wanita')
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K10/depan.png",
-      "Asset/catalog/Kebaya Pria/K10/back.png",
-      "Asset/catalog/Kebaya Pria/K10/kiri.png",
-      "Asset/catalog/Kebaya Pria/K10/kanan.png",
-    ],
-  },
-  {
-    id: "product-11",
-    name: "Beskap Pria Coklat Mocca", // DIUBAH
-    price: 13500000,
-    date: 2,
-    available: true,
-    category: "pria", // DIUBAH (sebelumnya 'wanita')
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K11/depan.png",
-      "Asset/catalog/Kebaya Pria/K11/back.png",
-      "Asset/catalog/Kebaya Pria/K11/kiri.png",
-      "Asset/catalog/Kebaya Pria/K11/kanan.png",
-    ],
-  },
-  {
-    id: "product-12",
-    name: "Beskap Pria Hijau Sage", // DIUBAH
-    price: 14800000,
-    date: 1,
-    available: true,
-    category: "pria", // DIUBAH (sebelumnya 'wanita')
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, eos!",
-    specifications: [
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-      "Lorem ipsum dolor sit amet.",
-    ],
-    images: [
-      "Asset/catalog/Kebaya Pria/K12/depan.png",
-      "Asset/catalog/Kebaya Pria/K12/back.png",
-      "Asset/catalog/Kebaya Pria/K12/kiri.png",
-      "Asset/catalog/Kebaya Pria/K12/kanan.png",
-    ],
-  },
-];
-
-// ==========================================================
 // INISIALISASI UTAMA
 // ==========================================================
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Inisialisasi fitur umum (navbar, menu, footer, dll)
   initializeCommonFeatures();
-
-  // 2. Inisialisasi fitur khusus halaman utama (hero, slider)
   initializeAppHomePage();
-
-  // 3. Inisialisasi halaman produk (katalog & detail)
   initializeAppProductPages();
-
-  // 4. Inisialisasi halaman artikel (daftar & detail)
   initializeAppArticlePages();
 });
 // ==========================================================
@@ -290,10 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 window.onload = function () {
   const preloader = document.getElementById("preloader");
   if (preloader) {
-    // Atur jeda waktu sebelum preloader menghilang (dalam milidetik)
     setTimeout(() => {
       preloader.classList.add("hidden");
-    }, 1500); // <-- Jeda 3000ms atau 1 detik. Anda bisa ubah nilainya.
+    }, 1500);
   }
 };
 // ==========================================================
@@ -304,6 +26,7 @@ window.onload = function () {
  * Menjalankan skrip umum seperti navbar, menu, dan footer.
  */
 function initializeCommonFeatures() {
+  // ... (Kode navbar, menu, dan footer Anda) ...
   const navbar = document.getElementById("navbar");
   if (navbar) {
     let lastScrollY = window.scrollY;
@@ -311,15 +34,12 @@ function initializeCommonFeatures() {
       const currentScrollY = window.scrollY;
       if (currentScrollY > 50) navbar.classList.add("scrolled");
       else navbar.classList.remove("scrolled");
-
       if (currentScrollY > lastScrollY && currentScrollY > 100)
         navbar.classList.add("hidden");
       else navbar.classList.remove("hidden");
-
       lastScrollY = currentScrollY;
     });
   }
-
   const menuToggle = document.querySelector(".menu-toggle");
   const menuCloseBtn = document.querySelector(".menu-close-btn");
   const menuOverlay = document.getElementById("menu-overlay");
@@ -333,7 +53,6 @@ function initializeCommonFeatures() {
     menuToggle.addEventListener("click", toggleMenu);
     menuCloseBtn.addEventListener("click", toggleMenu);
   }
-
   const footerToggles = document.querySelectorAll(".footer-toggle");
   footerToggles.forEach((toggle) => {
     toggle.addEventListener("click", (event) => {
@@ -343,19 +62,42 @@ function initializeCommonFeatures() {
       if (submenu) submenu.classList.toggle("open");
     });
   });
+
+  // --- LOGIKA UNTUK SEARCH OVERLAY ---
+  const searchIcons = document.querySelectorAll(
+    ".search-icon-mobile, .search-icon-desktop"
+  );
+  const searchOverlay = document.getElementById("search-overlay");
+  const searchCloseBtn = document.getElementById("search-close-btn");
+  const searchInput = document.getElementById("catalog-search-input");
+
+  if (searchIcons.length > 0 && searchOverlay && searchCloseBtn) {
+    searchIcons.forEach((icon) => {
+      icon.addEventListener("click", (e) => {
+        e.preventDefault();
+        searchOverlay.classList.add("show");
+        if (searchInput) {
+          searchInput.focus();
+        }
+      });
+    });
+
+    searchCloseBtn.addEventListener("click", () => {
+      searchOverlay.classList.remove("show");
+    });
+  }
 }
 
 /**
  * Menjalankan skrip khusus untuk halaman Beranda (Hero & Story Slider).
  */
 function initializeAppHomePage() {
+  // ... (Kode untuk hero section dan story slider Anda) ...
   const heroSection = document.getElementById("hero-section");
   const storySliders = document.querySelectorAll(".story-image-slider");
-
   if (heroSection) {
     const sideImages = document.querySelectorAll(".side-image-container");
     let hasScrolledDown = false;
-
     const checkHeroState = () => {
       if (window.innerWidth >= 768 && window.scrollY > 0) {
         heroSection.classList.add("scrolled");
@@ -366,7 +108,6 @@ function initializeAppHomePage() {
         sideImages.forEach((img) => img.classList.add("show"));
       }
     };
-
     window.addEventListener("scroll", () => {
       if (window.innerWidth >= 768 && !hasScrolledDown && window.scrollY > 0) {
         heroSection.classList.add("scrolled");
@@ -374,9 +115,8 @@ function initializeAppHomePage() {
         hasScrolledDown = true;
       }
     });
-    checkHeroState(); // Cek saat pertama kali memuat
+    checkHeroState();
   }
-
   if (storySliders.length > 0) {
     storySliders.forEach((slider) => {
       const pagination = slider.querySelectorAll(".progress-bar");
@@ -388,17 +128,14 @@ function initializeAppHomePage() {
       let slideId = 0;
       let automaticSlider;
       let isPaused = false;
-
       function resetTimer() {
         clearInterval(automaticSlider);
         if (!isPaused) {
           automaticSlider = setInterval(() => updateSlide(1), 4000);
         }
       }
-
       function updateSlide(direction = 1) {
         slideId = (slideId + direction + images.length) % images.length;
-
         images.forEach((img, index) =>
           img.classList.toggle("active", index === slideId)
         );
@@ -412,7 +149,6 @@ function initializeAppHomePage() {
         });
         resetTimer();
       }
-
       if (prevBtn)
         prevBtn.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -423,7 +159,6 @@ function initializeAppHomePage() {
           e.stopPropagation();
           updateSlide(1);
         });
-
       if (playPauseBtn) {
         playPauseBtn.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -441,89 +176,129 @@ function initializeAppHomePage() {
 /**
  * Menjalankan skrip untuk halaman Katalog dan Detail Produk.
  */
-function initializeAppProductPages() {
+async function initializeAppProductPages() {
   const catalogGrid = document.querySelector(".product-grid-catalog");
   const productDetailGrid = document.querySelector(".product-detail-grid");
 
-  if (catalogGrid) {
-    renderProductCatalog(catalogGrid);
+  if (!catalogGrid && !productDetailGrid) {
+    return;
   }
 
-  if (productDetailGrid) {
-    renderProductDetail(productDetailGrid);
+  try {
+    const response = await fetch("products.json"); // Ambil data
+    if (!response.ok) throw new Error("Gagal memuat data produk");
+    const allProductsData = await response.json();
 
-    // Logika untuk Modal Kontak
-    const contactBtn = document.getElementById("open-contact-modal");
-    const modalOverlay = document.getElementById("contact-modal-overlay");
-    const modalPopup = document.getElementById("contact-modal-popup");
-    const modalClose = document.getElementById("modal-close-btn");
-    const contactForm = document.getElementById("contact-form");
-
-    const openModal = () => {
-      modalOverlay.classList.add("show");
-      modalPopup.classList.add("show");
-    };
-
-    const closeModal = () => {
-      modalOverlay.classList.remove("show");
-      modalPopup.classList.remove("show");
-    };
-
-    if (contactBtn && modalOverlay && modalPopup && modalClose) {
-      contactBtn.addEventListener("click", openModal);
-      modalClose.addEventListener("click", closeModal);
-      modalOverlay.addEventListener("click", closeModal);
+    if (catalogGrid) {
+      // INI ADALAH FUNGSI YANG PENTING
+      renderProductCatalog(catalogGrid, allProductsData);
     }
 
-    if (contactForm) {
-      contactForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        alert("Pesan Anda telah (demo) terkirim!");
-        closeModal();
-        contactForm.reset();
+    if (productDetailGrid) {
+      renderProductDetail(productDetailGrid, allProductsData);
+      // ... (Kode modal dan tabs Anda) ...
+      const contactBtn = document.getElementById("open-contact-modal");
+      const modalOverlay = document.getElementById("contact-modal-overlay");
+      const modalPopup = document.getElementById("contact-modal-popup");
+      const modalClose = document.getElementById("modal-close-btn");
+      const contactForm = document.getElementById("contact-form");
+      const openModal = () => {
+        modalOverlay.classList.add("show");
+        modalPopup.classList.add("show");
+      };
+      const closeModal = () => {
+        modalOverlay.classList.remove("show");
+        modalPopup.classList.remove("show");
+      };
+      if (contactBtn && modalOverlay && modalPopup && modalClose) {
+        contactBtn.addEventListener("click", openModal);
+        modalClose.addEventListener("click", closeModal);
+        modalOverlay.addEventListener("click", closeModal);
+      }
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Pesan Anda telah (demo) terkirim!");
+          closeModal();
+          contactForm.reset();
+        });
+      }
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const tabContents = document.querySelectorAll(".tab-content");
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          tabButtons.forEach((btn) => btn.classList.remove("active"));
+          tabContents.forEach((content) => content.classList.remove("active"));
+          button.classList.add("active");
+          const tabId = button.getAttribute("data-tab");
+          document.getElementById(`tab-${tabId}`).classList.add("active");
+        });
       });
     }
-
-    // === LOGIKA BARU UNTUK TABS ===
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const tabContents = document.querySelectorAll(".tab-content");
-
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        // Hapus .active dari semua tombol & konten
-        tabButtons.forEach((btn) => btn.classList.remove("active"));
-        tabContents.forEach((content) => content.classList.remove("active"));
-
-        // Tambahkan .active ke tombol yg diklik
-        button.classList.add("active");
-
-        // Tampilkan konten yang sesuai
-        const tabId = button.getAttribute("data-tab");
-        document.getElementById(`tab-${tabId}`).classList.add("active");
-      });
-    });
-    // === AKHIR LOGIKA TABS ===
+  } catch (error) {
+    console.error("Error memuat data produk:", error);
+    const container = catalogGrid || productDetailGrid;
+    if (container) {
+      container.innerHTML = "<p>Gagal memuat produk. Coba lagi nanti.</p>";
+    }
   }
 }
 
-function renderProductCatalog(catalogGrid) {
+/**
+ * FUNGSI LENGKAP PENGGANTI:
+ * renderProductCatalog dengan SEMUA FITUR (Filter, Search, Paginasi)
+ */
+function renderProductCatalog(catalogGrid, allProductsData) {
+  // === 1. AMBIL ELEMEN DARI HTML ===
   const availabilityFilter = document.getElementById("filter-availability");
   const categoryFilter = document.getElementById("filter-category");
+  const searchInput = document.getElementById("catalog-search-input");
+  const searchForm = document.getElementById("catalog-search-form"); // Untuk 'Enter'
   const sortBy = document.getElementById("sort-by");
   const productCount = document.querySelector(".product-count");
+  const paginationControls = document.getElementById("pagination-controls");
 
+  // === 2. PENGATURAN PAGINASI & URL ===
+  let currentPage = 1;
+  const productsPerPage = 8;
+
+  // Cek parameter URL untuk set filter kategori saat halaman dimuat
+  const params = new URLSearchParams(window.location.search);
+  const kategoriFromURL = params.get("kategori");
+  if (kategoriFromURL) {
+    categoryFilter.value = kategoriFromURL; // Set nilai dropdown
+  }
+
+  /**
+   * Fungsi internal untuk me-render produk dan tombol paginasi.
+   * INI ADALAH FUNGSI INTI-NYA.
+   */
   function renderProducts() {
+    // 1. Ambil SEMUA nilai filter
     const availabilityValue = availabilityFilter.value;
     const categoryValue = categoryFilter.value;
+    const searchValue = searchInput.value.toLowerCase().trim();
     const sortValue = sortBy.value;
 
+    // 2. Proses Filtering Produk
     let filteredProducts = allProductsData.filter((product) => {
-      if (availabilityValue === "in-stock" && !product.available) return false;
-      if (categoryValue !== "all" && product.category !== categoryValue)
+      // Filter Pencarian (Search)
+      if (searchValue && !product.name.toLowerCase().includes(searchValue)) {
         return false;
-      return true;
+      }
+      // Filter Ketersediaan
+      if (availabilityValue === "in-stock" && !product.available) {
+        return false;
+      }
+      // Filter Kategori
+      if (categoryValue !== "all" && product.category !== categoryValue) {
+        return false;
+      }
+
+      return true; // Lolos semua filter
     });
 
+    // 3. Proses Sorting Produk
     filteredProducts.sort((a, b) => {
       switch (sortValue) {
         case "date-asc":
@@ -539,29 +314,126 @@ function renderProductCatalog(catalogGrid) {
       }
     });
 
-    catalogGrid.innerHTML = "";
-    filteredProducts.forEach((product) => {
-      const productHTML = `<a href="detail-barang.html?id=${
-        product.id
-      }" class="product-item-catalog" data-id="${
-        product.id
-      }"><span class="wishlist-icon"><i class="far fa-heart"></i><i class="fas fa-heart"></i></span><img src="${
-        product.images[0]
-      }" alt="${product.name}" /><p class="product-code">${
-        product.name
-      }</p></a>`;
-      catalogGrid.insertAdjacentHTML("beforeend", productHTML);
-    });
-    productCount.textContent = `${filteredProducts.length} products`;
+    // === 4. LOGIKA PAGINASI ===
+    const totalProducts = filteredProducts.length;
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+    if (currentPage > totalPages && totalPages > 0) {
+      currentPage = totalPages;
+    } else if (totalPages === 0) {
+      currentPage = 1;
+    }
+
+    // Ambil "potongan" produk untuk halaman ini
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    const productsToRender = filteredProducts.slice(startIndex, endIndex);
+
+    // === 5. RENDER PRODUK KE HTML ===
+    catalogGrid.innerHTML = ""; // Kosongkan grid
+    if (productsToRender.length === 0) {
+      catalogGrid.innerHTML =
+        "<p style='text-align: center; width: 100%; grid-column: 1 / -1;'>Produk tidak ditemukan.</p>";
+    } else {
+      productsToRender.forEach((product) => {
+        const productHTML = `<a href="detail-barang.html?id=${product.id}" class="product-item-catalog" data-id="${product.id}"><span class="wishlist-icon"><i class="far fa-heart"></i><i class="fas fa-heart"></i></span><img src="${product.images[0]}" alt="${product.name}" /><p class="product-code">${product.name}</p></a>`;
+        catalogGrid.insertAdjacentHTML("beforeend", productHTML);
+      });
+    }
+
+    // 6. Update jumlah produk
+    productCount.textContent = `${totalProducts} products`;
+
+    // 7. Render tombol-tombol paginasi
+    renderPagination(totalPages);
   }
 
-  availabilityFilter.addEventListener("change", renderProducts);
-  categoryFilter.addEventListener("change", renderProducts);
-  sortBy.addEventListener("change", renderProducts);
+  /**
+   * Fungsi untuk membuat tombol paginasi
+   */
+  function renderPagination(totalPages) {
+    if (!paginationControls) return;
+    paginationControls.innerHTML = ""; // Kosongkan tombol lama
+
+    if (totalPages <= 1) return; // Sembunyikan jika hanya 1 halaman
+
+    // Tombol "Prev"
+    const prevButton = document.createElement("button");
+    prevButton.textContent = "Prev";
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderProducts();
+        window.scrollTo(0, 0); // Gulir ke atas
+      }
+    });
+    paginationControls.appendChild(prevButton);
+
+    // Tombol Angka
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement("button");
+      pageButton.textContent = i;
+      if (i === currentPage) {
+        pageButton.classList.add("active");
+      }
+      pageButton.addEventListener("click", () => {
+        currentPage = i;
+        renderProducts();
+        window.scrollTo(0, 0); // Gulir ke atas
+      });
+      paginationControls.appendChild(pageButton);
+    }
+
+    // Tombol "Next"
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "Next";
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderProducts();
+        window.scrollTo(0, 0); // Gulir ke atas
+      }
+    });
+    paginationControls.appendChild(nextButton);
+  }
+
+  /**
+   * Fungsi untuk menangani perubahan filter
+   * (Reset ke halaman 1 setiap kali filter diubah)
+   */
+  function onFilterChange() {
+    currentPage = 1; // Selalu kembali ke halaman 1
+    renderProducts();
+  }
+
+  // === 3. TAMBAHKAN SEMUA EVENT LISTENER ===
+  availabilityFilter.addEventListener("change", onFilterChange);
+  categoryFilter.addEventListener("change", onFilterChange);
+  sortBy.addEventListener("change", onFilterChange);
+
+  // Listener untuk mengetik (real-time filtering)
+  searchInput.addEventListener("input", onFilterChange);
+
+  // Listener untuk menekan "Enter"
+  if (searchForm) {
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault(); // Mencegah halaman refresh
+      onFilterChange(); // Jalankan filter
+      searchInput.blur(); // Sembunyikan keyboard
+    });
+  }
+
+  // === 4. PANGGIL RENDER PERTAMA KALI ===
   renderProducts();
 }
 
-function renderProductDetail(productDetailGrid) {
+/**
+ * Menjalankan skrip untuk Halaman Detail Produk.
+ */
+function renderProductDetail(productDetailGrid, allProductsData) {
+  // ... (Kode Anda untuk render halaman detail produk) ...
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
   const product = allProductsData.find((p) => p.id === productId);
@@ -570,7 +442,6 @@ function renderProductDetail(productDetailGrid) {
     document.getElementById("product-detail-title").textContent = product.name;
     const mainImage = document.getElementById("product-detail-image");
     mainImage.src = product.images[0];
-
     const whatsappBtn = document.getElementById("whatsapp-btn");
     if (whatsappBtn) {
       const phoneNumber = "628123456789"; // GANTI NOMOR INI
@@ -579,7 +450,6 @@ function renderProductDetail(productDetailGrid) {
         message
       )}`;
     }
-
     const thumbnailsContainer = document.querySelector(".product-thumbnails");
     thumbnailsContainer.innerHTML = "";
     product.images.forEach((imgSrc, index) => {
@@ -597,17 +467,13 @@ function renderProductDetail(productDetailGrid) {
       });
       thumbnailsContainer.appendChild(thumb);
     });
-
-    // === LOGIKA BARU: MENGISI DESKRIPSI & SPESIFIKASI ===
     const descriptionContainer = document.getElementById("tab-description");
     const specsContainer = document.getElementById("tab-specifications");
-
     if (descriptionContainer && product.description) {
       descriptionContainer.innerHTML = `<p>${product.description}</p>`;
     } else if (descriptionContainer) {
       descriptionContainer.innerHTML = `<p>Deskripsi produk belum tersedia.</p>`;
     }
-
     if (
       specsContainer &&
       product.specifications &&
@@ -620,28 +486,25 @@ function renderProductDetail(productDetailGrid) {
     } else if (specsContainer) {
       specsContainer.innerHTML = `<p>Spesifikasi produk belum tersedia.</p>`;
     }
-    // === AKHIR LOGIKA PENGISIAN ===
   } else {
     productDetailGrid.innerHTML = `<h1 style="text-align: center; width: 100%;">Produk tidak ditemukan.</h1>`;
   }
 }
 
 /**
- * Menjalankan skrip untuk Halaman Artikel (Daftar & Detail) dengan mengambil data dari articles.json
+ * Menjalankan skrip untuk Halaman Artikel (Daftar & Detail).
  */
 async function initializeAppArticlePages() {
+  // ... (Kode Anda untuk halaman artikel) ...
   const isArticleListPage = document.querySelector(".article-grid");
   const isArticleDetailPage = document.querySelector(
     ".article-detail-container"
   );
-
   if (!isArticleListPage && !isArticleDetailPage) return;
-
   try {
     const response = await fetch("articles.json");
     if (!response.ok) throw new Error("Gagal memuat data artikel");
     const allArticlesData = await response.json();
-
     if (isArticleListPage) renderArticleListPage(allArticlesData);
     if (isArticleDetailPage) renderArticleDetailPage(allArticlesData);
   } catch (error) {
@@ -652,6 +515,7 @@ async function initializeAppArticlePages() {
 }
 
 function renderArticleListPage(allArticlesData) {
+  // ... (Kode Anda untuk render daftar artikel) ...
   const articleGrid = document.querySelector(".article-grid");
   const recentArticlesList = document.getElementById("recent-articles-list");
   const articlePageTitle = document.querySelector(
@@ -659,16 +523,13 @@ function renderArticleListPage(allArticlesData) {
   );
   const params = new URLSearchParams(window.location.search);
   const tagFilter = params.get("tag");
-
   const articlesToDisplay = tagFilter
     ? allArticlesData.filter((article) =>
         article.category.map((c) => c.trim()).includes(tagFilter)
       )
     : allArticlesData;
-
   if (tagFilter)
     articlePageTitle.textContent = `Artikel dengan Tag: "${tagFilter}"`;
-
   articleGrid.innerHTML = "";
   if (articlesToDisplay.length > 0) {
     articlesToDisplay.forEach((article) => {
@@ -703,7 +564,6 @@ function renderArticleListPage(allArticlesData) {
   } else {
     articleGrid.innerHTML = `<p>Tidak ada artikel yang ditemukan dengan tag "${tagFilter}". <a href="list-artikel.html">Lihat semua artikel</a>.</p>`;
   }
-
   recentArticlesList.innerHTML = "";
   allArticlesData.forEach((article) => {
     const recentArticleHTML = `<li><a href="detail-artikel.html?id=${article.id}">${article.title}</a><div class="post-date">${article.date}</div></li>`;
@@ -712,11 +572,11 @@ function renderArticleListPage(allArticlesData) {
 }
 
 function renderArticleDetailPage(allArticlesData) {
+  // ... (Kode Anda untuk render detail artikel) ...
   const container = document.querySelector(".article-detail-container");
   const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
   const article = allArticlesData.find((a) => a.id === articleId);
-
   if (article) {
     container.innerHTML = `
         <a href="list-artikel.html" class="back-to-articles"><i class="fas fa-arrow-left"></i> Kembali ke Semua Artikel</a>

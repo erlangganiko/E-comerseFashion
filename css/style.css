@@ -829,6 +829,61 @@ section {
   text-decoration: none;
   color: #1a1a1a;
 }
+/* --- Search Overlay Styles --- */
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 99; /* Di bawah menu overlay (100) tapi di atas navbar (50) */
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Atur agar pas di bawah navbar */
+  /* Sesuaikan 85px jika tinggi navbar Anda berbeda */
+  padding-top: 100px;
+
+  /* Sembunyikan by default */
+  transform: translateY(-120%);
+  transition: transform 0.4s ease-in-out;
+}
+
+.search-overlay.show {
+  transform: translateY(0);
+}
+
+.search-overlay .container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#catalog-search-input {
+  flex-grow: 1; /* Ambil sisa ruang */
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 0.75rem 0.25rem;
+  font-size: 1.25rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#catalog-search-input:focus {
+  border-color: #1a1a1a;
+}
+
+.search-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #888;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.search-close-btn:hover {
+  color: #1a1a1a;
+}
 
 .filters,
 .sorting {
@@ -913,6 +968,42 @@ section {
 
 .wishlist-icon.active .fas.fa-heart {
   display: inline-block;
+}
+/* --- Pagination Styles --- */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+  padding-bottom: 2rem;
+}
+
+.pagination-controls button {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.pagination-controls button.active {
+  background-color: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+.pagination-controls button:disabled {
+  background-color: #f9f9f9;
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Product Detail Page Styles (Mobile First) */
@@ -1075,6 +1166,7 @@ section {
   text-align: center;
   text-decoration: none;
   box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+  border-radius: 100px;
 }
 
 .whatsapp-btn {
