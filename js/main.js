@@ -5,14 +5,14 @@ const allProductsData = [
   {
     id: "product-1",
     name: "Adidas Samba OG Preloved Red Leopard Womens",
-    price: 12998000,
+    price: 0,
     date: 12,
     available: true,
     images: [
-      "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/front/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-front-side-single-2_1000x.webp",
-      "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/back/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-back-side-single_1000x.webp",
-      "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/detail/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-side_1000x.webp",
-      "Asset/catalog/Shoes/Adidas Samba OG Preloved Red Leopard Womens/label/Adidas-Samba-OG-_Preloved-Red-Leopard_-Women_s-top-down_1000x.webp",
+      "Asset/catalog/Kebaya Pria/K01/depan.webp",
+      "Asset/catalog/Kebaya Pria/K01/back.webp",
+      "Asset/catalog/Kebaya Pria/K01/kiri.webp",
+      "Asset/catalog/Kebaya Pria/K01/kanan.webp",
     ],
   },
   {
@@ -22,10 +22,10 @@ const allProductsData = [
     date: 11,
     available: false,
     images: [
-      "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/front/front.jpeg",
-      "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/detail/detail.jpeg",
-      "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/detail/detail.jpeg",
-      "Asset/catalog/Shoes/Kwondo 1 x G-Dragon Peaceminusone Panda/label/label.jpeg",
+      "Asset/catalog/Kebaya Pria/K02/depan.png",
+      "Asset/catalog/Kebaya Pria/K02/back.png",
+      "Asset/catalog/Kebaya Pria/K02/kiri.png",
+      "Asset/catalog/Kebaya Pria/K02/kanan.png",
     ],
   },
   {
@@ -35,10 +35,10 @@ const allProductsData = [
     date: 10,
     available: false,
     images: [
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/front/front.webp",
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/back/back.webp",
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/detail/detail.webp",
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant White Marle  Grey 2025/label/label.webp",
+      "Asset/catalog/Kebaya Pria/K03/depan.png",
+      "Asset/catalog/Kebaya Pria/K03/belakang.png",
+      "Asset/catalog/Kebaya Pria/K03/kiri.png",
+      "Asset/catalog/Kebaya Pria/K03/kanan.png",
     ],
   },
   {
@@ -48,10 +48,10 @@ const allProductsData = [
     date: 9,
     available: true,
     images: [
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/front/front.webp",
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/back/back.webp",
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/detail/detail.webp",
-      "Asset/catalog/Pants/Geedup x Trapstar Team Logo x Irongate T Trackpant Black  White 2025/label/label.webp",
+      "Asset/catalog/Kebaya Pria/K04/depan.png",
+      "Asset/catalog/Kebaya Pria/K04/back.png",
+      "Asset/catalog/Kebaya Pria/K04/kiri.png",
+      "Asset/catalog/Kebaya Pria/K04/kanan.png",
     ],
   },
   {
@@ -61,10 +61,10 @@ const allProductsData = [
     date: 8,
     available: true,
     images: [
-      "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/front/front.webp",
-      "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/back/back.webp",
-      "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/detail/detail.jpeg",
-      "Asset/catalog/Pants/BAPE Logo Nylon Relaxed Fit Shorts Black/label/label.webp",
+      "Asset/catalog/Kebaya Pria/K05/depan.png",
+      "Asset/catalog/Kebaya Pria/K05/back.png",
+      "Asset/catalog/Kebaya Pria/K05/kiri.png",
+      "Asset/catalog/Kebaya Pria/K05/kanan.png",
     ],
   },
   {
@@ -74,10 +74,10 @@ const allProductsData = [
     date: 7,
     available: true,
     images: [
-      "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/front/front.webp",
-      "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/back/back.webp",
-      "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/detail/detail.webp",
-      "Asset/catalog/Clothes/BAPE Shark Tee 1 Black/label/detail.webp",
+      "Asset/catalog/Kebaya Pria/K06/depan.png",
+      "Asset/catalog/Kebaya Pria/K06/back.png",
+      "Asset/catalog/Kebaya Pria/K06/kiri.png",
+      "Asset/catalog/Kebaya Pria/K06/kanan.png",
     ],
   },
   {
@@ -87,10 +87,10 @@ const allProductsData = [
     date: 6,
     available: true,
     images: [
-      "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/front/front.webp",
-      "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/back/back.webp",
-      "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/detail/back.webp",
-      "Asset/catalog/Clothes/Nike x NOCTA NRG Big Body CS T-Shirt Black 2024/label/label.webp",
+      "Asset/catalog/Kebaya Pria/K07/depan.png",
+      "Asset/catalog/Kebaya Pria/K07/back.png",
+      "Asset/catalog/Kebaya Pria/K07/kiri.png",
+      "Asset/catalog/Kebaya Pria/K07/kanan.png",
     ],
   },
   {
@@ -100,10 +100,10 @@ const allProductsData = [
     date: 5,
     available: true,
     images: [
-      "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/front/front.webp",
-      "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/back/back.webp",
-      "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/detail/detail.webp",
-      "Asset/catalog/Clothes/Kaws x Uniqlo Warhol UT Graphic 476423 Kids T-Shirt White 2024/label/front.webp",
+      "Asset/catalog/Kebaya Pria/K08/depan.png",
+      "Asset/catalog/Kebaya Pria/K08/back.png",
+      "Asset/catalog/Kebaya Pria/K08/kiri.png",
+      "Asset/catalog/Kebaya Pria/K08/kanan.png",
     ],
   },
   {
@@ -113,10 +113,10 @@ const allProductsData = [
     date: 4,
     available: true,
     images: [
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/front/front.webp",
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/bacl/back.webp",
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/detail/detail.webp",
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476352 T-shirt Black 2024/label/back.webp",
+      "Asset/catalog/Kebaya Pria/K09/depan.png",
+      "Asset/catalog/Kebaya Pria/K09/back.png",
+      "Asset/catalog/Kebaya Pria/K09/kiri.png",
+      "Asset/catalog/Kebaya Pria/K09/kanan.png",
     ],
   },
   {
@@ -126,10 +126,10 @@ const allProductsData = [
     date: 3,
     available: true,
     images: [
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/front/front.webp",
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/back/back.webp",
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/detail/detail.webp",
-      "Asset/catalog/Clothes/KAWS x Uniqlo Warhol UT Graphic 476351 T-shirt Black 2024/label/back.webp",
+      "Asset/catalog/Kebaya Pria/K10/depan.png",
+      "Asset/catalog/Kebaya Pria/K10/back.png",
+      "Asset/catalog/Kebaya Pria/K10/kiri.png",
+      "Asset/catalog/Kebaya Pria/K10/kanan.png",
     ],
   },
   {
@@ -139,10 +139,10 @@ const allProductsData = [
     date: 2,
     available: true,
     images: [
-      "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/front/front.webp",
-      "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/back/front.webp",
-      "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/detail/detail.webp",
-      "Asset/catalog/Hoodie/Geedup x Arrdee Handstyle Hoodie Black  Multi 2025/label/label.webp",
+      "Asset/catalog/Kebaya Pria/K11/depan.png",
+      "Asset/catalog/Kebaya Pria/K11/back.png",
+      "Asset/catalog/Kebaya Pria/K11/kiri.png",
+      "Asset/catalog/Kebaya Pria/K11/kanan.png",
     ],
   },
   {
@@ -152,10 +152,10 @@ const allProductsData = [
     date: 1,
     available: true,
     images: [
-      "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/front/front.webp",
-      "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/back/back.webp",
-      "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/detail/detail.webp",
-      "Asset/catalog/Hoodie/Geedup Team Logo Hooded Jacket Black 2025/label/label.webp",
+      "Asset/catalog/Kebaya Pria/K12/depan.png",
+      "Asset/catalog/Kebaya Pria/K12/back.png",
+      "Asset/catalog/Kebaya Pria/K12/kiri.png",
+      "Asset/catalog/Kebaya Pria/K12/kanan.png",
     ],
   },
 ];
