@@ -99,6 +99,9 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  position: relative;
+  height: 90px; /* Memberi tinggi pasti */
+  box-sizing: border-box; /* Memastikan padding 1rem termasuk di dalam 90px */
 }
 
 .nav-left {
@@ -830,23 +833,23 @@ section {
   color: #1a1a1a;
 }
 /* --- Search Overlay Styles --- */
+/* --- Search Overlay Styles --- */
 .search-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background-color: #ffffff;
-  z-index: 99; /* Di bawah menu overlay (100) tapi di atas navbar (50) */
-  padding: 1rem;
+  padding-top: 1rem;
+  z-index: 99;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-  /* Atur agar pas di bawah navbar */
-  /* Sesuaikan 85px jika tinggi navbar Anda berbeda */
-  padding-top: 100px;
 
   /* Sembunyikan by default */
   transform: translateY(-120%);
   transition: transform 0.4s ease-in-out;
+
+  /* --- TAMBAHKAN 3 BARIS DI BAWAH INI --- */
+  height: 100px; /* Samakan tinggi dengan navbar */
 }
 
 .search-overlay.show {
@@ -1621,11 +1624,15 @@ section {
   .search-icon-mobile {
     display: none;
   }
+  .search-icon-mobile a {
+    color: #1a1a1a;
+  }
 
   .nav-logo {
     flex-grow: 0;
-    position: static;
-    transform: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .hero-section.scrolled {
@@ -1774,6 +1781,7 @@ section {
 
   .search-icon-mobile {
     display: block;
+    color: #1a1a1a;
   }
 
   .search-icon-desktop {
