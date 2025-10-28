@@ -246,7 +246,7 @@ async function initializeAppProductPages() {
 
 /**
  * FUNGSI LENGKAP PENGGANTI:
- * renderProductCatalog dengan SEMUA FITUR (Filter, Search, Paginasi)
+ * renderProductCatalog dengan SEMUA FITUR (Filter, Search, Paginasi, Skip Page)
  */
 function renderProductCatalog(catalogGrid, allProductsData) {
   // === 1. AMBIL ELEMEN DARI HTML ===
@@ -260,7 +260,7 @@ function renderProductCatalog(catalogGrid, allProductsData) {
 
   // === 2. PENGATURAN PAGINASI & URL ===
   let currentPage = 1;
-  const productsPerPage = 8;
+  const productsPerPage = 8; // Anda punya 100 produk pria, jadi 100/8 = 13 halaman
 
   // Cek parameter URL untuk set filter kategori saat halaman dimuat
   const params = new URLSearchParams(window.location.search);
@@ -344,60 +344,138 @@ function renderProductCatalog(catalogGrid, allProductsData) {
     // 6. Update jumlah produk
     productCount.textContent = `${totalProducts} products`;
 
-    // 7. Render tombol-tombol paginasi
-    renderPagination(totalPages);
+    // 7. Render tombol-bol paginasi
+    renderPagination(totalPages, currentPage, (page) => {
+      currentPage = page;
+      renderProducts();
+      // Scroll halus ke atas grid (seperti yang kita perbaiki sebelumnya)
+      catalogGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
 
   /**
-   * Fungsi untuk membuat tombol paginasi
+   * ==========================================================
+   * FUNGSI PAGINASI BARU (DENGAN FITUR SKIP)
+   * ==========================================================
    */
-  function renderPagination(totalPages) {
+  function renderPagination(totalPages, currentPage, onPageClick) {
     if (!paginationControls) return;
     paginationControls.innerHTML = ""; // Kosongkan tombol lama
 
     if (totalPages <= 1) return; // Sembunyikan jika hanya 1 halaman
 
-    // Tombol "Prev"
+    // --- Helper 1: Fungsi untuk membuat tombol ---
+    const createPageButton = (page) => {
+      const pageButton = document.createElement("button");
+      pageButton.textContent = page;
+      if (page === currentPage) {
+        pageButton.classList.add("active");
+      }
+      pageButton.addEventListener("click", () => {
+        onPageClick(page); // Panggil fungsi callback
+      });
+      paginationControls.appendChild(pageButton);
+    };
+
+    // --- Helper 2: Fungsi untuk membuat ellipsis '...' ---
+    const createEllipsis = () => {
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = "...";
+      ellipsis.classList.add("pagination-ellipsis");
+      paginationControls.appendChild(ellipsis);
+    };
+
+    // --- Tombol "Prev" ---
     const prevButton = document.createElement("button");
     prevButton.textContent = "Prev";
     prevButton.disabled = currentPage === 1;
     prevButton.addEventListener("click", () => {
       if (currentPage > 1) {
-        currentPage--;
-        renderProducts();
-        window.scrollTo(0, 0); // Gulir ke atas
+        onPageClick(currentPage - 1);
       }
     });
     paginationControls.appendChild(prevButton);
 
-    // Tombol Angka
+    // --- Logika Tombol Angka ---
+    const siblingCount = 1;
+    let lastPageRendered = 0;
+
     for (let i = 1; i <= totalPages; i++) {
-      const pageButton = document.createElement("button");
-      pageButton.textContent = i;
-      if (i === currentPage) {
-        pageButton.classList.add("active");
+      const shouldShowPage =
+        i === 1 || // Halaman 1
+        i === totalPages || // Halaman terakhir
+        (i >= currentPage - siblingCount && i <= currentPage + siblingCount); // Halaman sekitar 'current'
+
+      if (shouldShowPage) {
+        // Cek apakah perlu ellipsis SEBELUM merender tombol ini
+        const gap = i - lastPageRendered;
+        if (gap > 1) {
+          // Jika lompatannya 2 (misal dari 1 ke 3), tampilkan angka 2
+          if (gap === 2) {
+            createPageButton(i - 1);
+          }
+          // Jika lompatannya lebih dari 2 (misal dari 1 ke 5), tampilkan '...'
+          else {
+            createEllipsis();
+          }
+        }
+        createPageButton(i);
+        lastPageRendered = i;
       }
-      pageButton.addEventListener("click", () => {
-        currentPage = i;
-        renderProducts();
-        window.scrollTo(0, 0); // Gulir ke atas
-      });
-      paginationControls.appendChild(pageButton);
     }
 
-    // Tombol "Next"
+    // --- Tombol "Next" ---
     const nextButton = document.createElement("button");
     nextButton.textContent = "Next";
     nextButton.disabled = currentPage === totalPages;
     nextButton.addEventListener("click", () => {
       if (currentPage < totalPages) {
-        currentPage++;
-        renderProducts();
-        window.scrollTo(0, 0); // Gulir ke atas
+        onPageClick(currentPage + 1);
       }
     });
     paginationControls.appendChild(nextButton);
+
+    // ==========================================================
+    // === TAMBAHAN BARU: Fitur "Lompat Halaman" (Skip Page) ===
+    // ==========================================================
+    const skipInput = document.createElement("input");
+    skipInput.type = "number";
+    skipInput.placeholder = `... (1-${totalPages})`; // Placeholder yang lebih ringkas
+    skipInput.min = "1";
+    skipInput.max = totalPages;
+    skipInput.classList.add("pagination-skip-input"); // Untuk CSS
+
+    const skipButton = document.createElement("button");
+    skipButton.textContent = "Tampilkan";
+    skipButton.classList.add("pagination-skip-button"); // Untuk CSS
+
+    // Fungsi untuk menangani lompatan
+    const handleSkip = () => {
+      const pageNum = parseInt(skipInput.value, 10);
+      // Cek apakah angkanya valid (antara 1 dan total halaman)
+      if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+        onPageClick(pageNum); // Panggil callback
+      } else {
+        skipInput.value = ""; // Kosongkan jika tidak valid
+      }
+    };
+
+    // Tambahkan listener
+    skipButton.addEventListener("click", handleSkip);
+    skipInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault(); // Hentikan submit (jika ada)
+        handleSkip();
+      }
+    });
+
+    // Masukkan ke HTML
+    paginationControls.appendChild(skipInput);
+    paginationControls.appendChild(skipButton);
   }
+  // ==========================================================
+  // === AKHIR DARI FUNGSI PAGINASI BARU ===
+  // ==========================================================
 
   /**
    * Fungsi untuk menangani perubahan filter
