@@ -1966,6 +1966,9 @@ section {
   .nav-left {
     flex-grow: 0;
   }
+  .nav-left a {
+    color: #1a1a1a;
+  }
 
   .menu-toggle {
     margin-right: 1rem;
@@ -2073,5 +2076,21 @@ section {
 
   .pagination {
     gap: 5px;
+  }
+  .pagination-controls {
+    flex-wrap: wrap; /* Izinkan tombol pindah baris */
+  }
+
+  /* Kode ini yang memindahkannya ke bawah */
+  .pagination-skip-input {
+    flex-basis: 100%; /* Ambil 100% lebar (pindah baris) */
+    margin-left: 0;
+    order: 10; /* Paksa jadi elemen terakhir */
+  }
+
+  .pagination-skip-button {
+    flex-basis: 100%; /* Ambil 100% lebar (pindah baris) */
+    margin-left: 0;
+    order: 11; /* Paksa jadi elemen paling terakhir */
   }
 }
