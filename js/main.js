@@ -564,6 +564,142 @@ function renderProductDetail(productDetailGrid, allProductsData) {
     } else if (specsContainer) {
       specsContainer.innerHTML = `<p>Spesifikasi produk belum tersedia.</p>`;
     }
+
+    // === [MODIFIKASI] LOGIKA LIGHTBOX GALERI DENGAN PANZOOM ===
+    const lightboxOverlay = document.getElementById("lightbox-overlay");
+    const lightboxModal = document.getElementById("lightbox-modal");
+    const lightboxImg = document.getElementById("lightbox-img");
+    // MODIFIKASI: Menggunakan ID tombol close yang baru (di dalam grup)
+    const lightboxClose = document.getElementById("lightbox-close-grouped");
+    const lightboxPrev = document.getElementById("lightbox-prev");
+    const lightboxNext = document.getElementById("lightbox-next");
+
+    // Elemen untuk Zoom
+    const panzoomElement = document.getElementById("panzoom-element");
+    const zoomInBtn = document.getElementById("lightbox-zoom-in");
+    const zoomOutBtn = document.getElementById("lightbox-zoom-out");
+    // HAPUS: Tombol reset sudah tidak ada
+    // const zoomResetBtn = document.getElementById("lightbox-zoom-reset");
+
+    // Pastikan semua elemen lightbox dan zoom ada
+    if (
+      lightboxOverlay &&
+      lightboxModal &&
+      lightboxImg &&
+      lightboxClose && // Pastikan tombol close baru ada
+      lightboxPrev &&
+      lightboxNext &&
+      panzoomElement &&
+      zoomInBtn &&
+      zoomOutBtn
+      // HAPUS: Cek zoomResetBtn
+    ) {
+      let currentLightboxIndex = 0;
+      const allImages = product.images; // Ambil array gambar dari produk
+      let panzoomInstance = null;
+
+      // 1. Fungsi untuk update gambar di lightbox
+      function updateLightboxImage(index) {
+        if (index < 0) {
+          index = allImages.length - 1;
+        } else if (index >= allImages.length) {
+          index = 0;
+        }
+        lightboxImg.src = allImages[index];
+        currentLightboxIndex = index;
+
+        // Reset Panzoom setiap kali gambar berubah
+        if (panzoomInstance) {
+          panzoomInstance.reset();
+        }
+      }
+
+      // 2. Buka Lightbox saat gambar utama di-klik
+      mainImage.addEventListener("click", () => {
+        const currentMainSrc = mainImage.getAttribute("src");
+        const startIndex = allImages.indexOf(currentMainSrc);
+
+        updateLightboxImage(startIndex !== -1 ? startIndex : 0);
+
+        lightboxOverlay.classList.add("show");
+        lightboxModal.classList.add("show");
+
+        lightboxImg.onload = () => {
+          if (!panzoomInstance) {
+            panzoomInstance = Panzoom(lightboxImg, {
+              maxScale: 4,
+              minScale: 1,
+            });
+
+            // Tambahkan event listener ke tombol zoom Panzoom
+            zoomInBtn.addEventListener("click", panzoomInstance.zoomIn);
+            zoomOutBtn.addEventListener("click", panzoomInstance.zoomOut);
+            // HAPUS: Event listener untuk reset
+            // zoomResetBtn.addEventListener("click", panzoomInstance.reset);
+
+            panzoomElement.addEventListener(
+              "wheel",
+              panzoomInstance.zoomWithWheel
+            );
+          }
+        };
+      });
+
+      // 3. Tutup Lightbox
+      function closeLightbox() {
+        lightboxOverlay.classList.remove("show");
+        lightboxModal.classList.remove("show");
+
+        if (panzoomInstance) {
+          zoomInBtn.removeEventListener("click", panzoomInstance.zoomIn);
+          zoomOutBtn.removeEventListener("click", panzoomInstance.zoomOut);
+          // HAPUS: Event listener untuk reset
+          // zoomResetBtn.removeEventListener("click", panzoomInstance.reset);
+          panzoomElement.removeEventListener(
+            "wheel",
+            panzoomInstance.zoomWithWheel
+          );
+
+          panzoomInstance.destroy();
+          panzoomInstance = null;
+        }
+      }
+
+      lightboxClose.addEventListener("click", closeLightbox); // Ini akan berfungsi dengan tombol close yang baru
+      lightboxOverlay.addEventListener("click", (e) => {
+        if (e.target === lightboxOverlay) {
+          closeLightbox();
+        }
+      });
+
+      // 4. Navigasi Next
+      lightboxNext.addEventListener("click", (e) => {
+        e.stopPropagation();
+        updateLightboxImage(currentLightboxIndex + 1);
+      });
+
+      // 5. Navigasi Prev
+      lightboxPrev.addEventListener("click", (e) => {
+        e.stopPropagation();
+        updateLightboxImage(currentLightboxIndex - 1);
+      });
+
+      // 6. Navigasi Keyboard
+      document.addEventListener("keydown", (e) => {
+        if (lightboxModal.classList.contains("show")) {
+          if (e.key === "ArrowRight") {
+            updateLightboxImage(currentLightboxIndex + 1);
+          } else if (e.key === "ArrowLeft") {
+            updateLightboxImage(currentLightboxIndex - 1);
+          } else if (e.key === "Escape") {
+            closeLightbox();
+          }
+        }
+      });
+    } else {
+      console.warn("Elemen Lightbox atau Panzoom tidak ditemukan di HTML.");
+    }
+    // === [AKHIR] LOGIKA LIGHTBOX DENGAN PANZOOM ===
   } else {
     productDetailGrid.innerHTML = `<h1 style="text-align: center; width: 100%;">Produk tidak ditemukan.</h1>`;
   }
