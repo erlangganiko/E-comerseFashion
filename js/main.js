@@ -26,7 +26,7 @@ window.onload = function () {
  * Menjalankan skrip umum seperti navbar, menu, dan footer.
  */
 function initializeCommonFeatures() {
-  // ... (Kode navbar, menu, dan footer Anda) ...
+  // ... (Kode navbar, menu, dan footer Anda - Tidak berubah) ...
   const navbar = document.getElementById("navbar");
   if (navbar) {
     let lastScrollY = window.scrollY;
@@ -69,14 +69,13 @@ function initializeCommonFeatures() {
   );
   const searchOverlay = document.getElementById("search-overlay");
   const searchCloseBtn = document.getElementById("search-close-btn");
-  const searchInput = document.getElementById("catalog-search-input"); // Input search di catalog
+  const searchInput = document.getElementById("catalog-search-input");
 
   if (searchIcons.length > 0 && searchOverlay && searchCloseBtn) {
     searchIcons.forEach((icon) => {
       icon.addEventListener("click", (e) => {
         e.preventDefault();
         searchOverlay.classList.add("show");
-        // Jika ADA input search di catalog, fokuskan
         if (searchInput) {
           searchInput.focus();
         }
@@ -93,7 +92,7 @@ function initializeCommonFeatures() {
  * Menjalankan skrip khusus untuk halaman Beranda (Hero & Story Slider).
  */
 function initializeAppHomePage() {
-  // ... (Kode untuk hero section dan story slider Anda) ...
+  // ... (Kode untuk hero section dan story slider Anda - Tidak berubah) ...
   const heroSection = document.getElementById("hero-section");
   const storySliders = document.querySelectorAll(".story-image-slider");
   if (heroSection) {
@@ -186,19 +185,21 @@ async function initializeAppProductPages() {
   }
 
   try {
-    // === PENTING: Pastikan nama file JSON di sini benar ===
-    const response = await fetch("products.json"); // Ganti jika nama file JSON Anda berbeda
-    // =======================================================
+    const response = await fetch("products.json");
     if (!response.ok) throw new Error("Gagal memuat data produk");
     const allProductsData = await response.json();
 
+    // === [PERUBAHAN] PANGGIL FUNGSI POPULATE FILTERS DI SINI ===
     if (catalogGrid) {
-      // Menjalankan fungsi katalog dengan data produk
+      // Panggil fungsi baru untuk mengisi dropdown SEBELUM merender produk
+      populateFilters(allProductsData);
+
+      // Jalankan fungsi render katalog
       renderProductCatalog(catalogGrid, allProductsData);
     }
+    // ========================================================
 
     if (productDetailGrid) {
-      // Menjalankan fungsi detail produk
       renderProductDetail(productDetailGrid, allProductsData);
     }
   } catch (error) {
@@ -210,15 +211,66 @@ async function initializeAppProductPages() {
   }
 }
 
+// === [FUNGSI BARU] UNTUK MENGISI DROPDOWN FILTER ===
+/**
+ * Helper function untuk membuat huruf pertama kapital (cth: "pria" -> "Pria")
+ */
+function capitalizeFirstLetter(string) {
+  if (!string) return "";
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**
+ * Mengisi dropdown filter (Tipe, Kategori, Collection) berdasarkan data JSON.
+ */
+function populateFilters(products) {
+  const tipeFilter = document.getElementById("filter-tipe");
+  const categoryFilter = document.getElementById("filter-category");
+  const collectionFilter = document.getElementById("filter-collection");
+
+  // Gunakan Set untuk menyimpan nilai unik secara otomatis
+  const uniqueTipes = new Set();
+  const uniqueCategories = new Set();
+  const uniqueCollections = new Set();
+
+  // Loop semua produk dan kumpulkan nilai unik
+  products.forEach((product) => {
+    if (product.tipe) uniqueTipes.add(product.tipe);
+    if (product.category) uniqueCategories.add(product.category);
+    if (product.collection) uniqueCollections.add(product.collection);
+  });
+
+  // Helper function untuk menambah <option> ke <select>
+  function appendOptions(selectElement, valuesSet) {
+    if (!selectElement) return; // Lewati jika elemen select tidak ada
+
+    // Ubah Set menjadi Array, urutkan, lalu tambahkan ke HTML
+    const sortedValues = [...valuesSet].sort();
+
+    sortedValues.forEach((value) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = capitalizeFirstLetter(value); // Tampilkan "Pria" bukan "pria"
+      selectElement.appendChild(option);
+    });
+  }
+
+  // Panggil helper untuk setiap filter
+  appendOptions(tipeFilter, uniqueTipes);
+  appendOptions(categoryFilter, uniqueCategories);
+  appendOptions(collectionFilter, uniqueCollections);
+}
+// ===============================================
+
 /**
  * Fungsi Utama untuk Halaman Katalog (Termasuk Filter, Paginasi, dsb.)
  */
 function renderProductCatalog(catalogGrid, allProductsData) {
   // === 1. AMBIL ELEMEN FILTER DARI HTML ===
   const availabilityFilter = document.getElementById("filter-availability");
-  const tipeFilter = document.getElementById("filter-tipe"); // Filter Tipe (Pria/Wanita)
-  const categoryFilter = document.getElementById("filter-category"); // Filter Kategori (Batik/Kebaya)
-  const collectionFilter = document.getElementById("filter-collection"); // Filter Collection
+  const tipeFilter = document.getElementById("filter-tipe");
+  const categoryFilter = document.getElementById("filter-category");
+  const collectionFilter = document.getElementById("filter-collection");
   const searchInput = document.getElementById("catalog-search-input");
   const searchForm = document.getElementById("catalog-search-form");
   const sortBy = document.getElementById("sort-by");
@@ -230,6 +282,7 @@ function renderProductCatalog(catalogGrid, allProductsData) {
   const productsPerPage = 8;
 
   // Cek parameter URL '?kategori=...' dan terapkan ke filter TIPE
+  // Ini sekarang aman dijalankan karena populateFilters() sudah mengisi opsinya
   const params = new URLSearchParams(window.location.search);
   const kategoriFromURL = params.get("kategori");
   if (kategoriFromURL && tipeFilter) {
@@ -250,20 +303,14 @@ function renderProductCatalog(catalogGrid, allProductsData) {
 
     // 2. Filter data produk berdasarkan nilai filter
     let filteredProducts = allProductsData.filter((product) => {
-      // Filter Search
       if (searchValue && !product.name.toLowerCase().includes(searchValue))
         return false;
-      // Filter Ketersediaan
       if (availabilityValue === "in-stock" && !product.available) return false;
-      // Filter Tipe (menggunakan key 'tipe' dari JSON baru)
       if (tipeValue !== "all" && product.tipe !== tipeValue) return false;
-      // Filter Kategori (menggunakan key 'category' dari JSON baru)
       if (categoryValue !== "all" && product.category !== categoryValue)
         return false;
-      // Filter Collection (menggunakan key 'collection' dari JSON baru)
       if (collectionValue !== "all" && product.collection !== collectionValue)
         return false;
-
       return true; // Lolos semua filter
     });
 
@@ -284,7 +331,7 @@ function renderProductCatalog(catalogGrid, allProductsData) {
     // 4. Hitung Paginasi
     const totalProducts = filteredProducts.length;
     const totalPages = Math.ceil(totalProducts / productsPerPage);
-    currentPage = Math.max(1, Math.min(currentPage, totalPages || 1)); // Pastikan halaman valid
+    currentPage = Math.max(1, Math.min(currentPage, totalPages || 1));
 
     // 5. Ambil produk untuk halaman saat ini
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -315,7 +362,6 @@ function renderProductCatalog(catalogGrid, allProductsData) {
     renderPagination(totalPages, currentPage, (page) => {
       currentPage = page;
       renderProducts();
-      // Scroll halus ke atas grid
       catalogGrid.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
@@ -326,29 +372,26 @@ function renderProductCatalog(catalogGrid, allProductsData) {
   function renderPagination(totalPages, currentPage, onPageClick) {
     if (!paginationControls) return;
     paginationControls.innerHTML = "";
+    if (totalPages <= 1) return;
 
-    if (totalPages <= 1) return; // Tidak perlu paginasi jika hanya 1 halaman
-
-    // --- Helper Buttons ---
+    // Helper 1: Buat tombol
     const createPageButton = (page) => {
-      /* ... (fungsi sama seperti sebelumnya) ... */
       const pageButton = document.createElement("button");
       pageButton.textContent = page;
       if (page === currentPage) pageButton.classList.add("active");
       pageButton.addEventListener("click", () => onPageClick(page));
       paginationControls.appendChild(pageButton);
     };
+    // Helper 2: Buat '...'
     const createEllipsis = () => {
-      /* ... (fungsi sama seperti sebelumnya) ... */
       const ellipsis = document.createElement("span");
       ellipsis.textContent = "...";
       ellipsis.classList.add("pagination-ellipsis");
       paginationControls.appendChild(ellipsis);
     };
 
-    // --- Tombol Prev ---
-    const prevButton =
-      document.createElement("button"); /* ... (logika sama) ... */
+    // Tombol "Prev"
+    const prevButton = document.createElement("button");
     prevButton.textContent = "Prev";
     prevButton.disabled = currentPage === 1;
     prevButton.addEventListener("click", () => {
@@ -356,9 +399,9 @@ function renderProductCatalog(catalogGrid, allProductsData) {
     });
     paginationControls.appendChild(prevButton);
 
-    // --- Tombol Angka (Ellipsis Logic) ---
+    // Logika Tombol Angka (Ellipsis Logic)
     const siblingCount = 1;
-    let lastPageRendered = 0; /* ... (logika sama) ... */
+    let lastPageRendered = 0;
     for (let i = 1; i <= totalPages; i++) {
       const shouldShowPage =
         i === 1 ||
@@ -375,9 +418,8 @@ function renderProductCatalog(catalogGrid, allProductsData) {
       }
     }
 
-    // --- Tombol Next ---
-    const nextButton =
-      document.createElement("button"); /* ... (logika sama) ... */
+    // Tombol "Next"
+    const nextButton = document.createElement("button");
     nextButton.textContent = "Next";
     nextButton.disabled = currentPage === totalPages;
     nextButton.addEventListener("click", () => {
@@ -385,20 +427,17 @@ function renderProductCatalog(catalogGrid, allProductsData) {
     });
     paginationControls.appendChild(nextButton);
 
-    // --- Fitur Lompat Halaman ---
-    const skipInput =
-      document.createElement("input"); /* ... (logika sama) ... */
+    // Fitur "Lompat Halaman"
+    const skipInput = document.createElement("input");
     skipInput.type = "number";
     skipInput.placeholder = `... (1-${totalPages})`;
     skipInput.min = "1";
     skipInput.max = totalPages;
     skipInput.classList.add("pagination-skip-input");
-    const skipButton =
-      document.createElement("button"); /* ... (logika sama) ... */
+    const skipButton = document.createElement("button");
     skipButton.textContent = "Go";
     skipButton.classList.add("pagination-skip-button");
     const handleSkip = () => {
-      /* ... (logika sama) ... */
       const pageNum = parseInt(skipInput.value, 10);
       if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages)
         onPageClick(pageNum);
@@ -425,13 +464,12 @@ function renderProductCatalog(catalogGrid, allProductsData) {
 
   // === 3. TAMBAHKAN EVENT LISTENER KE SEMUA FILTER ===
   availabilityFilter.addEventListener("change", onFilterChange);
-  tipeFilter.addEventListener("change", onFilterChange); // Listener filter baru
-  categoryFilter.addEventListener("change", onFilterChange); // Listener filter baru
-  collectionFilter.addEventListener("change", onFilterChange); // Listener filter baru
+  tipeFilter.addEventListener("change", onFilterChange);
+  categoryFilter.addEventListener("change", onFilterChange);
+  collectionFilter.addEventListener("change", onFilterChange);
   sortBy.addEventListener("change", onFilterChange);
-  searchInput.addEventListener("input", onFilterChange); // Filter saat mengetik
+  searchInput.addEventListener("input", onFilterChange);
   if (searchForm) {
-    // Filter saat menekan Enter
     searchForm.addEventListener("submit", (event) => {
       event.preventDefault();
       onFilterChange();
@@ -447,32 +485,30 @@ function renderProductCatalog(catalogGrid, allProductsData) {
  * Fungsi untuk Halaman Detail Produk (Termasuk Modal, Tabs, Lightbox Panzoom).
  */
 function renderProductDetail(productDetailGrid, allProductsData) {
+  // --- (Fungsi ini tidak berubah dari versi terakhir Anda) ---
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
   const product = allProductsData.find((p) => p.id === productId);
 
   if (!product) {
     productDetailGrid.innerHTML = `<h1 style="text-align: center; width: 100%;">Produk tidak ditemukan.</h1>`;
-    return; // Hentikan fungsi jika produk tidak ada
+    return;
   }
 
-  // --- Render Informasi Dasar Produk ---
   document.getElementById("product-detail-title").textContent = product.name;
   const mainImage = document.getElementById("product-detail-image");
   mainImage.src = product.images[0];
-  mainImage.alt = product.name; // Tambahkan alt text
+  mainImage.alt = product.name;
 
-  // --- Tombol WhatsApp ---
   const whatsappBtn = document.getElementById("whatsapp-btn");
   if (whatsappBtn) {
-    const phoneNumber = "628123456789"; // GANTI NOMOR INI
+    const phoneNumber = "628123456789";
     const message = `Halo, saya tertarik dengan produk: ${product.name} (ID: ${product.id})`;
     whatsappBtn.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;
   }
 
-  // --- Render Thumbnails ---
   const thumbnailsContainer = document.querySelector(".product-thumbnails");
   if (thumbnailsContainer) {
     thumbnailsContainer.innerHTML = "";
@@ -483,7 +519,7 @@ function renderProductDetail(productDetailGrid, allProductsData) {
       thumb.classList.add("thumbnail-item");
       if (index === 0) thumb.classList.add("active");
       thumb.addEventListener("click", function () {
-        mainImage.src = this.src; // Ganti gambar utama saat thumbnail diklik
+        mainImage.src = this.src;
         thumbnailsContainer
           .querySelector(".active")
           ?.classList.remove("active");
@@ -493,7 +529,6 @@ function renderProductDetail(productDetailGrid, allProductsData) {
     });
   }
 
-  // --- Render Konten Tabs (Deskripsi & Spesifikasi) ---
   const descriptionContainer = document.getElementById("tab-description");
   const specsContainer = document.getElementById("tab-specifications");
   if (descriptionContainer) {
@@ -512,28 +547,24 @@ function renderProductDetail(productDetailGrid, allProductsData) {
     }
   }
 
-  // --- Logika Modal Kontak ---
   const contactBtn = document.getElementById("open-contact-modal");
   const modalOverlay = document.getElementById("contact-modal-overlay");
   const modalPopup = document.getElementById("contact-modal-popup");
   const modalClose = document.getElementById("modal-close-btn");
   const contactForm = document.getElementById("contact-form");
   const openModal = () => {
-    /* ... (fungsi sama) ... */
     if (modalOverlay && modalPopup) {
       modalOverlay.classList.add("show");
       modalPopup.classList.add("show");
     }
   };
   const closeModal = () => {
-    /* ... (fungsi sama) ... */
     if (modalOverlay && modalPopup) {
       modalOverlay.classList.remove("show");
       modalPopup.classList.remove("show");
     }
   };
   if (contactBtn && modalOverlay && modalPopup && modalClose) {
-    /* ... (event listener sama) ... */
     contactBtn.addEventListener("click", openModal);
     modalClose.addEventListener("click", closeModal);
     modalOverlay.addEventListener("click", (e) => {
@@ -541,7 +572,6 @@ function renderProductDetail(productDetailGrid, allProductsData) {
     });
   }
   if (contactForm) {
-    /* ... (event listener sama) ... */
     contactForm.addEventListener("submit", function (e) {
       e.preventDefault();
       alert("Pesan Anda telah (demo) terkirim!");
@@ -550,11 +580,9 @@ function renderProductDetail(productDetailGrid, allProductsData) {
     });
   }
 
-  // --- Logika Tabs ---
   const tabButtons = document.querySelectorAll(".tab-btn");
   const tabContents = document.querySelectorAll(".tab-content");
   if (tabButtons.length > 0 && tabContents.length > 0) {
-    /* ... (logika sama) ... */
     tabButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const tabId = button.getAttribute("data-tab");
@@ -566,13 +594,16 @@ function renderProductDetail(productDetailGrid, allProductsData) {
       });
     });
     // Aktifkan tab pertama secara default
-    if (tabButtons[0] && tabContents[0]) {
+    if (tabButtons[0]) {
+      const firstTabId = tabButtons[0].getAttribute("data-tab");
+      const firstTabContent = document.getElementById(`tab-${firstTabId}`);
       tabButtons[0].classList.add("active");
-      tabContents[0].classList.add("active");
+      if (firstTabContent) firstTabContent.classList.add("active");
     }
   }
 
   // --- Logika Lightbox Galeri dengan Panzoom ---
+  // (Memastikan kode ini sama persis dengan file main.js yang Anda kirim)
   const lightboxOverlay = document.getElementById("lightbox-overlay");
   const lightboxModal = document.getElementById("lightbox-modal");
   const lightboxImg = document.getElementById("lightbox-img");
@@ -583,6 +614,8 @@ function renderProductDetail(productDetailGrid, allProductsData) {
   const zoomInBtn = document.getElementById("lightbox-zoom-in");
   const zoomOutBtn = document.getElementById("lightbox-zoom-out");
 
+  // Pengecekan 'typeof Panzoom' dari file main.js Anda tidak ada,
+  // jadi saya akan cocokkan dengan file yang Anda kirim.
   if (
     lightboxOverlay &&
     lightboxModal &&
@@ -592,36 +625,36 @@ function renderProductDetail(productDetailGrid, allProductsData) {
     lightboxNext &&
     panzoomElement &&
     zoomInBtn &&
-    zoomOutBtn &&
-    typeof Panzoom !== "undefined"
+    zoomOutBtn
   ) {
     let currentLightboxIndex = 0;
     const allImages = product.images;
     let panzoomInstance = null;
 
-    // Fungsi update gambar lightbox
     function updateLightboxImage(index) {
-      /* ... (logika sama) ... */
-      index = (index + allImages.length) % allImages.length; // Loop index
+      if (index < 0) {
+        index = allImages.length - 1;
+      } else if (index >= allImages.length) {
+        index = 0;
+      }
       lightboxImg.src = allImages[index];
       currentLightboxIndex = index;
-      if (panzoomInstance) panzoomInstance.reset({ animate: false }); // Reset zoom tanpa animasi
+
+      if (panzoomInstance) {
+        panzoomInstance.reset();
+      }
     }
 
-    // Buka lightbox
     mainImage.addEventListener("click", () => {
-      /* ... (logika sama, pastikan Panzoom diinisialisasi) ... */
       const currentMainSrc = mainImage.getAttribute("src");
       const startIndex = allImages.indexOf(currentMainSrc);
       updateLightboxImage(startIndex !== -1 ? startIndex : 0);
       lightboxOverlay.classList.add("show");
       lightboxModal.classList.add("show");
 
-      // Inisialisasi Panzoom setelah modal tampil dan gambar dimuat
-      requestAnimationFrame(() => {
-        // Tunggu frame berikutnya
-        if (lightboxImg.complete) {
-          // Jika gambar sudah dimuat
+      lightboxImg.onload = () => {
+        // 'Panzoom' harus tersedia secara global (dari file <script>)
+        if (typeof Panzoom !== "undefined") {
           if (!panzoomInstance) {
             panzoomInstance = Panzoom(lightboxImg, {
               maxScale: 4,
@@ -633,39 +666,18 @@ function renderProductDetail(productDetailGrid, allProductsData) {
               "wheel",
               panzoomInstance.zoomWithWheel
             );
-          } else {
-            panzoomInstance.reset({ animate: false }); // Reset jika instance sudah ada
           }
         } else {
-          // Jika gambar belum dimuat, tunggu event onload
-          lightboxImg.onload = () => {
-            if (!panzoomInstance) {
-              panzoomInstance = Panzoom(lightboxImg, {
-                maxScale: 4,
-                minScale: 1,
-              });
-              zoomInBtn.addEventListener("click", panzoomInstance.zoomIn);
-              zoomOutBtn.addEventListener("click", panzoomInstance.zoomOut);
-              panzoomElement.addEventListener(
-                "wheel",
-                panzoomInstance.zoomWithWheel
-              );
-            } else {
-              panzoomInstance.reset({ animate: false });
-            }
-            lightboxImg.onload = null; // Hapus listener setelah dijalankan
-          };
+          console.warn("Library Panzoom.js belum dimuat.");
         }
-      });
+      };
     });
 
-    // Tutup lightbox
     function closeLightbox() {
-      /* ... (logika sama, pastikan event listener dihapus) ... */
       lightboxOverlay.classList.remove("show");
       lightboxModal.classList.remove("show");
+
       if (panzoomInstance) {
-        // Hapus event listener sebelum destroy (best practice)
         zoomInBtn.removeEventListener("click", panzoomInstance.zoomIn);
         zoomOutBtn.removeEventListener("click", panzoomInstance.zoomOut);
         panzoomElement.removeEventListener(
@@ -676,43 +688,37 @@ function renderProductDetail(productDetailGrid, allProductsData) {
         panzoomInstance = null;
       }
     }
+
     lightboxClose.addEventListener("click", closeLightbox);
     lightboxOverlay.addEventListener("click", (e) => {
-      if (e.target === lightboxOverlay) closeLightbox();
+      if (e.target === lightboxOverlay) {
+        closeLightbox();
+      }
     });
 
-    // Navigasi
     lightboxNext.addEventListener("click", (e) => {
       e.stopPropagation();
       updateLightboxImage(currentLightboxIndex + 1);
     });
+
     lightboxPrev.addEventListener("click", (e) => {
       e.stopPropagation();
       updateLightboxImage(currentLightboxIndex - 1);
     });
 
-    // Navigasi Keyboard
     document.addEventListener("keydown", (e) => {
-      /* ... (logika sama) ... */
       if (lightboxModal.classList.contains("show")) {
-        if (e.key === "ArrowRight")
+        if (e.key === "ArrowRight") {
           updateLightboxImage(currentLightboxIndex + 1);
-        else if (e.key === "ArrowLeft")
+        } else if (e.key === "ArrowLeft") {
           updateLightboxImage(currentLightboxIndex - 1);
-        else if (e.key === "Escape") closeLightbox();
+        } else if (e.key === "Escape") {
+          closeLightbox();
+        }
       }
     });
   } else {
-    // Beri pesan jika elemen lightbox/Panzoom tidak ada atau library Panzoom belum dimuat
-    if (typeof Panzoom === "undefined") {
-      console.warn(
-        "Library Panzoom.js belum dimuat. Fitur zoom tidak akan berfungsi."
-      );
-    } else {
-      console.warn(
-        "Salah satu elemen lightbox atau tombol zoom tidak ditemukan di HTML."
-      );
-    }
+    console.warn("Elemen Lightbox atau Panzoom tidak ditemukan di HTML.");
   }
 } // Akhir dari renderProductDetail
 
@@ -720,48 +726,37 @@ function renderProductDetail(productDetailGrid, allProductsData) {
  * Menjalankan skrip untuk Halaman Artikel (Daftar & Detail).
  */
 async function initializeAppArticlePages() {
+  // ... (Fungsi ini tidak berubah dari versi terakhir Anda) ...
   const isArticleListPage = document.querySelector(".article-grid");
   const isArticleDetailPage = document.querySelector(
     ".article-detail-container"
   );
-
-  if (!isArticleListPage && !isArticleDetailPage) return; // Keluar jika bukan halaman artikel
-
+  if (!isArticleListPage && !isArticleDetailPage) return;
   try {
-    const response = await fetch("articles.json"); // Ambil data artikel
+    const response = await fetch("articles.json");
     if (!response.ok) throw new Error("Gagal memuat data artikel");
     const allArticlesData = await response.json();
-
-    if (isArticleListPage) {
-      renderArticleListPage(allArticlesData); // Render daftar artikel
-    }
-    if (isArticleDetailPage) {
-      renderArticleDetailPage(allArticlesData); // Render detail artikel
-    }
+    if (isArticleListPage) renderArticleListPage(allArticlesData);
+    if (isArticleDetailPage) renderArticleDetailPage(allArticlesData);
   } catch (error) {
-    console.error("Error memuat artikel:", error);
+    console.error("Error:", error);
     const container = isArticleListPage || isArticleDetailPage;
     if (container)
       container.innerHTML = `<p>Terjadi kesalahan saat memuat artikel.</p>`;
   }
 }
 
-/**
- * Fungsi untuk merender daftar artikel (termasuk filter tag).
- */
 function renderArticleListPage(allArticlesData) {
+  // ... (Fungsi ini tidak berubah dari versi terakhir Anda) ...
   const articleGrid = document.querySelector(".article-grid");
-  const recentArticlesList = document.getElementById("recent-articles-list"); // Sidebar
+  const recentArticlesList = document.getElementById("recent-articles-list");
   const articlePageTitle = document.querySelector(
     ".article-section .article-title"
   );
-
-  if (!articleGrid || !recentArticlesList || !articlePageTitle) return; // Pastikan elemen ada
+  if (!articleGrid || !recentArticlesList || !articlePageTitle) return;
 
   const params = new URLSearchParams(window.location.search);
-  const tagFilter = params.get("tag"); // Cek apakah ada filter tag di URL
-
-  // Filter artikel jika ada tag di URL
+  const tagFilter = params.get("tag");
   const articlesToDisplay = tagFilter
     ? allArticlesData.filter(
         (article) =>
@@ -770,16 +765,12 @@ function renderArticleListPage(allArticlesData) {
       )
     : allArticlesData;
 
-  // Update judul halaman jika ada filter tag
-  if (tagFilter) {
+  if (tagFilter)
     articlePageTitle.textContent = `Artikel dengan Tag: "${tagFilter}"`;
-  }
 
-  // Render artikel ke grid
-  articleGrid.innerHTML = ""; // Kosongkan grid
+  articleGrid.innerHTML = "";
   if (articlesToDisplay.length > 0) {
     articlesToDisplay.forEach((article) => {
-      // Buat link tag
       const tagLinks = Array.isArray(article.category)
         ? article.category
             .map(
@@ -790,100 +781,83 @@ function renderArticleListPage(allArticlesData) {
             )
             .join(" ")
         : "";
-
       const articleHTML = `
-        <div class="featured-article">
-          <div class="article-meta-info">
-            <span>${article.date || "Tanggal tidak tersedia"}</span>
-            ${
-              tagLinks
-                ? `<div class="tag-wrapper"><span>Tags: </span>${tagLinks}</div>`
-                : ""
-            }
-          </div>
-          <div class="article-main-content">
-            <div class="article-image">
-              <a href="detail-artikel.html?id=${article.id}">
-                <img src="${article.image || "placeholder.jpg"}" alt="${
-        article.title || "Judul Artikel"
-      }">
-              </a>
+          <div class="featured-article">
+            <div class="article-meta-info">
+              <span>${article.date || ""}</span>
+              ${
+                tagLinks
+                  ? `<div class="tag-wrapper"><span>Tags: </span>${tagLinks}</div>`
+                  : ""
+              }
             </div>
-            <h2 class="article-card-title">
-              <a href="detail-artikel.html?id=${article.id}">${
-        article.title || "Judul Artikel"
-      }</a>
-            </h2>
-            <p class="article-card-excerpt">${article.excerpt || ""}</p>
-            <a href="detail-artikel.html?id=${
-              article.id
-            }" class="read-more-btn">Read more</a>
-          </div>
-        </div>`;
+            <div class="article-main-content">
+              <div class="article-image">
+                <a href="detail-artikel.html?id=${article.id}"><img src="${
+        article.image || "placeholder.jpg"
+      }" alt="${article.title || "Artikel"}"></a>
+              </div>
+              <h2 class="article-card-title"><a href="detail-artikel.html?id=${
+                article.id
+              }">${article.title || "Judul Artikel"}</a></h2>
+              <p class="article-card-excerpt">${article.excerpt || ""}</p>
+              <a href="detail-artikel.html?id=${
+                article.id
+              }" class="read-more-btn">Read more</a>
+            </div>
+          </div>`;
       articleGrid.insertAdjacentHTML("beforeend", articleHTML);
     });
   } else {
-    // Pesan jika tidak ada artikel
     articleGrid.innerHTML = `<p>Tidak ada artikel yang ditemukan${
       tagFilter ? ` dengan tag "${tagFilter}"` : ""
     }. <a href="list-artikel.html">Lihat semua artikel</a>.</p>`;
   }
 
-  // Render artikel terbaru di sidebar
   recentArticlesList.innerHTML = "";
-  // Ambil 5 artikel terbaru (atau semua jika kurang dari 5)
-  const recentArticles = allArticlesData.slice(0, 5);
-  recentArticles.forEach((article) => {
-    const recentArticleHTML = `
-      <li>
-        <a href="detail-artikel.html?id=${article.id}">${
-      article.title || "Judul Artikel"
-    }</a>
-        <div class="post-date">${article.date || ""}</div>
-      </li>`;
+  allArticlesData.slice(0, 5).forEach((article) => {
+    const recentArticleHTML = `<li><a href="detail-artikel.html?id=${
+      article.id
+    }">${article.title || "Judul Artikel"}</a><div class="post-date">${
+      article.date || ""
+    }</div></li>`;
     recentArticlesList.insertAdjacentHTML("beforeend", recentArticleHTML);
   });
 }
 
-/**
- * Fungsi untuk merender detail artikel.
- */
 function renderArticleDetailPage(allArticlesData) {
+  // ... (Fungsi ini tidak berubah dari versi terakhir Anda) ...
   const container = document.querySelector(".article-detail-container");
-  if (!container) return; // Pastikan elemen ada
+  if (!container) return;
 
   const params = new URLSearchParams(window.location.search);
-  const articleId = params.get("id"); // Ambil ID artikel dari URL
-  const article = allArticlesData.find((a) => a.id === articleId); // Cari artikel berdasarkan ID
+  const articleId = params.get("id");
+  const article = allArticlesData.find((a) => a.id === articleId);
 
   if (article) {
-    // Render detail artikel jika ditemukan
-    // Pastikan category adalah array sebelum join
     const categoriesText = Array.isArray(article.category)
       ? article.category.join(", ")
       : "Tidak ada kategori";
     container.innerHTML = `
-      <a href="list-artikel.html" class="back-to-articles">
-        <i class="fas fa-arrow-left"></i> Kembali ke Semua Artikel
-      </a>
-      <img src="${article.image || "placeholder.jpg"}" alt="${
-      article.title || "Judul Artikel"
+        <a href="list-artikel.html" class="back-to-articles"><i class="fas fa-arrow-left"></i> Kembali ke Semua Artikel</a>
+        <img src="${article.image || "placeholder.jpg"}" alt="${
+      article.title || "Artikel"
     }" class="article-detail-header-image">
-      <h1 class="article-detail-title">${article.title || "Judul Artikel"}</h1>
-      <p class="article-meta">
-        <span>${article.date || "Tanggal tidak tersedia"}</span> |
-        <span>Kategori: ${categoriesText}</span>
-      </p>
-      <div class="article-body">${
-        article.content || "<p>Konten tidak tersedia.</p>"
-      }</div>`;
+        <h1 class="article-detail-title">${
+          article.title || "Judul Artikel"
+        }</h1>
+        <p class="article-meta">
+          <span>${article.date || ""}</span> | 
+          <span>Kategori: ${categoriesText}</span>
+        </p>
+        <div class="article-body">${
+          article.content || "<p>Konten tidak tersedia.</p>"
+        }</div>`;
 
-    // Jika ada gambar blok di dalam konten, tambahkan kelas
     container.querySelectorAll(".article-body img").forEach((img) => {
       img.classList.add("article-image-block");
     });
   } else {
-    // Tampilkan pesan jika artikel tidak ditemukan
     container.innerHTML = `<h1 style="text-align: center;">Artikel tidak ditemukan.</h1>`;
   }
 }
